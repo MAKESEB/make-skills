@@ -6,9 +6,12 @@
   "plugins": [
     {
       "name": "make-skills",
+      "interface": {
+        "displayName": "Make Skills"
+      },
       "source": {
         "source": "local",
-        "path": "./"
+        "path": "./../.."
       },
       "policy": {
         "installation": "AVAILABLE",
