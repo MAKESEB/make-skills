@@ -20,6 +20,12 @@ Replace them with placeholders such as:
 - `SCENARIO_ID`
 - `BASE_URL`
 - `CONNECTION_ID`
+- `PROVIDER_MAKE_USER_ID`
+- `TARGET_ACCOUNT_OR_WORKSPACE`
+- `RETRIEVAL_TARGET`
+- `MINIMAL_REQUIRED_SCOPE`
+
+Placeholder field names such as `providerMakeUserId` may appear in generic request templates. Real provider user IDs must never be published.
 
 ## Rewrite example labels
 
@@ -65,7 +71,7 @@ Search for and remove or replace:
 - email addresses
 - numeric IDs copied from private environments
 - workspace-specific hosts; use `https://us1.make.com` as the public example base URL
-- `providerMakeUserId`
+- real `providerMakeUserId` values
 - absolute home-directory paths copied from a personal machine
 - phrases such as `verified live`, `working example`, or `for debugging` if they imply private validation or tenant-specific state
 

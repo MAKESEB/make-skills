@@ -71,6 +71,21 @@ Do not assume the first matching connection is correct when multiple connections
 
 If the intended recipient or target account identity is unclear, stop and ask for that exact missing item before creating a new request.
 
+Before reusing a connection or patching it into a shell, report the discovery result in concrete terms:
+
+```text
+I found an existing connection:
+- App family: CONNECTION_TYPE
+- Connection ID: CONNECTION_ID
+- Account/workspace: TARGET_IDENTITY
+- Used by scenarios: SCENARIO_LIST_OR_UNKNOWN
+
+This appears to match / does not match the requested target.
+May I use this connection?
+```
+
+If more than one plausible connection exists, ask the user which exact connection to use. If the visible identity does not exactly match the resolved target account/workspace, do not reuse it silently.
+
 ## New-connection rule
 
 If a new credential request results in a newly authorized connection, create a new shell for that new connection.
@@ -78,6 +93,11 @@ If a new credential request results in a newly authorized connection, create a n
 The same rule applies when an old connection exists but its authorization is expired or invalid.
 
 Do not automatically patch a pre-existing shell to point at the newly created connection unless the user explicitly wants that exact shell replaced.
+
+Patch safety rule:
+- if the newly authorized connection targets the same automation and the latest user intent clearly asks to continue that automation, patch the existing reusable shell only after identity and scope verification
+- if the connection targets a different account/workspace or a different workflow, create a separate shell
+- if the target relationship is ambiguous, ask before repointing the shell
 
 Reason:
 - it keeps shell ownership and account identity clear
@@ -96,17 +116,20 @@ Why this is preferable:
 Example body with placeholders:
 ```json
 {
-  "name": "Outlook API shell connection",
   "teamId": TEAM_ID,
-  "description": "Authorize Outlook for the generic API shell scenario.",
+  "name": "API shell connection for TARGET_ACCOUNT_OR_WORKSPACE",
+  "description": "Authorize the minimal access needed for RETRIEVAL_TARGET.",
   "credentials": [
     {
-      "appName": "microsoft-email",
-      "appModules": ["makeApiCall"],
-      "appVersion": 2,
-      "nameOverride": "outlook-api-shell"
+      "appName": "MAKE_APP_NAME",
+      "appModules": ["API_CALL_MODULE_NAME"],
+      "appVersion": APP_MAJOR_VERSION,
+      "nameOverride": "STABLE_READABLE_NAME"
     }
-  ]
+  ],
+  "provider": {
+    "providerMakeUserId": PROVIDER_MAKE_USER_ID
+  }
 }
 ```
 
@@ -119,17 +142,22 @@ Use this when the workspace requires an explicit connection type.
 Example body with placeholders:
 ```json
 {
-  "name": "Gmail API shell connection",
-  "description": "Authorize Gmail for the generic API shell scenario.",
   "teamId": TEAM_ID,
+  "name": "API shell connection for TARGET_ACCOUNT_OR_WORKSPACE",
+  "description": "Authorize minimal access for RETRIEVAL_TARGET.",
   "connections": [
     {
-      "type": "google-email",
-      "description": "Readonly Gmail connection for the API shell example.",
-      "scope": ["https://www.googleapis.com/auth/gmail.readonly"],
-      "nameOverride": "gmail-api-shell"
+      "type": "CONNECTION_FAMILY",
+      "appName": "MAKE_APP_NAME",
+      "appModules": ["API_CALL_MODULE_NAME"],
+      "appVersion": "APP_MAJOR_VERSION",
+      "scope": ["MINIMAL_REQUIRED_SCOPE"],
+      "nameOverride": "STABLE_READABLE_NAME"
     }
-  ]
+  ],
+  "provider": {
+    "providerMakeUserId": PROVIDER_MAKE_USER_ID
+  }
 }
 ```
 
@@ -138,7 +166,41 @@ This fallback is often the safer generic choice when you already know the exact 
 Practical rule:
 - prefer the V2 request style first
 - if the workspace does not infer the right connection family, or if the request needs an explicit scope declaration, fall back to `create-by-credentials`
-- for Google-family apps in particular, verify whether the discovered module expects a Gmail-specific family such as `google-email` or a broader Google family such as `google`
+- for vendor suites with multiple Make apps, verify whether the discovered module expects a product-specific connection family or a broader suite-level family
+
+## Scope selection rules
+
+Scope choice must be derived from the selected provider API, the exact endpoint, the HTTP method, and current Make app/module metadata. Do not hardcode scopes from a different provider or from a previous tenant.
+
+Use least privilege:
+- for read-only retrieval, request read-only scopes where the provider offers them
+- for list/search/detail retrieval, request only scopes required by those endpoints
+- for write/update/delete, get explicit user confirmation before requesting write scopes
+- avoid broad account-wide scopes unless the selected API-call target truly requires them
+- record the requested scopes in notes before sending the credential request
+- after authorization, compare requested `scope` with returned or remote `remoteScope` where visible
+
+If the provider docs or module metadata expose multiple acceptable scopes, choose the narrowest scope that can run the intended validation request and the final retrieval.
+
+## User authorization handoff
+
+When the request is created, give the user a specific OAuth handoff:
+
+```text
+I created a Make Credential Request for TARGET_ACCOUNT_OR_WORKSPACE.
+Please open this URL and authorize access:
+
+PUBLIC_URI
+
+When the provider login appears, choose:
+TARGET_ACCOUNT_OR_WORKSPACE
+
+Requested access:
+SCOPE_OR_OPERATION_SUMMARY
+
+After you finish, tell me "done". I will then inspect the request detail,
+extract the resulting connection, patch or create the scenario, and run a live test.
+```
 
 ## Inspect authorization state
 
@@ -146,11 +208,16 @@ After the user opens the public authorization URL and completes consent, inspect
 - `GET /api/v2/credential-requests/requests/{requestId}/detail`
 
 Confirm:
-- request status
-- credential state
-- resulting credential or connection identifier
+- request status is `authorized` or `partially_authorized` when that is expected for a multi-credential request
+- credential state is authorized for the credential that will back the shell
+- resulting credential or connection identifier, such as `remoteId`
+- `appName`, `appModules`, and `appVersion`
+- requested `scope` and returned `remoteScope` where visible
+- target account/workspace identity from the returned metadata where visible
 
 Also confirm whether the resulting connection is usable in the target scenario or module family. Authorization success alone does not prove that retrieval execution is correctly configured.
+
+After inspecting the request detail, list connections again and match the resulting connection back to the target identity before patching the scenario.
 
 ## Patch the scenario after authorization
 
@@ -171,6 +238,8 @@ Always record these values first:
 - exact connection field or restore path to update
 - selected connection ID
 - both connection type layers for the app
+- account/workspace identity attached to the selected connection
+- app name, app modules, app version, requested scope, and remote scope where visible
 
 If the request was created for a different recipient than the current token owner, also record:
 - intended recipient identity

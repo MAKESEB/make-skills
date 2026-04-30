@@ -23,6 +23,25 @@ This skill is primarily about provisioning and shell construction. Treat busines
 
 The generic shell described here is an API transport wrapper, not business logic. It should behave like a reusable API endpoint for any SaaS app that Make can front, including email, CRM, ticketing, support, marketing, or task systems.
 
+## Core workflow contract
+
+This workflow is connection-led and validation-led.
+
+Before creating any local files, scenarios, cron jobs, reports, or schedules, resolve:
+- the SaaS app/provider
+- the exact target account, mailbox, workspace, tenant, org, project, or user
+- the Make organization/team/workspace that should own the scenario and connection
+- the retrieval target, such as emails, threads, contacts, deals, tickets, records, tasks, or events
+- the operation type: read-only list/search/get, or write/update/delete
+- whether an existing Make connection should be reused or a Credential Request should be created
+- whether to patch an existing shell or create a separate shell for a new account/workflow
+
+If any item is unclear and cannot be discovered safely, stop and ask a concrete question for that item before building.
+
+Never reuse a connection without verifying identity, expected connection type, visible validity, and scope fit. Never claim completion without a live `/api/v2/scenarios/{scenarioId}/run` retrieval from the intended account/workspace.
+
+Local scripts may orchestrate, schedule, normalize, batch, or report after the Make-side shell is validated. They are not the Make API-call shell and cannot satisfy this workflow by themselves.
+
 ## Quick routing
 
 Read the file that matches the current task:
@@ -53,6 +72,7 @@ When a fresh agent gets a request such as "get my unread emails", "pull my open 
 9. After the connection decision is settled, create or patch the shell according to the reuse rule above and verify that the shell can run.
 10. Run the narrowest possible retrieval request first through the API-call shell.
 11. Expand into list/search -> detail -> normalization only after the first shell run proves the path works.
+12. Add local orchestration, reporting, or scheduling only after the Make-side retrieval has been validated.
 
 The agent should not jump straight from "user wants SaaS data" to "create a new connection" or "call a direct SDK" without walking this sequence.
 
@@ -61,8 +81,12 @@ The agent should not jump straight from "user wants SaaS data" to "create a new 
 Before provisioning or retrieval, explicitly resolve these inputs:
 - provider anchor
 - target account identity if multiple accounts or mailboxes are possible
+- target workspace, tenant, org, project, queue, or site when the provider supports multiple workspaces
+- retrieval target and operation type
 - intended credential-request recipient if it may differ from the current token owner
 - Make zone, organization, and team
+- existing-connection reuse vs new Credential Request
+- existing-shell patch vs separate shell
 
 If one of those items is missing and cannot be discovered safely, stop and ask only for that exact missing item.
 
@@ -95,7 +119,7 @@ If one of those items is missing and cannot be discovered safely, stop and ask o
 16. Do not ask the user to paste raw OAuth secrets, API keys, or passwords into chat. Use a credential request whenever a new connection must be created.
 17. If the user request is ambiguous, resolve the concrete provider and account first; if it is already explicit, do not ask again.
 18. If the Module 2 request method is `PUT`, `PATCH`, or `DELETE`, warn explicitly before execution. Treat those methods as mutating live SaaS operations, not passive retrieval.
-19. Do not assume `StartSubscenario.metadata.interface` is enough for scenario runs. After creating or updating an on-demand shell, explicitly set the scenario-level interface with `/api/v2/scenarios/{scenarioId}/interface` and verify it before the first run.
+19. `scenario-service:StartSubscenario` provides the shell input interface inside the generic blueprint. After creating or updating an on-demand shell, explicitly set the scenario-level interface with `/api/v2/scenarios/{scenarioId}/interface` and verify it before the first run.
 20. Treat `/api/v2/scenarios/{scenarioId}/run` as the standard execution path for this shell family. Pass the business payload under `data` with keys that match the scenario interface exactly, and prefer `responsive: true` for validation runs.
 21. Shell reuse is app-specific, not just provider-family-specific. A shell built around one app module should not be repointed to another app module just because both belong to the same vendor suite.
 
@@ -126,6 +150,8 @@ The reusable shell has exactly three modules:
 1. `scenario-service:StartSubscenario`
 2. one app-specific Make API-call module discovered from metadata
 3. `scenario-service:ReturnData`
+
+`scenario-service:StartSubscenario` is the Make start/input module used by this generic shell blueprint. Keep it in the blueprint and expose the shell interface through it. Then patch and verify the scenario-level interface and execute the shell through `/api/v2/scenarios/{scenarioId}/run` with matching `data` keys.
 
 Expose these shell inputs through StartSubscenario:
 - `path`
@@ -223,7 +249,7 @@ Use a run payload shaped like:
 }
 ```
 
-The key names under `data` must match the scenario interface exactly. If the interface was never explicitly set, `run` can reject the call even when the `StartSubscenario` module itself contains interface metadata.
+The key names under `data` must match the scenario interface exactly. Patch and verify the scenario-level interface before calling `run`.
 
 ### Body-handling compatibility rule
 
@@ -240,11 +266,30 @@ If a provider-specific Make API-call module fails only when `body` is present-bu
 
 Do not change `ReturnData` for this. This is a Module 2 request-shape compatibility issue, not a shell-output-contract issue.
 
+## Definition of Done
+
+Do not call the workflow complete just because a scenario exists. Done means:
+- target app/provider confirmed
+- target account/workspace/mailbox/tenant confirmed
+- Make organization/team/workspace confirmed
+- retrieval target and operation confirmed
+- connection identity, expected type, visible validity, and scope fit verified
+- Credential Request completed if needed
+- resulting connection ID or remote credential reference extracted and recorded
+- shell blueprint has the correct StartSubscenario, app-specific API-call module, ReturnData module, and connection ID
+- scenario-level interface is patched and verified
+- `/run` with `responsive: true` returns real output data
+- retrieval returns records from the intended account/workspace
+- downstream normalization/reporting works if requested
+- schedule points to the final validated configuration if scheduling was requested
+
 ## Response behavior
 
 When using this skill:
+- ask concrete missing-input questions; do not ask vague questions like "which connection?"
 - first summarize the discovered app, version, exact API-call module name, and both connection type layers
 - explicitly state how the provider was resolved: user statement, existing Make artifacts, or Make app-catalog lookup
+- report candidate connection identity and scope fit before reuse or patching
 - explicitly say whether the shell is being reused or newly created
 - explicitly say whether the connection is being reused or newly requested
 - explicitly state which phase you are in: provisioning or retrieval

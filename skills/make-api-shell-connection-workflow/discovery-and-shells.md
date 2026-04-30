@@ -13,6 +13,8 @@ Build one reusable scenario pattern for many apps:
 
 The middle module is the only app-specific part.
 
+The generic API shell blueprint starts with `scenario-service:StartSubscenario`, which provides the shell input interface. Patch and verify the scenario-level interface, then execute the shell through `/api/v2/scenarios/{scenarioId}/run` with matching `data` keys.
+
 This goal is about shell provisioning, not about proving the final business retrieval output. Retrieval strategy and output normalization come after the shell is connection-ready.
 
 The shell described here is generic for any SaaS provider that exposes an app-specific Make API-call module. It is a reusable API transport scenario, not a business-specific scenario.
@@ -44,11 +46,24 @@ Examples:
 
 Do not invent a provider from the business object alone.
 
+Before creating any scenario, local file, cron job, or report, resolve:
+- SaaS app/provider
+- exact account, mailbox, workspace, tenant, org, project, queue, site, or user
+- Make organization/team/workspace owner
+- retrieval target such as messages, threads, contacts, deals, tickets, records, tasks, or events
+- operation type: read-only list/search/get versus write/update/delete
+- whether an existing connection should be reused or a Credential Request should be created
+- whether an existing shell should be patched or a separate shell should be created for a new account/workflow
+
+If any of these are unclear and cannot be discovered safely from current Make metadata, ask a concrete question before building.
+
 ## Standard shell contract
 
 ### Module 1: StartSubscenario
 Use:
 - `scenario-service:StartSubscenario`
+
+This is the start/input module for the generic API shell blueprint.
 
 Expose these inputs:
 - `path`
@@ -184,7 +199,9 @@ For on-demand API shells, do not stop after scenario create or update. Explicitl
 }
 ```
 
-Reason: `StartSubscenario.metadata.interface` documents the shell shape, but it does not reliably deploy the scenario-level run interface by itself. Treat `PATCH /interface` as mandatory for reusable on-demand shells.
+Reason: `StartSubscenario` provides the generic shell input interface inside the blueprint, and reusable on-demand shells also need the scenario-level interface patched and verified through `/api/v2/scenarios/{scenarioId}/interface`.
+
+Run the shell through `/api/v2/scenarios/{scenarioId}/run` with `data` keys that match the deployed interface exactly, usually `path`, `method`, `header`, and `body`.
 
 ## Base URL and zone
 
@@ -309,6 +326,23 @@ If the tooling exposes detailed connection metadata, inspect it before testing r
 - account or accountName
 - scope list or scope count
 - last validation or health indicators when available
+- account/workspace identity such as email, domain, tenant, org, project, UID, or portal ID when available
+- scenarios that already use the connection when visible
+
+Before reusing a connection, report what you found:
+
+```text
+I found an existing connection:
+- App family: CONNECTION_TYPE
+- Connection ID: CONNECTION_ID
+- Account/workspace: TARGET_IDENTITY
+- Used by scenarios: SCENARIO_LIST_OR_UNKNOWN
+
+This appears to match / does not match the requested target.
+May I use this connection?
+```
+
+Ask when multiple plausible connections exist. Refuse silent reuse when the visible identity does not exactly match the requested account/workspace.
 
 Common examples:
 - Gmail-style module: `google-email:makeAnApiCall` usually expects `account:google-email`; do not assume a generic `google` connection is interchangeable
@@ -329,6 +363,7 @@ Notes:
 - `type=google-email` and `type[]=google-email` are both accepted by the REST endpoint
 - do not assume `accountName=google-email` will filter correctly in REST just because Make MCP tooling uses `accountName` terminology
 - only create a credential request when no suitable existing connection is available for the target app and scope
+- verify connection identity, expected connection type, visible validity, and scope fit before patching a shell
 
 ## Existing-shell preflight
 
@@ -346,9 +381,14 @@ Prefer reusing a shell when:
 - the scenario interface still exposes `path`, `method`, `header`, and `body`
 - the shell is already linked to a suitable connection or can be patched safely
 
-Do not reuse a shell for a newly created connection. When the connection is new, create a new shell dedicated to that connection.
+Do not reuse a shell for a newly created connection by default. When the connection is new, create a new shell dedicated to that connection unless the new connection clearly targets the same automation and the user has confirmed that the existing reusable shell should be repointed.
 
 Do not treat “same SaaS vendor” as enough for shell reuse. A Gmail shell, a Google Calendar shell, and a Google Sheets shell may all live under Google but still require different Make apps, different module slugs, and different connection families.
+
+Patch safety rule:
+- if the authorized connection targets the same automation, patch the existing reusable shell only after identity and scope verification
+- if it targets a different account/workspace or workflow, create a separate shell
+- if ambiguous, ask before repointing an existing shell
 
 Only create a new shell when:
 - no matching shell exists
@@ -380,6 +420,7 @@ Record these values before deciding to reuse or create:
 12. Explicitly set the scenario-level interface.
 13. Verify the interface.
 14. Activate and run the scenario.
+15. Add local orchestration, reporting, or scheduling only after live retrieval returns data from the intended account/workspace.
 
 ## Shell output vs. retrieval output
 

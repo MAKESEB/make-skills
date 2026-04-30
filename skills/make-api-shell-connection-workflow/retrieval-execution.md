@@ -51,7 +51,7 @@ This is the default execution contract for the shell across providers.
 The concrete `path` changes by provider, but the scenario-run payload shape stays the same.
 
 Important deployment precondition:
-- do not assume the `StartSubscenario` module metadata alone made this callable
+- `scenario-service:StartSubscenario` provides the shell input interface inside the generic blueprint
 - explicitly set the scenario-level input interface first
 - verify `/api/v2/scenarios/{scenarioId}/interface` before the first run
 
@@ -63,6 +63,8 @@ The keys under `data` must match the deployed interface exactly. For reusable sh
 Use `responsive: true` for validation runs and for normal interactive retrieval whenever the response size is still manageable.
 
 Default retrieval should use `GET`. Treat `PUT`, `PATCH`, and `DELETE` as write/destructive methods and require explicit user confirmation before running them.
+
+Local scripts, SDK wrappers, cron jobs, reports, and schedulers may call the validated shell later. They are not the retrieval transport for this workflow until the Make-side API shell itself has returned live data from the intended account/workspace.
 
 ## Large payloads, timeouts, and extraction path
 
@@ -197,3 +199,54 @@ Keep failure diagnosis phase-specific:
 
 If activation fails with a generic validation error, go back to shell metadata.
 If the run succeeds but the payload is wrong, stay in Make and fix the API-call plan or downstream normalization before considering fallback.
+
+## Generic debugging matrix
+
+Scenario exists but `/run` returns no useful output:
+- check the output interface
+- check `scenario-service:ReturnData` mapping if used
+- verify `responsive: true` behavior and response shape
+- verify the output keys the downstream reader expects
+
+`400` or `422` from `/run`:
+- compare submitted `data` keys and types against `/api/v2/scenarios/{scenarioId}/interface`
+- verify required inputs and defaults
+
+Empty business data:
+- check the retrieval query or filter
+- check the target account/workspace identity
+- check the provider API endpoint and permissions
+
+Authentication or authorization error:
+- do not work around it locally
+- create, inspect, or reauthorize the correct Make connection
+
+Wrong account/workspace data:
+- treat this as a connection identity mismatch
+- confirm the target identity and patch or create the correct shell
+
+Scope or permission error:
+- derive the minimal missing scope from the selected API endpoint
+- create or update the Credential Request
+- reauthorize and retest
+
+Existing shell points to an old connection:
+- patch only when the current request clearly targets the same automation
+- otherwise create a separate shell
+
+## Definition of Done
+
+Do not call retrieval complete just because the scenario exists. Done means:
+- target provider confirmed
+- target account/workspace/mailbox/tenant confirmed
+- retrieval target and operation confirmed
+- connection identity and scope verified
+- Credential Request completed if needed
+- resulting connection ID extracted and recorded
+- real Make scenario exists with `scenario-service:StartSubscenario`, the app-specific API-call module, and `scenario-service:ReturnData`
+- scenario-level input/output interface patched and verified
+- blueprint shows the correct app module and connection ID
+- `/run` with `responsive: true` returns real output data
+- retrieval returns records from the intended account/workspace
+- downstream normalization/reporting works if requested
+- schedule points to the final validated configuration if scheduling was requested
