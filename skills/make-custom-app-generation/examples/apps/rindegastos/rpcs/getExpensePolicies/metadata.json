@@ -1,0 +1,5 @@
+{
+  "name": "getExpensePolicies",
+  "label": "Get Expense Policies",
+  "description": "Lists Rinde Gastos expense policies for dynamic policy selections."
+}

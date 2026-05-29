@@ -1,0 +1,11 @@
+{
+  "name": "actaport",
+  "label": "Actaport",
+  "description": "Production-ready Actaport integration generated from @actaport/n8n-nodes-actaport@0.3.0.",
+  "version": 1,
+  "author": "OpenAI Codex",
+  "url": "https://www.actaport.de/",
+  "theme": "#1F4E79",
+  "language": "en",
+  "audience": "global"
+}

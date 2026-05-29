@@ -1,0 +1,19 @@
+{
+  "url": "https://api.agify.io{{parameters.url}}",
+  "method": "{{parameters.method}}",
+  "headers": {
+    "{{...}}": "{{toCollection(parameters.headers, 'key', 'value')}}"
+  },
+  "qs": {
+    "apikey": "{{connection.apiKey}}",
+    "{{...}}": "{{toCollection(parameters.qs, 'key', 'value')}}"
+  },
+  "body": "{{parameters.body}}",
+  "response": {
+    "output": {
+      "statusCode": "{{statusCode}}",
+      "headers": "{{headers}}",
+      "body": "{{body}}"
+    }
+  }
+}

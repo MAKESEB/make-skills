@@ -1,0 +1,20 @@
+{
+  "url": "/createFund",
+  "method": "POST",
+  "body": {
+    "IdEmployee": "{{parameters.IdEmployee}}",
+    "IdAdmin": "{{parameters.IdAdmin}}",
+    "FundName": "{{parameters.FundName}}",
+    "FundCurrency": "{{parameters.FundCurrency}}",
+    "FundCode": "{{ifempty(parameters.FundCode, undefined)}}",
+    "FundAmount": "{{parameters.FundAmount}}",
+    "FundComment": "{{ifempty(parameters.FundComment, undefined)}}",
+    "FundFlexibility": "{{if(parameters.FundFlexibility != null, parameters.FundFlexibility, undefined)}}",
+    "FundAutoDeposit": "{{if(parameters.FundAutoDeposit != null, parameters.FundAutoDeposit, undefined)}}",
+    "FundAutoBlock": "{{if(parameters.FundAutoBlock != null, parameters.FundAutoBlock, undefined)}}",
+    "FundExpirationDate": "{{ifempty(parameters.FundExpirationDate, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "channelName",
+    "type": "text",
+    "label": "Channel Name",
+    "required": true,
+    "help": "Ably channel name."
+  },
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 1000
+  },
+  {
+    "name": "clientId",
+    "type": "text",
+    "label": "Client ID"
+  },
+  {
+    "name": "connectionId",
+    "type": "text",
+    "label": "Connection ID"
+  }
+]

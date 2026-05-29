@@ -1,0 +1,10 @@
+{
+  "url": "/channels/{{parameters.channelName}}/presence",
+  "method": "POST",
+  "body": "{{removeEmpty({\"clientId\": parameters.clientId, \"action\": parameters.action, \"data\": parameters.data, \"encoding\": parameters.encoding})}}",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

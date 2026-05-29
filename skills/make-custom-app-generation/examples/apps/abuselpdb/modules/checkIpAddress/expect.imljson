@@ -1,0 +1,22 @@
+[
+  {
+    "name": "ipAddress",
+    "type": "text",
+    "label": "IP Address",
+    "required": true
+  },
+  {
+    "name": "maxAgeInDays",
+    "type": "number",
+    "label": "Max Age in Days",
+    "default": 90,
+    "minimum": 1,
+    "maximum": 365
+  },
+  {
+    "name": "verbose",
+    "type": "boolean",
+    "label": "Include Verbose Details",
+    "default": false
+  }
+]

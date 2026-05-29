@@ -1,0 +1,8 @@
+{
+  "name": "getChannel",
+  "label": "Get a Channel",
+  "description": "Get metadata and status for an Ably channel using GET /channels/{channel}.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

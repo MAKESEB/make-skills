@@ -1,0 +1,10 @@
+{
+  "url": "/domains/{{parameters.domainId}}/",
+  "method": "GET",
+  "qs": {
+    "fields": "{{parameters.fields}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

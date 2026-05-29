@@ -1,0 +1,8 @@
+{
+  "name": "listThirdPartyCosts",
+  "label": "List Third Party Costs",
+  "description": "List Third Party Costs in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

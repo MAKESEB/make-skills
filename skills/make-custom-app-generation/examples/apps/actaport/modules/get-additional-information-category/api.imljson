@@ -1,0 +1,7 @@
+{
+  "url": "/zusatzinformation/kategorien/{{parameters.id}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

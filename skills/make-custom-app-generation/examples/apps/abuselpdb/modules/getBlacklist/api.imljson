@@ -1,0 +1,16 @@
+{
+  "url": "/blacklist",
+  "method": "GET",
+  "qs": {
+    "confidenceMinimum": "{{parameters.confidenceMinimum}}",
+    "limit": "{{parameters.limit}}",
+    "plaintext": false,
+    "ipVersion": "{{parameters.ipVersion}}",
+    "exceptCountries": "{{parameters.exceptCountries}}",
+    "onlyCountries": "{{parameters.onlyCountries}}"
+  },
+  "response": {
+    "iterate": "{{body.data}}",
+    "output": "{{item}}"
+  }
+}

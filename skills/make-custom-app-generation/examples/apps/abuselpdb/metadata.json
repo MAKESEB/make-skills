@@ -1,0 +1,8 @@
+{
+  "name": "abuselpdb",
+  "label": "AbuseIPDB",
+  "description": "Check, report, clear, and list abusive IP address intelligence through the AbuseIPDB API.",
+  "version": 1,
+  "language": "en",
+  "audience": "global"
+}

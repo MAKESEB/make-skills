@@ -1,0 +1,10 @@
+{
+  "url": "/getBalance",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

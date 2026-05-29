@@ -1,0 +1,8 @@
+[
+  {
+    "name": "domainId",
+    "type": "number",
+    "label": "Domain ID",
+    "required": true
+  }
+]

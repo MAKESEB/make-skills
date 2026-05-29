@@ -1,0 +1,8 @@
+{
+  "name": "listSandboxes",
+  "connection": "api-key",
+  "label": "List Sandboxes",
+  "description": "Lists Daytona sandboxes. The API supports cursor and limit query parameters.",
+  "type": "search",
+  "typeId": 9
+}

@@ -1,0 +1,8 @@
+{
+  "Level": 1,
+  "ApproverId": "2",
+  "ApproverName": "John Lemon",
+  "ApproverEmail": "john.lemon@rindegastos.invalid",
+  "AmmountRestriction": false,
+  "RestrictionReportAmount": 0
+}

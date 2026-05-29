@@ -1,0 +1,30 @@
+{
+  "baseUrl": "https://activitysmith.com/api",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "400": {
+        "message": "[400] Bad request. Check the ActivitySmith request body and parameters."
+      },
+      "401": {
+        "message": "[401] Authentication failed. Check your ActivitySmith API key."
+      },
+      "403": {
+        "message": "[403] Access denied. Check your ActivitySmith API key permissions."
+      },
+      "404": {
+        "message": "[404] ActivitySmith resource not found."
+      },
+      "message": "[{{statusCode}}] {{body.error.message || body.message || body.error || 'ActivitySmith request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization"
+    ]
+  }
+}

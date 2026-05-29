@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Id",
+    "type": "select",
+    "label": "Expense Policy",
+    "options": "rpc://getExpensePolicies",
+    "required": true
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "listFolders",
+  "label": "List Folders",
+  "description": "List Folders in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

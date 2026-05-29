@@ -1,0 +1,12 @@
+{
+  "url": "/getExpensePolicyWorkflow",
+  "method": "GET",
+  "qs": {
+    "IdPolicy": "{{parameters.IdPolicy}}"
+  },
+  "response": {
+    "iterate": "{{body.Approvers}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  }
+}

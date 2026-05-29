@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Expense ID",
+    "required": true
+  }
+]

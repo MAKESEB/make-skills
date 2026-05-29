@@ -1,0 +1,20 @@
+{
+  "url": "/sandbox",
+  "method": "GET",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "qs": {
+    "cursor": "{{parameters.cursor}}",
+    "limit": "{{parameters.limit}}",
+    "id": "{{parameters.id}}",
+    "name": "{{parameters.name}}",
+    "labels": "{{parameters.labels}}",
+    "includeErroredDeleted": "{{parameters.includeErroredDeleted}}",
+    "states": "{{parameters.states}}"
+  },
+  "response": {
+    "iterate": "{{body.data || body.items || body}}",
+    "output": "{{item}}"
+  }
+}

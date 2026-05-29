@@ -1,0 +1,23 @@
+{
+  "url": "/vorlagen",
+  "method": "GET",
+  "qs": {
+    "page": "{{ifempty(pagination.page, 0)}}",
+    "size": 20,
+    "filter": "{{if(parameters.q, 'contains(name,\\'' + parameters.q + '\\')', undefined)}}"
+  },
+  "response": {
+    "iterate": "{{body.content}}",
+    "output": {
+      "label": "{{item.name}}",
+      "value": "{{item.id}}"
+    }
+  },
+  "pagination": {
+    "condition": "{{body.last === false}}",
+    "qs": {
+      "page": "{{body.number + 1}}",
+      "size": "{{body.size}}"
+    }
+  }
+}

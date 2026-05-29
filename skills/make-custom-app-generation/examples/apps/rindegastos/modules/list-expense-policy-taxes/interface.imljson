@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Type",
+    "type": "number",
+    "label": "Type"
+  },
+  {
+    "name": "Name",
+    "type": "text",
+    "label": "Name"
+  },
+  {
+    "name": "Value",
+    "type": "number",
+    "label": "Value"
+  }
+]

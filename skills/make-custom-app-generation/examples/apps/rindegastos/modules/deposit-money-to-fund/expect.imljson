@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Id",
+    "type": "select",
+    "label": "Fund",
+    "options": "rpc://getFunds",
+    "required": true
+  },
+  {
+    "name": "IdAdmin",
+    "type": "select",
+    "label": "Admin User",
+    "options": "rpc://getUsers",
+    "required": true
+  },
+  {
+    "name": "DepositAmount",
+    "type": "number",
+    "label": "Deposit Amount",
+    "required": true
+  }
+]

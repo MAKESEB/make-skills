@@ -1,0 +1,20 @@
+{
+  "url": "https://activitysmith.com/api/push-notification",
+  "method": "POST",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "title": "ActivitySmith Make connection test",
+    "message": "Connection verified from Make."
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "ActivitySmith API Key"
+    }
+  }
+}

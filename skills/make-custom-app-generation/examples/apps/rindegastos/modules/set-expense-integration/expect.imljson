@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Expense ID",
+    "required": true
+  },
+  {
+    "name": "IntegrationStatus",
+    "type": "select",
+    "label": "Integration Status",
+    "options": [
+      {
+        "label": "Integrated",
+        "value": 1
+      },
+      {
+        "label": "Not Integrated",
+        "value": 0
+      }
+    ],
+    "required": true
+  },
+  {
+    "name": "IntegrationCode",
+    "type": "text",
+    "label": "Integration Code"
+  },
+  {
+    "name": "IntegrationDate",
+    "type": "date",
+    "label": "Integration Date"
+  }
+]

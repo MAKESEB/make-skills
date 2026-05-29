@@ -1,0 +1,8 @@
+{
+  "name": "listUsers",
+  "label": "List Users",
+  "description": "List Users in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

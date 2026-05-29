@@ -1,0 +1,12 @@
+{
+  "url": "/depositMoneyToFund",
+  "method": "POST",
+  "body": {
+    "Id": "{{parameters.Id}}",
+    "IdAdmin": "{{parameters.IdAdmin}}",
+    "DepositAmount": "{{parameters.DepositAmount}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

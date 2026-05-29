@@ -1,0 +1,15 @@
+[
+  {
+    "name": "accountId",
+    "type": "select",
+    "label": "Account",
+    "required": true,
+    "options": "rpc://listAccounts"
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Group Name",
+    "required": true
+  }
+]

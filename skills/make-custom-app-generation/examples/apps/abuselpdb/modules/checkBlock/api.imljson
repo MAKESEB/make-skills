@@ -1,0 +1,12 @@
+{
+  "url": "/check-block",
+  "method": "GET",
+  "qs": {
+    "network": "{{parameters.network}}",
+    "maxAgeInDays": "{{parameters.maxAgeInDays}}"
+  },
+  "response": {
+    "iterate": "{{body.data.reportedAddress}}",
+    "output": "{{item}}"
+  }
+}

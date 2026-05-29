@@ -1,0 +1,19 @@
+{
+  "baseUrl": "https://api.2captcha.com",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "message": "[{{statusCode}}] {{body.errorDescription || body.errorCode || body.message || body.error || '2Captcha request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.body.clientKey",
+      "request.qs.key",
+      "request.qs.api_key"
+    ]
+  }
+}

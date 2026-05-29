@@ -1,0 +1,8 @@
+{
+  "name": "listDepartments",
+  "label": "List Departments",
+  "description": "List Departments in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

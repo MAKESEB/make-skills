@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "Daytona API Key",
+    "required": true,
+    "help": "Paste a Daytona API key. The app sends it as a Bearer token."
+  }
+]

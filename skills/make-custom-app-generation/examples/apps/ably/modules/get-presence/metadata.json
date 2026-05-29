@@ -1,0 +1,8 @@
+{
+  "name": "getPresence",
+  "label": "Get Presence",
+  "description": "List present members on an Ably channel using GET /channels/{channel}/presence.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

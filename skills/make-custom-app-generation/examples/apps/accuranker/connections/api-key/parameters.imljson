@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "AccuRanker API Key",
+    "required": true,
+    "help": "Paste an AccuRanker API token. The app sends it as Authorization: Token <token>."
+  }
+]

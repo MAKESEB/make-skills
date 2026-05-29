@@ -1,0 +1,8 @@
+{
+  "name": "createFolder",
+  "label": "Create Folder",
+  "description": "Create Folder in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

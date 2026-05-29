@@ -1,0 +1,22 @@
+[
+  {
+    "name": "cardId",
+    "type": "text",
+    "label": "Card ID"
+  },
+  {
+    "name": "message",
+    "type": "text",
+    "label": "Message"
+  },
+  {
+    "name": "shareableUrl",
+    "type": "url",
+    "label": "Shareable URL"
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Raw Response"
+  }
+]

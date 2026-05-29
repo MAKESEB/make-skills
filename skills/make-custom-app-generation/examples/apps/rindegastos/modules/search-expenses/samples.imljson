@@ -1,0 +1,12 @@
+{
+  "Id": 7,
+  "Status": 1,
+  "Supplier": "Great Customer",
+  "IssueDate": "2017-06-27",
+  "Total": 23.99,
+  "Currency": "GBP",
+  "Category": "Electricity",
+  "ReportId": 1,
+  "ExpensePolicyId": 6,
+  "UserId": 2
+}

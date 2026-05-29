@@ -1,0 +1,15 @@
+{
+  "url": "/stats",
+  "method": "GET",
+  "qs": {
+    "limit": "{{parameters.limit}}",
+    "direction": "{{parameters.direction}}",
+    "unit": "{{parameters.unit}}",
+    "start": "{{parameters.start}}",
+    "end": "{{parameters.end}}"
+  },
+  "response": {
+    "iterate": "{{body.items || body}}",
+    "output": "{{item}}"
+  }
+}

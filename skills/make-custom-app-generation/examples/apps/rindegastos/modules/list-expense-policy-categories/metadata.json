@@ -1,0 +1,8 @@
+{
+  "name": "listExpensePolicyCategories",
+  "label": "List Expense Policy Categories",
+  "description": "List categories configured for an expense policy.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

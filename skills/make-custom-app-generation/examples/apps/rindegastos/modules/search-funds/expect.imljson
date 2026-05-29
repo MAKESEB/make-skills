@@ -1,0 +1,69 @@
+[
+  {
+    "name": "Status",
+    "type": "select",
+    "label": "Status",
+    "options": [
+      {
+        "label": "Open",
+        "value": 1
+      },
+      {
+        "label": "Closed",
+        "value": 2
+      },
+      {
+        "label": "Blocked",
+        "value": 3
+      }
+    ]
+  },
+  {
+    "name": "OrderBy",
+    "type": "select",
+    "label": "Order By",
+    "options": [
+      {
+        "label": "Created Date",
+        "value": 1
+      },
+      {
+        "label": "Fund Title",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "name": "Order",
+    "type": "select",
+    "label": "Order",
+    "options": [
+      {
+        "label": "Descending",
+        "value": "DESC"
+      },
+      {
+        "label": "Ascending",
+        "value": "ASC"
+      }
+    ]
+  },
+  {
+    "name": "From",
+    "type": "date",
+    "label": "From"
+  },
+  {
+    "name": "To",
+    "type": "date",
+    "label": "To"
+  },
+  {
+    "name": "limit",
+    "type": "uinteger",
+    "label": "Limit",
+    "required": true,
+    "default": 100,
+    "help": "Maximum number of records to return. Rinde Gastos supports up to 100 records per page."
+  }
+]

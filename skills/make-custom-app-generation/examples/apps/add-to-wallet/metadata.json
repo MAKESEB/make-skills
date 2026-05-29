@@ -1,0 +1,11 @@
+{
+  "name": "add-to-wallet",
+  "label": "Add To Wallet",
+  "description": "Create digital Apple/Google Wallet passes through the AddToWallet API.",
+  "version": 1,
+  "author": "Hermes/Codex n8n package-source factory",
+  "url": "https://addtowallet.co/",
+  "theme": "#2A76F1",
+  "language": "en",
+  "audience": "global"
+}

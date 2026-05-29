@@ -1,0 +1,8 @@
+{
+  "name": "startLiveActivity",
+  "label": "Start Live Activity",
+  "description": "Start Live Activity using POST /live-activity/start.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

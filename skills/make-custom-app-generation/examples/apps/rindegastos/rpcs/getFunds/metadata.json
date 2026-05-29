@@ -1,0 +1,5 @@
+{
+  "name": "getFunds",
+  "label": "Get Funds",
+  "description": "Lists Rinde Gastos funds for dynamic fund selections."
+}

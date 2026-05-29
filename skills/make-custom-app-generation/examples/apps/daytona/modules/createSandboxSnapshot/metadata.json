@@ -1,0 +1,8 @@
+{
+  "name": "createSandboxSnapshot",
+  "connection": "api-key",
+  "label": "Snapshot a Sandbox",
+  "description": "Creates a named snapshot from an existing sandbox.",
+  "type": "action",
+  "typeId": 4
+}

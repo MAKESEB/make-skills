@@ -1,0 +1,8 @@
+{
+  "name": "listExpensePolicyTaxes",
+  "label": "List Expense Policy Taxes",
+  "description": "List taxes configured for an expense policy.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

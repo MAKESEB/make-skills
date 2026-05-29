@@ -1,0 +1,8 @@
+{
+  "url": "/akten/{{parameters.laufendeNummer}}/{{parameters.bezugsJahr}}/fristen",
+  "method": "POST",
+  "body": "{{parameters.body}}",
+  "response": {
+    "output": "{{body}}"
+  }
+}

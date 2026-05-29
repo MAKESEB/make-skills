@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Id"
+  },
+  {
+    "name": "Title",
+    "type": "text",
+    "label": "Title"
+  },
+  {
+    "name": "ReportNumber",
+    "type": "text",
+    "label": "Report Number"
+  },
+  {
+    "name": "SendDate",
+    "type": "date",
+    "label": "Send Date"
+  },
+  {
+    "name": "CloseDate",
+    "type": "date",
+    "label": "Close Date"
+  },
+  {
+    "name": "EmployeeId",
+    "type": "number",
+    "label": "Employee ID"
+  },
+  {
+    "name": "EmployeeName",
+    "type": "text",
+    "label": "Employee Name"
+  },
+  {
+    "name": "EmployeeIdentification",
+    "type": "text",
+    "label": "Employee Identification"
+  },
+  {
+    "name": "ApproverId",
+    "type": "number",
+    "label": "Approver ID"
+  },
+  {
+    "name": "ApproverName",
+    "type": "text",
+    "label": "Approver Name"
+  },
+  {
+    "name": "PolicyId",
+    "type": "number",
+    "label": "Policy ID"
+  },
+  {
+    "name": "PolicyName",
+    "type": "text",
+    "label": "Policy Name"
+  },
+  {
+    "name": "Status",
+    "type": "number",
+    "label": "Status"
+  },
+  {
+    "name": "CustomStatus",
+    "type": "text",
+    "label": "Custom Status"
+  },
+  {
+    "name": "FundId",
+    "type": "number",
+    "label": "Fund ID"
+  },
+  {
+    "name": "FundName",
+    "type": "text",
+    "label": "Fund Name"
+  },
+  {
+    "name": "ReportTotal",
+    "type": "number",
+    "label": "Report Total"
+  },
+  {
+    "name": "ReportTotalApproved",
+    "type": "number",
+    "label": "Report Total Approved"
+  },
+  {
+    "name": "Currency",
+    "type": "text",
+    "label": "Currency"
+  },
+  {
+    "name": "Note",
+    "type": "text",
+    "label": "Note"
+  },
+  {
+    "name": "IntegrationStatus",
+    "type": "number",
+    "label": "Integration Status"
+  },
+  {
+    "name": "IntegrationCode",
+    "type": "text",
+    "label": "Integration Code"
+  },
+  {
+    "name": "IntegrationDate",
+    "type": "date",
+    "label": "Integration Date"
+  },
+  {
+    "name": "Expenses",
+    "type": "any",
+    "label": "Expenses"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "url": "/push-notification",
+  "method": "POST",
+  "body": "{{removeEmpty({\"title\": parameters.title, \"message\": parameters.message, \"subtitle\": parameters.subtitle, \"media\": parameters.media, \"redirection\": parameters.redirection, \"target\": {\"channels\": parameters.channels}, \"actions\": parameters.actions})}}",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

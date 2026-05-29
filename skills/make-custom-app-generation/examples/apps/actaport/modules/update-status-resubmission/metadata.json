@@ -1,0 +1,8 @@
+{
+  "name": "updateStatusResubmission",
+  "label": "Update Status Resubmission",
+  "description": "Update Status Resubmission in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

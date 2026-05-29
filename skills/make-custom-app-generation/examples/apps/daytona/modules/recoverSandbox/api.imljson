@@ -1,0 +1,10 @@
+{
+  "url": "/sandbox/{{parameters.sandboxIdOrName}}/recover",
+  "method": "POST",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

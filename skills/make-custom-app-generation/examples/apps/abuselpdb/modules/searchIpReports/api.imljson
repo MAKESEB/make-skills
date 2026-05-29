@@ -1,0 +1,14 @@
+{
+  "url": "/reports",
+  "method": "GET",
+  "qs": {
+    "ipAddress": "{{parameters.ipAddress}}",
+    "maxAgeInDays": "{{parameters.maxAgeInDays}}",
+    "page": "{{parameters.page}}",
+    "perPage": "{{parameters.perPage}}"
+  },
+  "response": {
+    "iterate": "{{body.data.results}}",
+    "output": "{{item}}"
+  }
+}

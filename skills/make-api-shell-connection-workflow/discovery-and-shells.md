@@ -203,6 +203,21 @@ Reason: `StartSubscenario` provides the generic shell input interface inside the
 
 Run the shell through `/api/v2/scenarios/{scenarioId}/run` with `data` keys that match the deployed interface exactly, usually `path`, `method`, `header`, and `body`.
 
+### Connection APIs
+List candidate connections:
+- `GET /api/v2/connections?teamId=TEAM_ID&type[]=CONNECTION_TYPE`
+
+Inspect connection details:
+- `GET /api/v2/connections/{connectionId}`
+
+Verify connection liveness:
+- `POST /api/v2/connections/{connectionId}/test`
+
+Verify whether required scopes are present, when scope IDs are known:
+- `POST /api/v2/connections/{connectionId}/scoped`
+
+Use `/test` before reusing a connection or a shell that already points at one. A response with `verified: true` is the Make-side proof that the saved provider credentials are still valid. If a Credential Request detail is stale or still says `pending`, a verified connection still wins.
+
 ## Base URL and zone
 
 Do not treat a successful user-scoped endpoint as proof that the workspace zone is correct.

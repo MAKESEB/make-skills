@@ -1,0 +1,7 @@
+{
+  "url": "/akten/{{parameters.laufendeNummer}}/{{parameters.bezugsJahr}}/dokumente/{{parameters.id}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

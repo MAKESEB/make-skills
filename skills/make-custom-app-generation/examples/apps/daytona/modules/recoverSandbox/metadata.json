@@ -1,0 +1,8 @@
+{
+  "name": "recoverSandbox",
+  "connection": "api-key",
+  "label": "Recover a Sandbox",
+  "description": "Recover a Sandbox by ID or name.",
+  "type": "action",
+  "typeId": 4
+}

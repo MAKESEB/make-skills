@@ -1,0 +1,8 @@
+{
+  "name": "createRecaptchaV3Task",
+  "label": "Create reCAPTCHA V3 Task",
+  "description": "Create a RecaptchaV3TaskProxyless task through /createTask.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

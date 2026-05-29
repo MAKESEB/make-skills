@@ -1,0 +1,20 @@
+[
+  {
+    "name": "names",
+    "type": "array",
+    "label": "Names",
+    "required": true,
+    "spec": {
+      "type": "text",
+      "label": "Name",
+      "required": true
+    },
+    "help": "First names to submit as repeated name[] query parameters."
+  },
+  {
+    "name": "countryId",
+    "type": "text",
+    "label": "Country ID",
+    "help": "Optional ISO 3166-1 alpha-2 country code to localize the prediction, for example US, GB, DE, FR, BR, or JP."
+  }
+]

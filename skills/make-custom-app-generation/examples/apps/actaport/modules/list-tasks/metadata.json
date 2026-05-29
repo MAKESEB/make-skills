@@ -1,0 +1,8 @@
+{
+  "name": "listTasks",
+  "label": "List Tasks",
+  "description": "List Tasks in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

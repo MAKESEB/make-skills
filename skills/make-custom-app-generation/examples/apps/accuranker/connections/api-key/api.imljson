@@ -1,0 +1,15 @@
+{
+  "url": "https://app.accuranker.com/api/v4/domains/",
+  "method": "GET",
+  "headers": {
+    "Authorization": "Token {{connection.apiKey}}",
+    "Accept": "application/json"
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "AccuRanker API Key"
+    }
+  }
+}

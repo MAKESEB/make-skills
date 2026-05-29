@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Id"
+  },
+  {
+    "name": "Status",
+    "type": "number",
+    "label": "Status"
+  },
+  {
+    "name": "Supplier",
+    "type": "text",
+    "label": "Supplier"
+  },
+  {
+    "name": "IssueDate",
+    "type": "date",
+    "label": "Issue Date"
+  },
+  {
+    "name": "OriginalAmount",
+    "type": "number",
+    "label": "Original Amount"
+  },
+  {
+    "name": "OriginalCurrency",
+    "type": "text",
+    "label": "Original Currency"
+  },
+  {
+    "name": "ExchangeRate",
+    "type": "number",
+    "label": "Exchange Rate"
+  },
+  {
+    "name": "Net",
+    "type": "number",
+    "label": "Net"
+  },
+  {
+    "name": "Tax",
+    "type": "number",
+    "label": "Tax"
+  },
+  {
+    "name": "TaxName",
+    "type": "text",
+    "label": "Tax Name"
+  },
+  {
+    "name": "Total",
+    "type": "number",
+    "label": "Total"
+  },
+  {
+    "name": "Currency",
+    "type": "text",
+    "label": "Currency"
+  },
+  {
+    "name": "Reimbursable",
+    "type": "boolean",
+    "label": "Reimbursable"
+  },
+  {
+    "name": "Category",
+    "type": "text",
+    "label": "Category"
+  },
+  {
+    "name": "CategoryCode",
+    "type": "text",
+    "label": "Category Code"
+  },
+  {
+    "name": "CategoryGroup",
+    "type": "text",
+    "label": "Category Group"
+  },
+  {
+    "name": "CategoryGroupCode",
+    "type": "text",
+    "label": "Category Group Code"
+  },
+  {
+    "name": "Note",
+    "type": "text",
+    "label": "Note"
+  },
+  {
+    "name": "IntegrationStatus",
+    "type": "number",
+    "label": "Integration Status"
+  },
+  {
+    "name": "IntegrationExternalCode",
+    "type": "text",
+    "label": "Integration External Code"
+  },
+  {
+    "name": "IntegrationDate",
+    "type": "date",
+    "label": "Integration Date"
+  },
+  {
+    "name": "ExtraFields",
+    "type": "any",
+    "label": "Extra Fields"
+  },
+  {
+    "name": "Files",
+    "type": "any",
+    "label": "Files"
+  },
+  {
+    "name": "NbrFiles",
+    "type": "number",
+    "label": "Number of Files"
+  },
+  {
+    "name": "ReportId",
+    "type": "number",
+    "label": "Report ID"
+  },
+  {
+    "name": "ExpensePolicyId",
+    "type": "number",
+    "label": "Expense Policy ID"
+  },
+  {
+    "name": "UserId",
+    "type": "number",
+    "label": "User ID"
+  }
+]

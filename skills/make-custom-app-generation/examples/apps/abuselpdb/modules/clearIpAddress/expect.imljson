@@ -1,0 +1,8 @@
+[
+  {
+    "name": "ipAddress",
+    "type": "text",
+    "label": "IP Address",
+    "required": true
+  }
+]

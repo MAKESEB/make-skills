@@ -1,0 +1,21 @@
+{
+  "url": "https://api.2captcha.com{{parameters.url}}",
+  "method": "{{parameters.method}}",
+  "headers": {
+    "{{...}}": "{{toCollection(parameters.headers, 'key', 'value')}}"
+  },
+  "qs": {
+    "{{...}}": "{{toCollection(parameters.qs, 'key', 'value')}}"
+  },
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "{{...}}": "{{parameters.body}}"
+  },
+  "response": {
+    "output": {
+      "statusCode": "{{statusCode}}",
+      "headers": "{{headers}}",
+      "body": "{{body}}"
+    }
+  }
+}

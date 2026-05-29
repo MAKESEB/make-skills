@@ -1,0 +1,9 @@
+{
+  "url": "/channels/{{parameters.channelName}}",
+  "method": "GET",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

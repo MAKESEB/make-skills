@@ -1,0 +1,8 @@
+{
+  "name": "listAccounts",
+  "connection": "api-key",
+  "label": "List Accounts",
+  "description": "Lists AccuRanker accounts using the Read API.",
+  "type": "search",
+  "typeId": 9
+}

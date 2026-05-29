@@ -1,0 +1,8 @@
+{
+  "name": "getDeadline",
+  "label": "Get Deadline",
+  "description": "Get Deadline in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

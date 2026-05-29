@@ -1,0 +1,7 @@
+{
+  "url": "/info/kanzlei/dezernate/{{parameters.id}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

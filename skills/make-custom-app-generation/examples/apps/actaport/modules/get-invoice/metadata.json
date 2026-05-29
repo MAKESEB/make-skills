@@ -1,0 +1,8 @@
+{
+  "name": "getInvoice",
+  "label": "Get Invoice",
+  "description": "Get Invoice in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,15 @@
+{
+  "url": "/webhooks",
+  "method": "POST",
+  "body": {
+    "events": "{{parameters.events}}",
+    "hookUrl": "{{webhook.url}}",
+    "description": "Make Actaport Watch Events"
+  },
+  "response": {
+    "data": {
+      "externalHookId": "{{body.id}}",
+      "events": "{{parameters.events}}"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "publishMessage",
+  "label": "Publish a Message",
+  "description": "Publish one message to an Ably channel using POST /channels/{channel}/messages.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

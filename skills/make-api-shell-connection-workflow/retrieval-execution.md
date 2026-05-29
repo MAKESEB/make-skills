@@ -219,7 +219,8 @@ Empty business data:
 
 Authentication or authorization error:
 - do not work around it locally
-- create, inspect, or reauthorize the correct Make connection
+- verify the Make connection with `POST /api/v2/connections/{connectionId}/test`
+- create, inspect, or reauthorize the correct Make connection if verification fails
 
 Wrong account/workspace data:
 - treat this as a connection identity mismatch
@@ -231,6 +232,7 @@ Scope or permission error:
 - reauthorize and retest
 
 Existing shell points to an old connection:
+- extract the connection ID from the shell blueprint and verify it with `/api/v2/connections/{connectionId}/test`
 - patch only when the current request clearly targets the same automation
 - otherwise create a separate shell
 
@@ -241,6 +243,7 @@ Do not call retrieval complete just because the scenario exists. Done means:
 - target account/workspace/mailbox/tenant confirmed
 - retrieval target and operation confirmed
 - connection identity and scope verified
+- connection liveness verified by Make's connection test API
 - Credential Request completed if needed
 - resulting connection ID extracted and recorded
 - real Make scenario exists with `scenario-service:StartSubscenario`, the app-specific API-call module, and `scenario-service:ReturnData`

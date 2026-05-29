@@ -1,0 +1,45 @@
+[
+  {
+    "name": "channelName",
+    "type": "text",
+    "label": "Channel Name",
+    "required": true,
+    "help": "Ably channel name."
+  },
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 1000
+  },
+  {
+    "name": "direction",
+    "type": "select",
+    "label": "Direction",
+    "options": [
+      {
+        "label": "Backwards",
+        "value": "backwards"
+      },
+      {
+        "label": "Forwards",
+        "value": "forwards"
+      }
+    ],
+    "default": "backwards"
+  },
+  {
+    "name": "start",
+    "type": "text",
+    "label": "Start Time",
+    "help": "Milliseconds since epoch or supported Ably timestamp value."
+  },
+  {
+    "name": "end",
+    "type": "text",
+    "label": "End Time",
+    "help": "Milliseconds since epoch or supported Ably timestamp value."
+  }
+]

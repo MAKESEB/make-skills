@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Expense Report ID",
+    "required": true
+  },
+  {
+    "name": "IdAdmin",
+    "type": "select",
+    "label": "Admin User",
+    "options": "rpc://getUsers",
+    "required": true
+  },
+  {
+    "name": "CustomStatus",
+    "type": "text",
+    "label": "Custom Status",
+    "required": true
+  },
+  {
+    "name": "CustomMessage",
+    "type": "text",
+    "label": "Custom Message"
+  }
+]

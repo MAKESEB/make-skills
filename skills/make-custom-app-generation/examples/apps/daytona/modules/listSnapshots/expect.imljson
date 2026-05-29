@@ -1,0 +1,68 @@
+[
+  {
+    "name": "organizationId",
+    "type": "text",
+    "label": "Organization ID",
+    "help": "Optional X-Daytona-Organization-ID header value when using a JWT or organization-scoped workflows."
+  },
+  {
+    "name": "page",
+    "type": "number",
+    "label": "Page",
+    "default": 1,
+    "minimum": 1
+  },
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 200
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Name Filter"
+  },
+  {
+    "name": "sort",
+    "type": "select",
+    "label": "Sort",
+    "default": "lastUsedAt",
+    "options": [
+      {
+        "label": "name",
+        "value": "name"
+      },
+      {
+        "label": "state",
+        "value": "state"
+      },
+      {
+        "label": "lastUsedAt",
+        "value": "lastUsedAt"
+      },
+      {
+        "label": "createdAt",
+        "value": "createdAt"
+      }
+    ]
+  },
+  {
+    "name": "order",
+    "type": "select",
+    "label": "Order",
+    "default": "desc",
+    "options": [
+      {
+        "label": "Ascending",
+        "value": "asc"
+      },
+      {
+        "label": "Descending",
+        "value": "desc"
+      }
+    ]
+  }
+]

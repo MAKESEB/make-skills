@@ -1,0 +1,15 @@
+{
+  "url": "/toolbox/{{parameters.sandboxId}}/toolbox/process/execute",
+  "method": "POST",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "body": {
+    "command": "{{parameters.command}}",
+    "cwd": "{{parameters.cwd}}",
+    "timeout": "{{parameters.timeout}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

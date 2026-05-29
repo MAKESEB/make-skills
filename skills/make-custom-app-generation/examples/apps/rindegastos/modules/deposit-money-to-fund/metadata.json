@@ -1,0 +1,8 @@
+{
+  "name": "depositMoneyToFund",
+  "label": "Deposit Money to a Fund",
+  "description": "Deposit money into an existing fund.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

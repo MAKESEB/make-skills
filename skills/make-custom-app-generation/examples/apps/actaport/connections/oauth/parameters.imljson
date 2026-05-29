@@ -1,0 +1,9 @@
+[
+  {
+    "name": "realm",
+    "type": "text",
+    "label": "Realm",
+    "required": true,
+    "help": "Actaport realm name supplied with the Actaport subscription."
+  }
+]

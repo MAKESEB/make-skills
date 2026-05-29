@@ -1,0 +1,15 @@
+{
+  "url": "https://app.daytona.io/api/api-keys/current",
+  "method": "GET",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "Accept": "application/json"
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "Daytona API Key"
+    }
+  }
+}

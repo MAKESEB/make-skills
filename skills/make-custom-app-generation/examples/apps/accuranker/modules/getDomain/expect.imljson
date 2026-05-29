@@ -1,0 +1,17 @@
+[
+  {
+    "name": "domainId",
+    "type": "select",
+    "label": "Domain",
+    "required": true,
+    "options": "rpc://listDomains"
+  },
+  {
+    "name": "fields",
+    "type": "text",
+    "label": "Fields",
+    "default": "id,domain,display_name,group.id,group.name",
+    "required": true,
+    "help": "AccuRanker Read API requires the fields query parameter; nested fields use dot notation."
+  }
+]

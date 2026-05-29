@@ -1,0 +1,14 @@
+{
+  "url": "/getExpensePolicyCategories",
+  "method": "GET",
+  "qs": {
+    "IdPolicy": "{{parameters.IdPolicy}}",
+    "OrderBy": "{{if(parameters.OrderBy != null, parameters.OrderBy, undefined)}}",
+    "Order": "{{if(parameters.Order != null, parameters.Order, undefined)}}"
+  },
+  "response": {
+    "iterate": "{{body.Categories}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  }
+}

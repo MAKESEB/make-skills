@@ -1,0 +1,30 @@
+{
+  "baseUrl": "https://app.accuranker.com/api/v4",
+  "headers": {
+    "Authorization": "Token {{connection.apiKey}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "401": {
+        "message": "[401] Authentication failed. Check your AccuRanker credentials."
+      },
+      "403": {
+        "message": "[403] Access denied. Check your AccuRanker permissions."
+      },
+      "404": {
+        "message": "[404] Resource not found."
+      },
+      "message": "[{{statusCode}}] {{body.error.message || body.message || body.error || 'Request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization",
+      "request.headers.key",
+      "request.body.clientKey",
+      "request.qs.api_key"
+    ]
+  }
+}

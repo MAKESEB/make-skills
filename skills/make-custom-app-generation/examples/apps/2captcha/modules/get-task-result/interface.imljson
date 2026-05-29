@@ -1,0 +1,52 @@
+[
+  {
+    "name": "errorId",
+    "type": "number",
+    "label": "Error ID"
+  },
+  {
+    "name": "status",
+    "type": "text",
+    "label": "Status"
+  },
+  {
+    "name": "solution",
+    "type": "collection",
+    "label": "Solution"
+  },
+  {
+    "name": "cost",
+    "type": "text",
+    "label": "Cost"
+  },
+  {
+    "name": "ip",
+    "type": "text",
+    "label": "Worker IP"
+  },
+  {
+    "name": "createTime",
+    "type": "date",
+    "label": "Created At"
+  },
+  {
+    "name": "endTime",
+    "type": "date",
+    "label": "Ended At"
+  },
+  {
+    "name": "solveCount",
+    "type": "number",
+    "label": "Solve Count"
+  },
+  {
+    "name": "errorCode",
+    "type": "text",
+    "label": "Error Code"
+  },
+  {
+    "name": "errorDescription",
+    "type": "text",
+    "label": "Error Description"
+  }
+]

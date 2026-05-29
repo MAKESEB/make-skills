@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ipAddress",
+    "type": "text",
+    "label": "IP Address"
+  },
+  {
+    "name": "abuseConfidenceScore",
+    "type": "number",
+    "label": "Abuse Confidence Score"
+  },
+  {
+    "name": "countryCode",
+    "type": "text",
+    "label": "Country Code"
+  },
+  {
+    "name": "domain",
+    "type": "text",
+    "label": "Domain"
+  },
+  {
+    "name": "totalReports",
+    "type": "number",
+    "label": "Total Reports"
+  },
+  {
+    "name": "lastReportedAt",
+    "type": "date",
+    "label": "Last Reported At"
+  }
+]

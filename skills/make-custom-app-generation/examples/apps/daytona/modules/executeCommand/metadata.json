@@ -1,0 +1,8 @@
+{
+  "name": "executeCommand",
+  "connection": "api-key",
+  "label": "Execute a Command",
+  "description": "Executes a command synchronously in a sandbox through Daytona's documented toolbox process endpoint, currently marked deprecated by Daytona.",
+  "type": "action",
+  "typeId": 4
+}

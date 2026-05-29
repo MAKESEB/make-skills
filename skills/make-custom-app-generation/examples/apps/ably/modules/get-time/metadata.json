@@ -1,0 +1,8 @@
+{
+  "name": "getTime",
+  "label": "Get Server Time",
+  "description": "Get Ably server time using GET /time.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,5 @@
+{
+  "name": "api-key",
+  "label": "AccuRanker API Key",
+  "type": "apikey"
+}

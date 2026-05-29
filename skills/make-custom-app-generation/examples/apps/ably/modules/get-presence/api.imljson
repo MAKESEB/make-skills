@@ -1,0 +1,13 @@
+{
+  "url": "/channels/{{parameters.channelName}}/presence",
+  "method": "GET",
+  "qs": {
+    "limit": "{{parameters.limit}}",
+    "clientId": "{{parameters.clientId}}",
+    "connectionId": "{{parameters.connectionId}}"
+  },
+  "response": {
+    "iterate": "{{body.items || body}}",
+    "output": "{{item}}"
+  }
+}

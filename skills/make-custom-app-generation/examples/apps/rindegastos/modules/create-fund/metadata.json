@@ -1,0 +1,8 @@
+{
+  "name": "createFund",
+  "label": "Create a Fund",
+  "description": "Create a fund and assign it to an employee.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

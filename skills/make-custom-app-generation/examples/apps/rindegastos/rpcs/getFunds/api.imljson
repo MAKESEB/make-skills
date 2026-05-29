@@ -1,0 +1,21 @@
+{
+  "url": "/getFunds",
+  "method": "GET",
+  "qs": {
+    "ResultsPerPage": 100,
+    "Page": "{{pagination.page}}"
+  },
+  "response": {
+    "iterate": "{{body.Funds}}",
+    "output": {
+      "label": "{{item.Title || item.Code || item.Id}}",
+      "value": "{{item.Id}}"
+    }
+  },
+  "pagination": {
+    "condition": "{{body.Records.Page < body.Records.Pages}}",
+    "qs": {
+      "Page": "{{pagination.page}}"
+    }
+  }
+}

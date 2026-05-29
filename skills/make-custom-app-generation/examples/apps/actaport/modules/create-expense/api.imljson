@@ -1,0 +1,8 @@
+{
+  "url": "/akten/{{parameters.laufendeNummer}}/{{parameters.bezugsJahr}}/verguetungspositionen/eigene-auslagen",
+  "method": "POST",
+  "body": "{{parameters.body}}",
+  "response": {
+    "output": "{{body}}"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "api-key",
+  "label": "Rinde Gastos API Token",
+  "type": "apikey"
+}

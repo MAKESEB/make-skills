@@ -1,0 +1,8 @@
+{
+  "name": "listExpensePolicyWorkflow",
+  "label": "List Expense Policy Workflow",
+  "description": "List approvers in the workflow for an expense policy.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

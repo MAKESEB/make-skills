@@ -1,0 +1,13 @@
+{
+  "url": "/sandbox/{{parameters.sandboxIdOrName}}",
+  "method": "GET",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "qs": {
+    "verbose": "{{parameters.verbose}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

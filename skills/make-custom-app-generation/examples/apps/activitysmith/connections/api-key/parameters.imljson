@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "ActivitySmith API Key",
+    "required": true,
+    "help": "Create an API key at https://activitysmith.com/app/keys. The app sends it as a Bearer token."
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "url": "/kollisionspruefung",
+  "method": "GET",
+  "qs": {
+    "name": "{{parameters.name}}",
+    "vorname": "{{parameters.vorname}}",
+    "rolle": "{{parameters.rolle}}",
+    "geburtsdatum": "{{ifempty(parameters.geburtsdatum, undefined)}}",
+    "ort": "{{ifempty(parameters.ort, undefined)}}",
+    "hausnummer": "{{ifempty(parameters.hausnummer, undefined)}}",
+    "strasse": "{{ifempty(parameters.strasse, undefined)}}",
+    "plz": "{{ifempty(parameters.plz, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

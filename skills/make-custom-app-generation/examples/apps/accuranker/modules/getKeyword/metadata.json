@@ -1,0 +1,8 @@
+{
+  "name": "getKeyword",
+  "connection": "api-key",
+  "label": "Get a Keyword",
+  "description": "Gets one keyword for a domain.",
+  "type": "action",
+  "typeId": 4
+}

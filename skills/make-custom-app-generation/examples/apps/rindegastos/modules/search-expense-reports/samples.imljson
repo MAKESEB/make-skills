@@ -1,0 +1,10 @@
+{
+  "Id": 1,
+  "Title": "New Expense Report",
+  "ReportNumber": "1",
+  "SendDate": "2017-06-27",
+  "CloseDate": "2017-06-29",
+  "EmployeeName": "John Lemon",
+  "ReportTotal": 36.99,
+  "Currency": "GBP"
+}

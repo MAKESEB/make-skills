@@ -1,0 +1,8 @@
+{
+  "name": "createCaseFile",
+  "label": "Create Case File",
+  "description": "Create Case File in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

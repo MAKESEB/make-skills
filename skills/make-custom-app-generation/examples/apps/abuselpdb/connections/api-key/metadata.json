@@ -1,0 +1,5 @@
+{
+  "name": "api-key",
+  "label": "AbuseIPDB API Key",
+  "type": "apikey"
+}

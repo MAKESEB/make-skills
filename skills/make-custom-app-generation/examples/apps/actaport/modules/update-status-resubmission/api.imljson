@@ -1,0 +1,7 @@
+{
+  "url": "/akten/{{parameters.laufendeNummer}}/{{parameters.bezugsJahr}}/wiedervorlagen/{{parameters.id}}/status/{{parameters.status}}",
+  "method": "PUT",
+  "response": {
+    "output": "{{body}}"
+  }
+}

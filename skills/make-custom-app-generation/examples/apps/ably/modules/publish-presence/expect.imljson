@@ -1,0 +1,46 @@
+[
+  {
+    "name": "channelName",
+    "type": "text",
+    "label": "Channel Name",
+    "required": true,
+    "help": "Ably channel name."
+  },
+  {
+    "name": "clientId",
+    "type": "text",
+    "label": "Client ID",
+    "required": true
+  },
+  {
+    "name": "action",
+    "type": "select",
+    "label": "Action",
+    "options": [
+      {
+        "label": "Enter",
+        "value": "enter"
+      },
+      {
+        "label": "Update",
+        "value": "update"
+      },
+      {
+        "label": "Leave",
+        "value": "leave"
+      }
+    ],
+    "required": true,
+    "default": "enter"
+  },
+  {
+    "name": "data",
+    "type": "any",
+    "label": "Data"
+  },
+  {
+    "name": "encoding",
+    "type": "text",
+    "label": "Encoding"
+  }
+]

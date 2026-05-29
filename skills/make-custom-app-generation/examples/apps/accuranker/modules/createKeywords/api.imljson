@@ -1,0 +1,15 @@
+{
+  "url": "/keyword/",
+  "method": "POST",
+  "body": {
+    "domain_id": "{{parameters.domainId}}",
+    "keywords": "{{parameters.keywords}}",
+    "tags": "{{parameters.tags}}",
+    "starred": "{{parameters.starred}}",
+    "ignore_local_results": "{{parameters.ignoreLocalResults}}",
+    "ignore_featured_snippet": "{{parameters.ignoreFeaturedSnippet}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

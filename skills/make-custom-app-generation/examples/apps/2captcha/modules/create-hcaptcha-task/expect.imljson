@@ -1,0 +1,22 @@
+[
+  {
+    "name": "websiteURL",
+    "type": "url",
+    "label": "Website URL",
+    "required": true,
+    "help": "Full URL of the page where the CAPTCHA is displayed."
+  },
+  {
+    "name": "websiteKey",
+    "type": "text",
+    "label": "Website Key / Sitekey",
+    "required": true,
+    "help": "The public sitekey from the target page."
+  },
+  {
+    "name": "isInvisible",
+    "type": "boolean",
+    "label": "Invisible hCaptcha",
+    "default": false
+  }
+]

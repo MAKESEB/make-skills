@@ -1,0 +1,10 @@
+{
+  "url": "/sandbox/{{parameters.sandboxIdOrName}}",
+  "method": "DELETE",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

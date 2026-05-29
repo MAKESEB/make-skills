@@ -1,0 +1,13 @@
+{
+  "url": "/domains/{{parameters.domainId}}/landing_pages/",
+  "method": "GET",
+  "qs": {
+    "fields": "{{parameters.fields}}",
+    "limit": "{{parameters.limit}}",
+    "offset": "{{parameters.offset}}"
+  },
+  "response": {
+    "iterate": "{{body.results || body}}",
+    "output": "{{item}}"
+  }
+}

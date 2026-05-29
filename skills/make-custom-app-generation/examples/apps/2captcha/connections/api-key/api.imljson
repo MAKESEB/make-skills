@@ -1,0 +1,18 @@
+{
+  "url": "https://api.2captcha.com/getBalance",
+  "method": "POST",
+  "headers": {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "clientKey": "{{connection.apiKey}}"
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "2Captcha API Key"
+    }
+  }
+}

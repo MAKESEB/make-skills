@@ -1,0 +1,8 @@
+{
+  "url": "/documents/{{parameters.id}}/metadata",
+  "method": "PUT",
+  "body": "{{parameters.body}}",
+  "response": {
+    "output": "{{body}}"
+  }
+}

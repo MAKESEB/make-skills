@@ -1,0 +1,5 @@
+{
+  "name": "listDomains",
+  "label": "List Domains",
+  "description": "Lists AccuRanker domains for selectors."
+}

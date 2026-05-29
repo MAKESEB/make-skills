@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Name",
+    "type": "text",
+    "label": "Name"
+  },
+  {
+    "name": "GroupName",
+    "type": "text",
+    "label": "Group Name"
+  },
+  {
+    "name": "GroupCode",
+    "type": "text",
+    "label": "Group Code"
+  },
+  {
+    "name": "AccountCode",
+    "type": "text",
+    "label": "Account Code"
+  },
+  {
+    "name": "Instructions",
+    "type": "text",
+    "label": "Instructions"
+  }
+]

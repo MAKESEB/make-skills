@@ -1,0 +1,8 @@
+{
+  "name": "deleteThirdPartyCost",
+  "label": "Delete Third Party Cost",
+  "description": "Delete Third Party Cost in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

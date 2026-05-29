@@ -1,0 +1,15 @@
+{
+  "url": "/domains/{{parameters.domainId}}/keywords/",
+  "method": "GET",
+  "qs": {
+    "fields": "id,keyword",
+    "limit": 100
+  },
+  "response": {
+    "iterate": "{{body.results || body}}",
+    "output": {
+      "label": "{{item.keyword}}",
+      "value": "{{item.id}}"
+    }
+  }
+}

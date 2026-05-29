@@ -1,0 +1,7 @@
+{
+  "url": "/info/me",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

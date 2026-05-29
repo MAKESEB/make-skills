@@ -1,0 +1,12 @@
+{
+  "url": "/setFundStatus",
+  "method": "PUT",
+  "body": {
+    "Id": "{{parameters.Id}}",
+    "IdAdmin": "{{parameters.IdAdmin}}",
+    "FundStatus": "{{parameters.FundStatus}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

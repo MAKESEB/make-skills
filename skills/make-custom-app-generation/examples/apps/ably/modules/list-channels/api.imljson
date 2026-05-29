@@ -1,0 +1,13 @@
+{
+  "url": "/channels",
+  "method": "GET",
+  "qs": {
+    "limit": "{{parameters.limit}}",
+    "prefix": "{{parameters.prefix}}",
+    "by": "{{parameters.by}}"
+  },
+  "response": {
+    "iterate": "{{body.items || body}}",
+    "output": "{{item}}"
+  }
+}

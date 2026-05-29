@@ -1,0 +1,8 @@
+{
+  "name": "stopSandbox",
+  "connection": "api-key",
+  "label": "Stop a Sandbox",
+  "description": "Stop a Sandbox by ID or name.",
+  "type": "action",
+  "typeId": 4
+}

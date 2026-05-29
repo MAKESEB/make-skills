@@ -1,0 +1,8 @@
+{
+  "name": "createResubmission",
+  "label": "Create Resubmission",
+  "description": "Create Resubmission in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,8 @@
+{
+  "name": "getFolder",
+  "label": "Get Folder",
+  "description": "Get Folder in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

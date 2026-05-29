@@ -1,0 +1,17 @@
+[
+  {
+    "name": "network",
+    "type": "text",
+    "label": "Network CIDR",
+    "required": true,
+    "help": "CIDR block, for example 127.0.0.1/24 or 2001:db8::/32."
+  },
+  {
+    "name": "maxAgeInDays",
+    "type": "number",
+    "label": "Max Age in Days",
+    "default": 30,
+    "minimum": 1,
+    "maximum": 365
+  }
+]

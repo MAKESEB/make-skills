@@ -1,0 +1,29 @@
+{
+  "baseUrl": "https://app.actaport.de/v1",
+  "headers": {
+    "Authorization": "Bearer {{connection.accessToken}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "401": {
+        "message": "[401] Authentication failed. Reconnect the Actaport OAuth connection and verify API access is enabled for the Actaport account."
+      },
+      "403": {
+        "message": "[403] Access denied by Actaport. Check the account permissions and API access."
+      },
+      "404": {
+        "message": "[404] Actaport resource not found."
+      },
+      "message": "[{{statusCode}}] {{body.message || body.error_description || body.error.message || body.error || 'Actaport request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization",
+      "response.body.access_token",
+      "response.body.refresh_token"
+    ]
+  }
+}

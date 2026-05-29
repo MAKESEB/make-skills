@@ -1,0 +1,23 @@
+{
+  "url": "{{parameters.baseUrl}}/api/getCredits",
+  "method": "GET",
+  "headers": {
+    "apikey": "{{parameters.apiKey}}",
+    "Accept": "application/json"
+  },
+  "response": {
+    "uid": "{{parameters.baseUrl}}",
+    "metadata": {
+      "type": "text",
+      "value": "AddToWallet"
+    },
+    "error": {
+      "message": "[{{statusCode}}] Could not validate the AddToWallet API key."
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.apikey"
+    ]
+  }
+}

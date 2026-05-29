@@ -1,0 +1,6 @@
+{
+  "Name": "VAT ID",
+  "Type": "text",
+  "DefaultValue": "",
+  "Options": []
+}

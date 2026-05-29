@@ -1,0 +1,36 @@
+[
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 1000,
+    "required": true
+  },
+  {
+    "name": "page",
+    "type": "number",
+    "label": "Start Page",
+    "default": 0,
+    "minimum": 0
+  },
+  {
+    "name": "filter",
+    "type": "array",
+    "label": "Filter",
+    "spec": {
+      "type": "text",
+      "label": "Filter Expression"
+    }
+  },
+  {
+    "name": "sort",
+    "type": "array",
+    "label": "Sort",
+    "spec": {
+      "type": "text",
+      "label": "Sort Expression"
+    }
+  }
+]

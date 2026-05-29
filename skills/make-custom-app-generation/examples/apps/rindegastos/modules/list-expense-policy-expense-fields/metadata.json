@@ -1,0 +1,8 @@
+{
+  "name": "listExpensePolicyExpenseFields",
+  "label": "List Expense Policy Expense Fields",
+  "description": "List extra fields configured at expense level for an expense policy.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

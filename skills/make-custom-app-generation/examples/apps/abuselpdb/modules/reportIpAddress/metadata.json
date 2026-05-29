@@ -1,0 +1,8 @@
+{
+  "name": "reportIpAddress",
+  "connection": "api-key",
+  "label": "Report an IP Address",
+  "description": "Reports abusive activity for an IP address to AbuseIPDB.",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "errorId",
+    "type": "number",
+    "label": "Error ID"
+  },
+  {
+    "name": "balance",
+    "type": "text",
+    "label": "Balance"
+  }
+]

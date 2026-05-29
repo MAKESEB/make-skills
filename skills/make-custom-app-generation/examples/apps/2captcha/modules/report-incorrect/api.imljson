@@ -1,0 +1,11 @@
+{
+  "url": "/reportIncorrect",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "taskId": "{{parameters.taskId}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

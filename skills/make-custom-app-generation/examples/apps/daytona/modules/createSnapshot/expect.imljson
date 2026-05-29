@@ -1,0 +1,52 @@
+[
+  {
+    "name": "organizationId",
+    "type": "text",
+    "label": "Organization ID",
+    "help": "Optional X-Daytona-Organization-ID header value when using a JWT or organization-scoped workflows."
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Snapshot Name",
+    "required": true
+  },
+  {
+    "name": "imageName",
+    "type": "text",
+    "label": "Image Name",
+    "help": "For example ubuntu:22.04."
+  },
+  {
+    "name": "entrypoint",
+    "type": "array",
+    "label": "Entrypoint",
+    "spec": {
+      "type": "text",
+      "label": "Argument"
+    }
+  },
+  {
+    "name": "cpu",
+    "type": "number",
+    "label": "CPU",
+    "minimum": 1
+  },
+  {
+    "name": "memory",
+    "type": "number",
+    "label": "Memory (GiB)",
+    "minimum": 1
+  },
+  {
+    "name": "disk",
+    "type": "number",
+    "label": "Disk (GiB)",
+    "minimum": 1
+  },
+  {
+    "name": "regionId",
+    "type": "text",
+    "label": "Region ID"
+  }
+]

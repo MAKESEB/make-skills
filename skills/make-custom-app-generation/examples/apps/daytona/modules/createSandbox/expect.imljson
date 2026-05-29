@@ -1,0 +1,89 @@
+[
+  {
+    "name": "organizationId",
+    "type": "text",
+    "label": "Organization ID",
+    "help": "Optional X-Daytona-Organization-ID header value when using a JWT or organization-scoped workflows."
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Name"
+  },
+  {
+    "name": "snapshot",
+    "type": "select",
+    "label": "Snapshot",
+    "options": "rpc://listSnapshots",
+    "help": "Optional snapshot ID or name. Leave blank to use Daytona defaults."
+  },
+  {
+    "name": "user",
+    "type": "text",
+    "label": "User"
+  },
+  {
+    "name": "class",
+    "type": "select",
+    "label": "Class",
+    "options": [
+      {
+        "label": "Small",
+        "value": "small"
+      },
+      {
+        "label": "Medium",
+        "value": "medium"
+      },
+      {
+        "label": "Large",
+        "value": "large"
+      }
+    ]
+  },
+  {
+    "name": "target",
+    "type": "text",
+    "label": "Target / Region"
+  },
+  {
+    "name": "cpu",
+    "type": "number",
+    "label": "CPU Cores",
+    "minimum": 1
+  },
+  {
+    "name": "memory",
+    "type": "number",
+    "label": "Memory (GiB)",
+    "minimum": 1
+  },
+  {
+    "name": "disk",
+    "type": "number",
+    "label": "Disk (GiB)",
+    "minimum": 1
+  },
+  {
+    "name": "public",
+    "type": "boolean",
+    "label": "Public Preview",
+    "default": false
+  },
+  {
+    "name": "autoStopInterval",
+    "type": "number",
+    "label": "Auto-stop Interval (minutes)",
+    "minimum": 0
+  },
+  {
+    "name": "env",
+    "type": "collection",
+    "label": "Environment Variables"
+  },
+  {
+    "name": "labels",
+    "type": "collection",
+    "label": "Labels"
+  }
+]

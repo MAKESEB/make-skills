@@ -1,0 +1,12 @@
+{
+  "url": "/withdrawMoneyFromFund",
+  "method": "POST",
+  "body": {
+    "Id": "{{parameters.Id}}",
+    "IdAdmin": "{{parameters.IdAdmin}}",
+    "WithdrawAmount": "{{parameters.WithdrawAmount}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

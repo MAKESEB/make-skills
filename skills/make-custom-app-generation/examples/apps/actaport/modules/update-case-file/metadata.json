@@ -1,0 +1,8 @@
+{
+  "name": "updateCaseFile",
+  "label": "Update Case File",
+  "description": "Update Case File in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,13 @@
+{
+  "url": "/setExpenseReportIntegration",
+  "method": "PUT",
+  "body": {
+    "Id": "{{parameters.Id}}",
+    "IntegrationStatus": "{{parameters.IntegrationStatus}}",
+    "IntegrationCode": "{{ifempty(parameters.IntegrationCode, undefined)}}",
+    "IntegrationDate": "{{ifempty(parameters.IntegrationDate, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

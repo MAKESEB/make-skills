@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "2Captcha API Key",
+    "required": true,
+    "help": "Paste a 2Captcha API key. The app sends it as the clientKey field in JSON requests."
+  }
+]

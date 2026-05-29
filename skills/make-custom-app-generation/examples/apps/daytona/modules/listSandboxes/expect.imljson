@@ -1,0 +1,51 @@
+[
+  {
+    "name": "organizationId",
+    "type": "text",
+    "label": "Organization ID",
+    "help": "Optional X-Daytona-Organization-ID header value when using a JWT or organization-scoped workflows."
+  },
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 200
+  },
+  {
+    "name": "cursor",
+    "type": "text",
+    "label": "Cursor"
+  },
+  {
+    "name": "id",
+    "type": "text",
+    "label": "ID Prefix"
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Name Prefix"
+  },
+  {
+    "name": "labels",
+    "type": "text",
+    "label": "Labels JSON"
+  },
+  {
+    "name": "includeErroredDeleted",
+    "type": "boolean",
+    "label": "Include Errored/Deleted",
+    "default": false
+  },
+  {
+    "name": "states",
+    "type": "array",
+    "label": "States",
+    "spec": {
+      "type": "text",
+      "label": "State"
+    }
+  }
+]

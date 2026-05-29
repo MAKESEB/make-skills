@@ -1,0 +1,29 @@
+{
+  "baseUrl": "{{connection.baseUrl}}",
+  "headers": {
+    "apikey": "{{connection.apiKey}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "401": {
+        "message": "[401] Authentication failed. Check the AddToWallet API key."
+      },
+      "403": {
+        "message": "[403] Access denied by AddToWallet. Check API permissions."
+      },
+      "404": {
+        "message": "[404] AddToWallet endpoint or resource not found."
+      },
+      "message": "[{{statusCode}}] {{body.message || body.error || 'AddToWallet request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.apikey",
+      "request.headers.apiKey",
+      "request.body.apiKey"
+    ]
+  }
+}

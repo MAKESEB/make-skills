@@ -1,0 +1,8 @@
+{
+  "name": "createTask",
+  "label": "Create Task",
+  "description": "Create Task in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

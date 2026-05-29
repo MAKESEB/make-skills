@@ -1,0 +1,18 @@
+{
+  "url": "/createTask",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "task": {
+      "type": "TurnstileTaskProxyless",
+      "websiteURL": "{{parameters.websiteURL}}",
+      "websiteKey": "{{parameters.websiteKey}}",
+      "action": "{{ifempty(parameters.action, undefined)}}",
+      "data": "{{ifempty(parameters.data, undefined)}}",
+      "pagedata": "{{ifempty(parameters.pagedata, undefined)}}"
+    }
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

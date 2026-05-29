@@ -1,0 +1,8 @@
+{
+  "name": "getFund",
+  "label": "Get a Fund",
+  "description": "Get a single fund by its Rinde Gastos ID.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

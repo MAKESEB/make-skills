@@ -1,0 +1,8 @@
+{
+  "name": "getPreviewUrl",
+  "connection": "api-key",
+  "label": "Get a Port Preview URL",
+  "description": "Gets a Daytona sandbox port preview URL.",
+  "type": "action",
+  "typeId": 4
+}

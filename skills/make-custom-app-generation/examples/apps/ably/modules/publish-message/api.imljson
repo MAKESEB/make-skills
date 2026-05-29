@@ -1,0 +1,10 @@
+{
+  "url": "/channels/{{parameters.channelName}}/messages",
+  "method": "POST",
+  "body": "{{removeEmpty({\"name\": parameters.name, \"data\": parameters.data, \"encoding\": parameters.encoding, \"extras\": parameters.extras, \"id\": parameters.id, \"clientId\": parameters.clientId})}}",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

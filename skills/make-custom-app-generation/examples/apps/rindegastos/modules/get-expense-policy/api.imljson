@@ -1,0 +1,10 @@
+{
+  "url": "/getExpensePolicy",
+  "method": "GET",
+  "qs": {
+    "Id": "{{parameters.Id}}"
+  },
+  "response": {
+    "output": "{{body.Policy || body.ExpensePolicy || body}}"
+  }
+}

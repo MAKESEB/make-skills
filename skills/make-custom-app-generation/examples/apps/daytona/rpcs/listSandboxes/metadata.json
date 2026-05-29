@@ -1,0 +1,5 @@
+{
+  "name": "listSandboxes",
+  "label": "List Sandboxes",
+  "description": "Lists Daytona sandboxes for selectors."
+}

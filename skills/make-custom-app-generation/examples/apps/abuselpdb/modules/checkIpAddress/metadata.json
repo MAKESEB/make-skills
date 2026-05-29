@@ -1,0 +1,8 @@
+{
+  "name": "checkIpAddress",
+  "connection": "api-key",
+  "label": "Check an IP Address",
+  "description": "Checks whether an IPv4 or IPv6 address has been reported to AbuseIPDB.",
+  "type": "action",
+  "typeId": 4
+}

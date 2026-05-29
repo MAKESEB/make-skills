@@ -1,0 +1,8 @@
+{
+  "name": "withdrawMoneyFromFund",
+  "label": "Withdraw Money from a Fund",
+  "description": "Withdraw money from an existing fund.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

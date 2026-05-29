@@ -1,0 +1,21 @@
+{
+  "url": "/createTask",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "task": {
+      "type": "ImageToTextTask",
+      "body": "{{parameters.body}}",
+      "phrase": "{{parameters.phrase}}",
+      "case": "{{parameters.caseSensitive}}",
+      "numeric": "{{parameters.numeric}}",
+      "math": "{{parameters.math}}",
+      "minLength": "{{ifempty(parameters.minLength, undefined)}}",
+      "maxLength": "{{ifempty(parameters.maxLength, undefined)}}",
+      "comment": "{{ifempty(parameters.comment, undefined)}}"
+    }
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

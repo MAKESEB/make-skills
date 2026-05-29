@@ -1,0 +1,8 @@
+{
+  "name": "getMessageHistory",
+  "label": "Get Message History",
+  "description": "Retrieve message history for an Ably channel using GET /channels/{channel}/messages.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

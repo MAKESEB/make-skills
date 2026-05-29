@@ -1,0 +1,24 @@
+{
+  "url": "/getFunds",
+  "method": "GET",
+  "qs": {
+    "Status": "{{if(parameters.Status != null, parameters.Status, undefined)}}",
+    "OrderBy": "{{if(parameters.OrderBy != null, parameters.OrderBy, undefined)}}",
+    "Order": "{{if(parameters.Order != null, parameters.Order, undefined)}}",
+    "From": "{{ifempty(parameters.From, undefined)}}",
+    "To": "{{ifempty(parameters.To, undefined)}}",
+    "ResultsPerPage": "{{if(parameters.limit < 100, parameters.limit, 100)}}",
+    "Page": "{{pagination.page}}"
+  },
+  "response": {
+    "iterate": "{{body.Funds}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  },
+  "pagination": {
+    "condition": "{{body.Records.Page < body.Records.Pages}}",
+    "qs": {
+      "Page": "{{pagination.page}}"
+    }
+  }
+}

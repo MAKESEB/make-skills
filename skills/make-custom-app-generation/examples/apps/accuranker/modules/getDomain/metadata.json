@@ -1,0 +1,8 @@
+{
+  "name": "getDomain",
+  "connection": "api-key",
+  "label": "Get a Domain",
+  "description": "Gets one AccuRanker domain by ID.",
+  "type": "action",
+  "typeId": 4
+}

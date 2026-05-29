@@ -23,6 +23,7 @@ trap cleanup EXIT
 
 SKILLS=(
     "make-api-shell-connection-workflow"
+    "make-custom-app-generation"
     "make-scenario-building"
     "make-module-configuring"
     "make-mcp-reference"

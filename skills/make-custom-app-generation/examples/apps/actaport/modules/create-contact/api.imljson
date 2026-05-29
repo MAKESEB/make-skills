@@ -1,0 +1,8 @@
+{
+  "url": "/kontakte",
+  "method": "POST",
+  "body": "{{parameters.body}}",
+  "response": {
+    "output": "{{body}}"
+  }
+}

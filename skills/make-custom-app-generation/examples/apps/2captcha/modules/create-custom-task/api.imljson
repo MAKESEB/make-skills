@@ -1,0 +1,11 @@
+{
+  "url": "/createTask",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "task": "{{parameters.task}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

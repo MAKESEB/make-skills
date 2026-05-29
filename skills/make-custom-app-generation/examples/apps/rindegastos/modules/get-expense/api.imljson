@@ -1,0 +1,10 @@
+{
+  "url": "/getExpense",
+  "method": "GET",
+  "qs": {
+    "Id": "{{parameters.Id}}"
+  },
+  "response": {
+    "output": "{{body.Expense || body}}"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "listLandingPages",
+  "connection": "api-key",
+  "label": "List Landing Pages",
+  "description": "Lists landing pages for a domain.",
+  "type": "search",
+  "typeId": 9
+}

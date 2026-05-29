@@ -66,7 +66,7 @@ When a fresh agent gets a request such as "get my unread emails", "pull my open 
 3. Resolve the active Make zone, organization, and team.
 4. Search the Make app catalog for the provider candidate using `GET /api/v2/imt/apps?organizationId=ORG_ID&teamId=TEAM_ID&scoredSearch=true`.
 5. Inspect the chosen app with `GET /api/v2/imt/apps/{appName}/{version}` and record the exact API-call module slug and both connection type layers.
-6. Reuse an existing suitable connection if one already matches the app, account identity, and required scope.
+6. Reuse an existing suitable connection only after verifying details and liveness: `GET /api/v2/connections/{connectionId}` plus `POST /api/v2/connections/{connectionId}/test`.
 7. Reuse an existing shell only when reusing an existing suitable connection. If a new connection must be created, create a new shell for that new connection instead of patching an old shell onto a newly authorized account.
 8. Only if no suitable connection exists, create a credential request.
 9. After the connection decision is settled, create or patch the shell according to the reuse rule above and verify that the shell can run.
@@ -122,6 +122,9 @@ If one of those items is missing and cannot be discovered safely, stop and ask o
 19. `scenario-service:StartSubscenario` provides the shell input interface inside the generic blueprint. After creating or updating an on-demand shell, explicitly set the scenario-level interface with `/api/v2/scenarios/{scenarioId}/interface` and verify it before the first run.
 20. Treat `/api/v2/scenarios/{scenarioId}/run` as the standard execution path for this shell family. Pass the business payload under `data` with keys that match the scenario interface exactly, and prefer `responsive: true` for validation runs.
 21. Shell reuse is app-specific, not just provider-family-specific. A shell built around one app module should not be repointed to another app module just because both belong to the same vendor suite.
+22. Before reusing any existing connection or a shell that points to an existing connection, call Make's connection verification API: `POST /api/v2/connections/{connectionId}/test`. A response with `verified: true` is the liveness proof. A stale Credential Request status does not override a verified connection.
+23. When resuming after user authorization, reuse the saved Credential Request `requestId`; inspect the request, then list and verify connections. Do not create a new Credential Request while an active request for the same app/account is still being resolved.
+24. Treat a future `expire` timestamp as valid. Treat only a past expiry, revoked connection, failed verification, or provider auth error as invalid.
 
 ## App binding and connection-family matrix
 
@@ -203,10 +206,11 @@ Complete these steps first:
 2. discover the exact app version and module slug
 3. determine both connection type layers
 4. look for an existing suitable connection for the correct account identity and scope
-5. look for an existing shell scenario that already fits the contract for that existing connection
-6. create or resolve the credential request only if reuse failed
-7. create a new shell if a new connection was created, or patch an existing shell only when reusing an existing connection
-8. verify that the shell runs with the chosen connection
+5. verify candidate connections with `POST /api/v2/connections/{connectionId}/test`
+6. look for an existing shell scenario that already fits the contract for that verified connection
+7. create or resolve the credential request only if reuse failed
+8. create a new shell if a new connection was created, or patch an existing shell only when reusing an existing connection
+9. verify that the shell runs with the chosen connection
 
 Deliverable at the end of Phase A:
 - a connection-ready API-call shell scenario

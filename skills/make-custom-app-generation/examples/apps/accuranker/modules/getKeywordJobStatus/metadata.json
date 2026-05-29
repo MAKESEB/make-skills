@@ -1,0 +1,8 @@
+{
+  "name": "getKeywordJobStatus",
+  "connection": "api-key",
+  "label": "Get Keyword Job Status",
+  "description": "Gets status for an AccuRanker keyword job returned by write operations.",
+  "type": "action",
+  "typeId": 4
+}

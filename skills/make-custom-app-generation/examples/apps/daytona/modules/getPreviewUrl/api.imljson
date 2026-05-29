@@ -1,0 +1,10 @@
+{
+  "url": "/sandbox/{{parameters.sandboxIdOrName}}/ports/{{parameters.port}}/preview-url",
+  "method": "GET",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "searchExpenseReports",
+  "label": "Search Expense Reports",
+  "description": "Search company expense reports by date, status, policy, user, or integration fields.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

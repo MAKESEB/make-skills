@@ -1,0 +1,8 @@
+{
+  "name": "getSandbox",
+  "connection": "api-key",
+  "label": "Get a Sandbox",
+  "description": "Gets Daytona sandbox details by ID or name.",
+  "type": "action",
+  "typeId": 4
+}

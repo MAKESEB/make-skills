@@ -1,0 +1,19 @@
+{
+  "baseUrl": "https://api.agify.io",
+  "headers": {
+    "Accept": "application/json"
+  },
+  "qs": {
+    "apikey": "{{connection.apiKey}}"
+  },
+  "response": {
+    "error": {
+      "message": "[{{statusCode}}] {{body.error || body.message || 'Agify request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.qs.apikey"
+    ]
+  }
+}

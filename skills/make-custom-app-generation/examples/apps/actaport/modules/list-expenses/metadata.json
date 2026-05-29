@@ -1,0 +1,8 @@
+{
+  "name": "listExpenses",
+  "label": "List Expenses",
+  "description": "List Expenses in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

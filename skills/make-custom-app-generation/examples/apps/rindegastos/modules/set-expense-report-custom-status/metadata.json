@@ -1,0 +1,8 @@
+{
+  "name": "setExpenseReportCustomStatus",
+  "label": "Set Expense Report Custom Status",
+  "description": "Assign a custom status to an expense report.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

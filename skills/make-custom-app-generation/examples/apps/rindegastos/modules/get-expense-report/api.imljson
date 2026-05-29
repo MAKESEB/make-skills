@@ -1,0 +1,10 @@
+{
+  "url": "/getExpenseReport",
+  "method": "GET",
+  "qs": {
+    "Id": "{{parameters.Id}}"
+  },
+  "response": {
+    "output": "{{body.ExpenseReport || body.Report || body}}"
+  }
+}

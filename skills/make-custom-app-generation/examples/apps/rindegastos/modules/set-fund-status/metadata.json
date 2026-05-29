@@ -1,0 +1,8 @@
+{
+  "name": "setFundStatus",
+  "label": "Set Fund Status",
+  "description": "Set a fund status to open, closed, or blocked.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

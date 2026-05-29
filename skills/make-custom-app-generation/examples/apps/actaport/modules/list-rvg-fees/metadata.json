@@ -1,0 +1,8 @@
+{
+  "name": "listRvgFees",
+  "label": "List RVG Fees",
+  "description": "List RVG Fees in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

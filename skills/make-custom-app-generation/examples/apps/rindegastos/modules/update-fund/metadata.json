@@ -1,0 +1,8 @@
+{
+  "name": "updateFund",
+  "label": "Update a Fund",
+  "description": "Update editable fund details such as name, code, comments, and behavior flags.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,14 @@
+{
+  "url": "/info/kanzlei/dezernate",
+  "method": "GET",
+  "qs": {
+    "size": 100
+  },
+  "response": {
+    "iterate": "{{body.content || body}}",
+    "output": {
+      "label": "{{item.anzeigename}}",
+      "value": "{{item.id}}"
+    }
+  }
+}

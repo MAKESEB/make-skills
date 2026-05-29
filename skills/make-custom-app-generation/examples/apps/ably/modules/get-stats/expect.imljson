@@ -1,0 +1,59 @@
+[
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 1000
+  },
+  {
+    "name": "direction",
+    "type": "select",
+    "label": "Direction",
+    "options": [
+      {
+        "label": "Backwards",
+        "value": "backwards"
+      },
+      {
+        "label": "Forwards",
+        "value": "forwards"
+      }
+    ],
+    "default": "backwards"
+  },
+  {
+    "name": "unit",
+    "type": "select",
+    "label": "Unit",
+    "options": [
+      {
+        "label": "Minute",
+        "value": "minute"
+      },
+      {
+        "label": "Hour",
+        "value": "hour"
+      },
+      {
+        "label": "Day",
+        "value": "day"
+      },
+      {
+        "label": "Month",
+        "value": "month"
+      }
+    ]
+  },
+  {
+    "name": "start",
+    "type": "text",
+    "label": "Start Time"
+  },
+  {
+    "name": "end",
+    "type": "text",
+    "label": "End Time"
+  }
+]

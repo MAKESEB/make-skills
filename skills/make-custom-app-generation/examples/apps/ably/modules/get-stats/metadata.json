@@ -1,0 +1,8 @@
+{
+  "name": "getStats",
+  "label": "Get Stats",
+  "description": "Retrieve Ably application statistics using GET /stats.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

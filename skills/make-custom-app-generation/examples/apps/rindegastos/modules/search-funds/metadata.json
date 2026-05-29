@@ -1,0 +1,8 @@
+{
+  "name": "searchFunds",
+  "label": "Search Funds",
+  "description": "Search company funds by status, date range, and sort order.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

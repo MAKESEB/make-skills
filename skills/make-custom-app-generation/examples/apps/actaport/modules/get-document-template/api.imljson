@@ -1,0 +1,7 @@
+{
+  "url": "/vorlagen/{{parameters.id}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

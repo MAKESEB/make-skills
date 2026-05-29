@@ -1,0 +1,22 @@
+[
+  {
+    "name": "reportedAt",
+    "type": "date",
+    "label": "Reported At"
+  },
+  {
+    "name": "comment",
+    "type": "text",
+    "label": "Comment"
+  },
+  {
+    "name": "categories",
+    "type": "array",
+    "label": "Categories"
+  },
+  {
+    "name": "reporterCountryCode",
+    "type": "text",
+    "label": "Reporter Country Code"
+  }
+]

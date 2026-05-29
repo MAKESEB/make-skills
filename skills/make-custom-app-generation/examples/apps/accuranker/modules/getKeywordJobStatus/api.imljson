@@ -1,0 +1,7 @@
+{
+  "url": "/status/keyword_job/{{parameters.jobId}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

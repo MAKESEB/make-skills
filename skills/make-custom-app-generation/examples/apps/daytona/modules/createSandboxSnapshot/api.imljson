@@ -1,0 +1,13 @@
+{
+  "url": "/sandbox/{{parameters.sandboxIdOrName}}/snapshot",
+  "method": "POST",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "body": {
+    "name": "{{parameters.name}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

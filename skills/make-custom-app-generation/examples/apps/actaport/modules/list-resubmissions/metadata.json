@@ -1,0 +1,8 @@
+{
+  "name": "listResubmissions",
+  "label": "List Resubmissions",
+  "description": "List Resubmissions in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

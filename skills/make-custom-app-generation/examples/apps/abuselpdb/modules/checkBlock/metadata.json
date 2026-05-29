@@ -1,0 +1,8 @@
+{
+  "name": "checkBlock",
+  "connection": "api-key",
+  "label": "Check a CIDR Block",
+  "description": "Checks an IPv4 or IPv6 CIDR block for reported addresses.",
+  "type": "search",
+  "typeId": 9
+}

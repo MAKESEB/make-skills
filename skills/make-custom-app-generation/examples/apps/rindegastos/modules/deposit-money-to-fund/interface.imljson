@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Id"
+  },
+  {
+    "name": "Title",
+    "type": "text",
+    "label": "Title"
+  },
+  {
+    "name": "Code",
+    "type": "text",
+    "label": "Code"
+  },
+  {
+    "name": "Currency",
+    "type": "text",
+    "label": "Currency"
+  },
+  {
+    "name": "IdAssignTo",
+    "type": "number",
+    "label": "Assigned User ID"
+  },
+  {
+    "name": "IdCreator",
+    "type": "number",
+    "label": "Creator User ID"
+  },
+  {
+    "name": "Deposits",
+    "type": "number",
+    "label": "Deposits"
+  },
+  {
+    "name": "Withdrawals",
+    "type": "number",
+    "label": "Withdrawals"
+  },
+  {
+    "name": "Charges",
+    "type": "number",
+    "label": "Charges"
+  },
+  {
+    "name": "Balance",
+    "type": "number",
+    "label": "Balance"
+  },
+  {
+    "name": "Status",
+    "type": "number",
+    "label": "Status"
+  },
+  {
+    "name": "CreatedAt",
+    "type": "date",
+    "label": "Created At"
+  },
+  {
+    "name": "ExpirationDate",
+    "type": "date",
+    "label": "Expiration Date"
+  },
+  {
+    "name": "FlexibleFund",
+    "type": "boolean",
+    "label": "Flexible Fund"
+  },
+  {
+    "name": "ManualDeposit",
+    "type": "boolean",
+    "label": "Manual Deposit"
+  },
+  {
+    "name": "AutomaticBlock",
+    "type": "boolean",
+    "label": "Automatic Block"
+  },
+  {
+    "name": "Movements",
+    "type": "any",
+    "label": "Movements"
+  }
+]

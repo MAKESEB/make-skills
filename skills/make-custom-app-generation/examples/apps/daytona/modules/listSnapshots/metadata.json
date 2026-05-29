@@ -1,0 +1,8 @@
+{
+  "name": "listSnapshots",
+  "connection": "api-key",
+  "label": "List Snapshots",
+  "description": "Lists Daytona snapshots with documented page, limit, sort, and order parameters.",
+  "type": "search",
+  "typeId": 9
+}

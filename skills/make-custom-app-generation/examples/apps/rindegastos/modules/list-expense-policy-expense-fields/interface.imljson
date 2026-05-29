@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Name",
+    "type": "text",
+    "label": "Name"
+  },
+  {
+    "name": "Type",
+    "type": "text",
+    "label": "Type"
+  },
+  {
+    "name": "DefaultValue",
+    "type": "text",
+    "label": "Default Value"
+  },
+  {
+    "name": "DefaultCode",
+    "type": "text",
+    "label": "Default Code"
+  },
+  {
+    "name": "Options",
+    "type": "any",
+    "label": "Options"
+  }
+]

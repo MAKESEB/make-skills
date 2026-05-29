@@ -1,0 +1,15 @@
+{
+  "url": "/domains/",
+  "method": "GET",
+  "qs": {
+    "fields": "id,domain,display_name",
+    "limit": 100
+  },
+  "response": {
+    "iterate": "{{body.results || body}}",
+    "output": {
+      "label": "{{item.display_name || item.domain}}",
+      "value": "{{item.id}}"
+    }
+  }
+}

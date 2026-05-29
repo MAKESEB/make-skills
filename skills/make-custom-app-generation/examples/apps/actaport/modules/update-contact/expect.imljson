@@ -1,0 +1,16 @@
+[
+  {
+    "name": "id",
+    "type": "select",
+    "label": "ID",
+    "required": true,
+    "options": "rpc://getContacts",
+    "mode": "edit"
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Body",
+    "help": "JSON request body using Actaport API field names from the source package."
+  }
+]

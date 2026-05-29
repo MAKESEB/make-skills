@@ -1,0 +1,19 @@
+{
+  "url": "https://api.abuseipdb.com/api/v2/check",
+  "method": "GET",
+  "headers": {
+    "Key": "{{connection.apiKey}}",
+    "Accept": "application/json"
+  },
+  "qs": {
+    "ipAddress": "127.0.0.1",
+    "maxAgeInDays": 90
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "AbuseIPDB API Key"
+    }
+  }
+}

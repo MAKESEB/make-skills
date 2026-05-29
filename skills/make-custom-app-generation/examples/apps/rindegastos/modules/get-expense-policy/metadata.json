@@ -1,0 +1,8 @@
+{
+  "name": "getExpensePolicy",
+  "label": "Get an Expense Policy",
+  "description": "Get a single expense policy with its detailed configuration.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

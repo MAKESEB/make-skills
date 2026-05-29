@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Id",
+    "type": "select",
+    "label": "Fund",
+    "options": "rpc://getFunds",
+    "required": true
+  }
+]

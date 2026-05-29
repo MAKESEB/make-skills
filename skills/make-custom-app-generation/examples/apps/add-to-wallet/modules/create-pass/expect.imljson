@@ -1,0 +1,139 @@
+[
+  {
+    "name": "cardTitle",
+    "type": "text",
+    "label": "Card Title",
+    "required": true,
+    "help": "Business or pass title displayed on the wallet pass."
+  },
+  {
+    "name": "header",
+    "type": "text",
+    "label": "Header",
+    "required": true,
+    "help": "Primary header text displayed on the pass."
+  },
+  {
+    "name": "logoUrl",
+    "type": "text",
+    "label": "Logo URL",
+    "required": true
+  },
+  {
+    "name": "heroImage",
+    "type": "text",
+    "label": "Hero Image URL",
+    "required": true
+  },
+  {
+    "name": "hexBackgroundColor",
+    "type": "color",
+    "label": "Background Color",
+    "default": "#141f31",
+    "required": true
+  },
+  {
+    "name": "barcodeType",
+    "type": "select",
+    "label": "Barcode Type",
+    "options": [
+      {
+        "label": "QR Code",
+        "value": "QR_CODE"
+      },
+      {
+        "label": "PDF417",
+        "value": "PDF_417"
+      },
+      {
+        "label": "Aztec",
+        "value": "AZTEC"
+      },
+      {
+        "label": "Code 128",
+        "value": "CODE_128"
+      }
+    ],
+    "default": "QR_CODE",
+    "required": true
+  },
+  {
+    "name": "barcodeValue",
+    "type": "text",
+    "label": "Barcode Value",
+    "required": true
+  },
+  {
+    "name": "barcodeAltText",
+    "type": "text",
+    "label": "Barcode Alt Text"
+  },
+  {
+    "name": "appleFontColor",
+    "type": "color",
+    "label": "Apple Font Color",
+    "default": "#FFFFFF"
+  },
+  {
+    "name": "rectangleLogo",
+    "type": "text",
+    "label": "Rectangle Logo URL"
+  },
+  {
+    "name": "googleHeroImage",
+    "type": "text",
+    "label": "Google Hero Image URL"
+  },
+  {
+    "name": "appleHeroImage",
+    "type": "text",
+    "label": "Apple Hero Image URL"
+  },
+  {
+    "name": "textModulesData",
+    "type": "array",
+    "label": "Text Modules",
+    "spec": [
+      {
+        "name": "id",
+        "type": "text",
+        "label": "ID",
+        "required": true,
+        "help": "Unique module ID, for example module1."
+      },
+      {
+        "name": "header",
+        "type": "text",
+        "label": "Header",
+        "required": true
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "label": "Body",
+        "required": true
+      }
+    ],
+    "help": "Optional wallet text modules. This maps directly to the API field textModulesData."
+  },
+  {
+    "name": "linksModuleData",
+    "type": "array",
+    "label": "Links",
+    "spec": [
+      {
+        "name": "label",
+        "type": "text",
+        "label": "Label",
+        "required": true
+      },
+      {
+        "name": "url",
+        "type": "text",
+        "label": "URL",
+        "required": true
+      }
+    ],
+    "help": "Optional links. This maps directly to the API field linksModuleData."
+  }
+]

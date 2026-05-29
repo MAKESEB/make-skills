@@ -1,0 +1,8 @@
+{
+  "name": "deleteExpense",
+  "label": "Delete Expense",
+  "description": "Delete Expense in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

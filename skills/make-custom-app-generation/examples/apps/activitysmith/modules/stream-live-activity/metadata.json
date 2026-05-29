@@ -1,0 +1,8 @@
+{
+  "name": "streamLiveActivity",
+  "label": "Stream Live Activity",
+  "description": "Stream Live Activity using PUT /live-activity/stream/{streamKey}.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

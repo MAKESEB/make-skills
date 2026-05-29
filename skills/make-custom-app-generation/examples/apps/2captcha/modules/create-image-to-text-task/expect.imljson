@@ -1,0 +1,73 @@
+[
+  {
+    "name": "body",
+    "type": "text",
+    "label": "Base64 Image Body",
+    "required": true,
+    "multiline": true,
+    "help": "Base64-encoded CAPTCHA image body, without a data URL prefix."
+  },
+  {
+    "name": "phrase",
+    "type": "boolean",
+    "label": "Requires Phrase",
+    "default": false
+  },
+  {
+    "name": "caseSensitive",
+    "type": "boolean",
+    "label": "Case Sensitive",
+    "default": false
+  },
+  {
+    "name": "numeric",
+    "type": "select",
+    "label": "Numeric Mode",
+    "default": 0,
+    "options": [
+      {
+        "label": "Not specified",
+        "value": 0
+      },
+      {
+        "label": "Only numbers",
+        "value": 1
+      },
+      {
+        "label": "Only letters",
+        "value": 2
+      },
+      {
+        "label": "Numbers or letters",
+        "value": 3
+      },
+      {
+        "label": "Both numbers and letters",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "name": "math",
+    "type": "boolean",
+    "label": "Solve Math Expression",
+    "default": false
+  },
+  {
+    "name": "minLength",
+    "type": "number",
+    "label": "Minimum Length",
+    "minimum": 1
+  },
+  {
+    "name": "maxLength",
+    "type": "number",
+    "label": "Maximum Length",
+    "minimum": 1
+  },
+  {
+    "name": "comment",
+    "type": "text",
+    "label": "Comment / Instructions"
+  }
+]

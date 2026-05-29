@@ -1,0 +1,7 @@
+{
+  "Id": 7,
+  "Name": "New Scotland",
+  "IsActive": true,
+  "Currency": "GBP",
+  "TotalEmployees": 3
+}

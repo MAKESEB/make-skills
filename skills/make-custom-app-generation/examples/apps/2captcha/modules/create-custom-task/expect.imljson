@@ -1,0 +1,9 @@
+[
+  {
+    "name": "task",
+    "type": "any",
+    "label": "Task Object",
+    "required": true,
+    "help": "Full 2Captcha task object including its documented type, for example DataDomeSliderTask or AmazonTaskProxyless."
+  }
+]

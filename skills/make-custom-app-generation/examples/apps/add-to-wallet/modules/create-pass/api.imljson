@@ -1,0 +1,28 @@
+{
+  "url": "/api/card/create",
+  "method": "POST",
+  "body": {
+    "cardTitle": "{{parameters.cardTitle}}",
+    "header": "{{parameters.header}}",
+    "logoUrl": "{{parameters.logoUrl}}",
+    "heroImage": "{{parameters.heroImage}}",
+    "hexBackgroundColor": "{{parameters.hexBackgroundColor}}",
+    "barcodeType": "{{parameters.barcodeType}}",
+    "barcodeValue": "{{parameters.barcodeValue}}",
+    "barcodeAltText": "{{ifempty(parameters.barcodeAltText, undefined)}}",
+    "appleFontColor": "{{ifempty(parameters.appleFontColor, undefined)}}",
+    "rectangleLogo": "{{ifempty(parameters.rectangleLogo, undefined)}}",
+    "googleHeroImage": "{{ifempty(parameters.googleHeroImage, undefined)}}",
+    "appleHeroImage": "{{ifempty(parameters.appleHeroImage, undefined)}}",
+    "textModulesData": "{{ifempty(parameters.textModulesData, undefined)}}",
+    "linksModuleData": "{{ifempty(parameters.linksModuleData, undefined)}}"
+  },
+  "response": {
+    "output": {
+      "cardId": "{{body.cardId}}",
+      "message": "{{body.msg || body.message}}",
+      "shareableUrl": "{{connection.baseUrl + '/card/' + body.cardId}}",
+      "body": "{{body}}"
+    }
+  }
+}

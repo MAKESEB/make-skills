@@ -1,0 +1,17 @@
+[
+  {
+    "name": "IdPolicy",
+    "type": "select",
+    "label": "Policy",
+    "options": "rpc://getExpensePolicies",
+    "required": true
+  },
+  {
+    "name": "limit",
+    "type": "uinteger",
+    "label": "Limit",
+    "required": true,
+    "default": 100,
+    "help": "Maximum number of records to return. Rinde Gastos supports up to 100 records per page."
+  }
+]

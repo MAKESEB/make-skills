@@ -1,0 +1,5 @@
+{
+  "name": "listSnapshots",
+  "label": "List Snapshots",
+  "description": "Lists Daytona snapshots for selectors."
+}

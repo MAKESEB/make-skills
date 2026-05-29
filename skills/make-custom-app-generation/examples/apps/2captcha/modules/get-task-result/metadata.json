@@ -1,0 +1,8 @@
+{
+  "name": "getTaskResult",
+  "label": "Get Task Result",
+  "description": "Retrieve task status and solution from /getTaskResult.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

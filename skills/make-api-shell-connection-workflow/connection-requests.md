@@ -54,6 +54,26 @@ Do not treat a type match alone as enough to reuse the connection. Also confirm:
 
 If Make MCP or another supported surface exposes connection detail, inspect it before reuse. Useful checks include the visible account label and scope count.
 
+## Connection verification before reuse
+
+Before reusing a connection, or before trusting an existing shell that already points at a connection, verify the connection through Make itself:
+
+1. Get connection detail:
+   - `GET /api/v2/connections/{connectionId}`
+2. Test the saved credentials:
+   - `POST /api/v2/connections/{connectionId}/test`
+3. When scope IDs are available and scope fit matters, check scope explicitly:
+   - `POST /api/v2/connections/{connectionId}/scoped`
+
+Treat `{"verified": true}` from `/test` as the liveness proof. Treat `verified: false`, provider auth errors, revoked credentials, or a past `expire` value as not reusable.
+
+Important nuance:
+- a future `expire` timestamp means the connection is still usable
+- Credential Request detail can lag or remain `pending` even after the UI shows a credential as authorized
+- when `/connections/{connectionId}/test` returns `verified: true`, that verified connection wins over stale request-detail status
+
+Do not create a second Credential Request for the same app/account just because an old request detail still says `pending`. Reuse the saved `requestId`, inspect it, list matching connections again, verify candidate connections, and continue if a verified connection is found.
+
 ## Recipient and account-identity gate
 
 Before creating a new credential request, resolve two separate questions:
@@ -218,6 +238,13 @@ Confirm:
 Also confirm whether the resulting connection is usable in the target scenario or module family. Authorization success alone does not prove that retrieval execution is correctly configured.
 
 After inspecting the request detail, list connections again and match the resulting connection back to the target identity before patching the scenario.
+
+Then verify the matched connection:
+- `GET /api/v2/connections/{connectionId}` for visible details
+- `POST /api/v2/connections/{connectionId}/test` for credential liveness
+- `POST /api/v2/connections/{connectionId}/scoped` if the required scope IDs are known and scope fit is still uncertain
+
+Only patch or create a shell after the target connection is verified. If verification fails, treat the credential as not ready and go back to the same Credential Request or create a new request only when the old request can no longer satisfy the app/account requirement.
 
 ## Patch the scenario after authorization
 

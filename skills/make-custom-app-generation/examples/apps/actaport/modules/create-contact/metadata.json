@@ -1,0 +1,8 @@
+{
+  "name": "createContact",
+  "label": "Create Contact",
+  "description": "Create Contact in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

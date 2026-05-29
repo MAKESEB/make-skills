@@ -1,0 +1,7 @@
+{
+  "url": "/aufgaben/{{parameters.id}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

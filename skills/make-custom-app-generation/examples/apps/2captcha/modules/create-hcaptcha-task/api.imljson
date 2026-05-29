@@ -1,0 +1,16 @@
+{
+  "url": "/createTask",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "task": {
+      "type": "HCaptchaTaskProxyless",
+      "websiteURL": "{{parameters.websiteURL}}",
+      "websiteKey": "{{parameters.websiteKey}}",
+      "isInvisible": "{{parameters.isInvisible}}"
+    }
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

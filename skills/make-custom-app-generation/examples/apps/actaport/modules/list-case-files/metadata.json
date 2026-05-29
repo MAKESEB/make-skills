@@ -1,0 +1,8 @@
+{
+  "name": "listCaseFiles",
+  "label": "List Case Files",
+  "description": "List Case Files in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

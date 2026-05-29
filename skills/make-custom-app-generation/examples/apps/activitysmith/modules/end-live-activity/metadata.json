@@ -1,0 +1,8 @@
+{
+  "name": "endLiveActivity",
+  "label": "End Live Activity",
+  "description": "End Live Activity using POST /live-activity/end.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

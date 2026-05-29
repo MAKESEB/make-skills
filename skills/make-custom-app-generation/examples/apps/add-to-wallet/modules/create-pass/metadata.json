@@ -1,0 +1,8 @@
+{
+  "connection": "api-key",
+  "name": "createPass",
+  "label": "Create a Pass",
+  "description": "Create a digital wallet pass and return its card ID and shareable URL.",
+  "type": "action",
+  "typeId": 4
+}

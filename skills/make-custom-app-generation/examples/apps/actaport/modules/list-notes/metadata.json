@@ -1,0 +1,8 @@
+{
+  "name": "listNotes",
+  "label": "List Notes",
+  "description": "List Notes in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

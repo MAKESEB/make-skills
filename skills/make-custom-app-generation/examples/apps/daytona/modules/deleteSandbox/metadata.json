@@ -1,0 +1,8 @@
+{
+  "name": "deleteSandbox",
+  "connection": "api-key",
+  "label": "Delete a Sandbox",
+  "description": "Delete a Sandbox by ID or name.",
+  "type": "action",
+  "typeId": 4
+}

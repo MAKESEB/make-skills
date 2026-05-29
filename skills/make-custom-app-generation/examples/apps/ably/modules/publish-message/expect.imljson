@@ -1,0 +1,41 @@
+[
+  {
+    "name": "channelName",
+    "type": "text",
+    "label": "Channel Name",
+    "required": true,
+    "help": "Ably channel name."
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Event Name"
+  },
+  {
+    "name": "data",
+    "type": "any",
+    "label": "Data",
+    "required": true,
+    "help": "Message data payload."
+  },
+  {
+    "name": "clientId",
+    "type": "text",
+    "label": "Client ID"
+  },
+  {
+    "name": "id",
+    "type": "text",
+    "label": "Message ID"
+  },
+  {
+    "name": "encoding",
+    "type": "text",
+    "label": "Encoding"
+  },
+  {
+    "name": "extras",
+    "type": "any",
+    "label": "Extras"
+  }
+]

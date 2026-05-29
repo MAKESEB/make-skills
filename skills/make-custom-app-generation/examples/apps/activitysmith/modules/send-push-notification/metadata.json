@@ -1,0 +1,8 @@
+{
+  "name": "sendPushNotification",
+  "label": "Send Push Notification",
+  "description": "Send a push notification to paired ActivitySmith devices using POST /push-notification.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

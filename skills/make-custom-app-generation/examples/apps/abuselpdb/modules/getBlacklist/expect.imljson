@@ -1,0 +1,49 @@
+[
+  {
+    "name": "confidenceMinimum",
+    "type": "number",
+    "label": "Minimum Confidence",
+    "default": 90,
+    "minimum": 25,
+    "maximum": 100
+  },
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 10000
+  },
+  {
+    "name": "ipVersion",
+    "type": "select",
+    "label": "IP Version",
+    "options": [
+      {
+        "label": "Any",
+        "value": ""
+      },
+      {
+        "label": "IPv4",
+        "value": 4
+      },
+      {
+        "label": "IPv6",
+        "value": 6
+      }
+    ]
+  },
+  {
+    "name": "exceptCountries",
+    "type": "text",
+    "label": "Except Countries",
+    "help": "Comma-separated ISO country codes to exclude."
+  },
+  {
+    "name": "onlyCountries",
+    "type": "text",
+    "label": "Only Countries",
+    "help": "Comma-separated ISO country codes to include."
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "clearIpAddress",
+  "connection": "api-key",
+  "label": "Clear an IP Address",
+  "description": "Deletes your AbuseIPDB reports for an IP address using the Clear-Address endpoint.",
+  "type": "action",
+  "typeId": 4
+}

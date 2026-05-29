@@ -1,0 +1,40 @@
+[
+  {
+    "name": "OrderBy",
+    "type": "select",
+    "label": "Order By",
+    "options": [
+      {
+        "label": "Created Date",
+        "value": 1
+      },
+      {
+        "label": "Last Name",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "name": "Order",
+    "type": "select",
+    "label": "Order",
+    "options": [
+      {
+        "label": "Descending",
+        "value": "DESC"
+      },
+      {
+        "label": "Ascending",
+        "value": "ASC"
+      }
+    ]
+  },
+  {
+    "name": "limit",
+    "type": "uinteger",
+    "label": "Limit",
+    "required": true,
+    "default": 100,
+    "help": "Maximum number of records to return. Rinde Gastos supports up to 100 records per page."
+  }
+]

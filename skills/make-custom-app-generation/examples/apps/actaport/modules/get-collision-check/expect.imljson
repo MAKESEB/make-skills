@@ -1,0 +1,45 @@
+[
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Last Name",
+    "required": true
+  },
+  {
+    "name": "vorname",
+    "type": "text",
+    "label": "First Name",
+    "required": true
+  },
+  {
+    "name": "rolle",
+    "type": "text",
+    "label": "Main Role",
+    "required": true
+  },
+  {
+    "name": "geburtsdatum",
+    "type": "date",
+    "label": "Birth Date"
+  },
+  {
+    "name": "ort",
+    "type": "text",
+    "label": "City"
+  },
+  {
+    "name": "hausnummer",
+    "type": "text",
+    "label": "House Number"
+  },
+  {
+    "name": "strasse",
+    "type": "text",
+    "label": "Street"
+  },
+  {
+    "name": "plz",
+    "type": "text",
+    "label": "Zip Code"
+  }
+]

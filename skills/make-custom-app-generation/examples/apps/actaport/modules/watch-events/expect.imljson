@@ -1,0 +1,78 @@
+[
+  {
+    "name": "events",
+    "type": "array",
+    "label": "Events",
+    "required": true,
+    "spec": {
+      "type": "select",
+      "label": "Event",
+      "options": [
+        {
+          "label": "Case File Created",
+          "value": "akte.created"
+        },
+        {
+          "label": "Case File Updated",
+          "value": "akte.changed"
+        },
+        {
+          "label": "Contact Created",
+          "value": "kontakt.created"
+        },
+        {
+          "label": "Contact Updated",
+          "value": "kontakt.changed"
+        },
+        {
+          "label": "Deadline Created",
+          "value": "frist.created"
+        },
+        {
+          "label": "Deadline Updated",
+          "value": "frist.changed"
+        },
+        {
+          "label": "Document Created",
+          "value": "document.created"
+        },
+        {
+          "label": "Document Updated",
+          "value": "document.changed"
+        },
+        {
+          "label": "Invoice Created",
+          "value": "rechnung.created"
+        },
+        {
+          "label": "Invoice Updated",
+          "value": "rechnung.changed"
+        },
+        {
+          "label": "Resubmission Created",
+          "value": "wiedervorlage.created"
+        },
+        {
+          "label": "Resubmission Updated",
+          "value": "wiedervorlage.changed"
+        },
+        {
+          "label": "Task Created",
+          "value": "aufgabe.created"
+        },
+        {
+          "label": "Task Updated",
+          "value": "aufgabe.changed"
+        },
+        {
+          "label": "User Created",
+          "value": "benutzer.created"
+        },
+        {
+          "label": "User Updated",
+          "value": "benutzer.changed"
+        }
+      ]
+    }
+  }
+]

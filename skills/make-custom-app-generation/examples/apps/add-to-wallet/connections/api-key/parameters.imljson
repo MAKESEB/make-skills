@@ -1,0 +1,17 @@
+[
+  {
+    "name": "baseUrl",
+    "type": "text",
+    "label": "Base URL",
+    "required": true,
+    "default": "https://app.addtowallet.co",
+    "help": "AddToWallet API base URL from the n8n package credential. Use no trailing slash."
+  },
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "API Key",
+    "required": true,
+    "help": "Your AddToWallet API key."
+  }
+]

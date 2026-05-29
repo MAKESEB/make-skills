@@ -1,0 +1,8 @@
+{
+  "name": "getDocument",
+  "label": "Get Document",
+  "description": "Get Document in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

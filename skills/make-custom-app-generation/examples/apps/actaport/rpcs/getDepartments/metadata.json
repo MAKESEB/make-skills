@@ -1,0 +1,5 @@
+{
+  "name": "getDepartments",
+  "label": "Get Departments",
+  "description": "Lists Actaport departments for dynamic department selections."
+}

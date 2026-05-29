@@ -1,0 +1,10 @@
+[
+  {
+    "name": "id",
+    "type": "select",
+    "label": "ID",
+    "required": true,
+    "options": "rpc://getDepartments",
+    "mode": "edit"
+  }
+]

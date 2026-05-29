@@ -1,0 +1,5 @@
+{
+  "name": "getAllocatableDocuments",
+  "label": "Get Allocatable Documents",
+  "description": "Lists documents that can be allocated as expense evidence for a selected case file."
+}

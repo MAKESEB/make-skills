@@ -1,0 +1,21 @@
+[
+  {
+    "name": "organizationId",
+    "type": "text",
+    "label": "Organization ID",
+    "help": "Optional X-Daytona-Organization-ID header value when using a JWT or organization-scoped workflows."
+  },
+  {
+    "name": "sandboxIdOrName",
+    "type": "select",
+    "label": "Sandbox",
+    "required": true,
+    "options": "rpc://listSandboxes"
+  },
+  {
+    "name": "verbose",
+    "type": "boolean",
+    "label": "Verbose",
+    "default": false
+  }
+]

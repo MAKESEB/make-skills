@@ -1,0 +1,5 @@
+{
+  "name": "getClerks",
+  "label": "Get Clerks",
+  "description": "Lists Actaport users flagged as clerks."
+}

@@ -1,0 +1,32 @@
+{
+  "url": "/getExpenses",
+  "method": "GET",
+  "qs": {
+    "Since": "{{parameters.Since}}",
+    "Until": "{{ifempty(parameters.Until, undefined)}}",
+    "Currency": "{{ifempty(parameters.Currency, undefined)}}",
+    "Status": "{{if(parameters.Status != null, parameters.Status, undefined)}}",
+    "Category": "{{ifempty(parameters.Category, undefined)}}",
+    "ReportId": "{{if(parameters.ReportId != null, parameters.ReportId, undefined)}}",
+    "ExpensePolicyId": "{{if(parameters.ExpensePolicyId != null, parameters.ExpensePolicyId, undefined)}}",
+    "IntegrationStatus": "{{if(parameters.IntegrationStatus != null, parameters.IntegrationStatus, undefined)}}",
+    "IntegrationCode": "{{ifempty(parameters.IntegrationCode, undefined)}}",
+    "IntegrationDate": "{{ifempty(parameters.IntegrationDate, undefined)}}",
+    "UserId": "{{if(parameters.UserId != null, parameters.UserId, undefined)}}",
+    "OrderBy": "{{if(parameters.OrderBy != null, parameters.OrderBy, undefined)}}",
+    "Order": "{{if(parameters.Order != null, parameters.Order, undefined)}}",
+    "ResultsPerPage": "{{if(parameters.limit < 100, parameters.limit, 100)}}",
+    "Page": "{{pagination.page}}"
+  },
+  "response": {
+    "iterate": "{{body.Expenses}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  },
+  "pagination": {
+    "condition": "{{body.Records.Page < body.Records.Pages}}",
+    "qs": {
+      "Page": "{{pagination.page}}"
+    }
+  }
+}

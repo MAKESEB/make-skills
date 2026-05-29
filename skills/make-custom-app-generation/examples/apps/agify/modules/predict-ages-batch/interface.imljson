@@ -1,0 +1,22 @@
+[
+  {
+    "name": "count",
+    "type": "number",
+    "label": "Count"
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Name"
+  },
+  {
+    "name": "age",
+    "type": "number",
+    "label": "Age"
+  },
+  {
+    "name": "country_id",
+    "type": "text",
+    "label": "Country ID"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Id",
+    "type": "select",
+    "label": "Fund",
+    "options": "rpc://getFunds",
+    "required": true
+  },
+  {
+    "name": "IdAdmin",
+    "type": "select",
+    "label": "Admin User",
+    "options": "rpc://getUsers",
+    "required": true
+  },
+  {
+    "name": "FundStatus",
+    "type": "select",
+    "label": "Fund Status",
+    "options": [
+      {
+        "label": "Open",
+        "value": 1
+      },
+      {
+        "label": "Closed",
+        "value": 2
+      },
+      {
+        "label": "Blocked",
+        "value": 3
+      }
+    ],
+    "required": true
+  }
+]

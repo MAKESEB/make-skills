@@ -1,0 +1,23 @@
+{
+  "url": "https://api.agify.io",
+  "method": "GET",
+  "qs": {
+    "name": "make",
+    "apikey": "{{connection.apiKey}}"
+  },
+  "headers": {
+    "Accept": "application/json"
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "Agify API Key"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.qs.apikey"
+    ]
+  }
+}

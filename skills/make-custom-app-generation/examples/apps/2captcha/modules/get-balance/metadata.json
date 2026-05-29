@@ -1,0 +1,8 @@
+{
+  "name": "getBalance",
+  "label": "Get Balance",
+  "description": "Return the current 2Captcha account balance from /getBalance.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

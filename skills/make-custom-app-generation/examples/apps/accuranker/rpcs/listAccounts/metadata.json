@@ -1,0 +1,5 @@
+{
+  "name": "listAccounts",
+  "label": "List Accounts",
+  "description": "Lists AccuRanker accounts for selectors."
+}

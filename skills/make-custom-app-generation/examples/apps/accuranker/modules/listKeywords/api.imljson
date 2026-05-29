@@ -1,0 +1,16 @@
+{
+  "url": "/domains/{{parameters.domainId}}/keywords/",
+  "method": "GET",
+  "qs": {
+    "fields": "{{parameters.fields}}",
+    "limit": "{{parameters.limit}}",
+    "offset": "{{parameters.offset}}",
+    "period_from": "{{parameters.periodFrom}}",
+    "period_to": "{{parameters.periodTo}}",
+    "filter_id": "{{parameters.filterId}}"
+  },
+  "response": {
+    "iterate": "{{body.results || body}}",
+    "output": "{{item}}"
+  }
+}

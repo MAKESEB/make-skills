@@ -1,0 +1,80 @@
+[
+  {
+    "name": "url",
+    "type": "text",
+    "label": "Path",
+    "required": true,
+    "help": "Relative ActivitySmith API path under https://activitysmith.com/api, for example /push-notification, /live-activity/start, /live-activity/update, /live-activity/end, or /live-activity/stream/{streamKey}.",
+    "default": "/push-notification"
+  },
+  {
+    "name": "method",
+    "type": "select",
+    "label": "Method",
+    "required": true,
+    "default": "GET",
+    "options": [
+      {
+        "label": "GET",
+        "value": "GET"
+      },
+      {
+        "label": "POST",
+        "value": "POST"
+      },
+      {
+        "label": "PUT",
+        "value": "PUT"
+      },
+      {
+        "label": "PATCH",
+        "value": "PATCH"
+      },
+      {
+        "label": "DELETE",
+        "value": "DELETE"
+      }
+    ]
+  },
+  {
+    "name": "headers",
+    "type": "array",
+    "label": "Headers",
+    "spec": [
+      {
+        "name": "key",
+        "type": "text",
+        "label": "Key"
+      },
+      {
+        "name": "value",
+        "type": "text",
+        "label": "Value"
+      }
+    ],
+    "help": "Additional headers only. Do not add Authorization here."
+  },
+  {
+    "name": "qs",
+    "type": "array",
+    "label": "Query String",
+    "spec": [
+      {
+        "name": "key",
+        "type": "text",
+        "label": "Key"
+      },
+      {
+        "name": "value",
+        "type": "text",
+        "label": "Value"
+      }
+    ]
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Body",
+    "help": "Optional request body for POST, PUT, PATCH, and DELETE requests."
+  }
+]

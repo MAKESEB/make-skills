@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Id"
+  },
+  {
+    "name": "Name",
+    "type": "text",
+    "label": "Name"
+  },
+  {
+    "name": "Code",
+    "type": "text",
+    "label": "Code"
+  },
+  {
+    "name": "Description",
+    "type": "text",
+    "label": "Description"
+  },
+  {
+    "name": "IsActive",
+    "type": "boolean",
+    "label": "Is Active"
+  },
+  {
+    "name": "Currency",
+    "type": "text",
+    "label": "Currency"
+  },
+  {
+    "name": "TotalEmployees",
+    "type": "number",
+    "label": "Total Employees"
+  },
+  {
+    "name": "TotalApprovers",
+    "type": "number",
+    "label": "Total Approvers"
+  },
+  {
+    "name": "ExpenseExtraFields",
+    "type": "any",
+    "label": "Expense Extra Fields"
+  },
+  {
+    "name": "Categories",
+    "type": "any",
+    "label": "Categories"
+  },
+  {
+    "name": "Approvers",
+    "type": "any",
+    "label": "Approvers"
+  },
+  {
+    "name": "Taxes",
+    "type": "any",
+    "label": "Taxes"
+  }
+]

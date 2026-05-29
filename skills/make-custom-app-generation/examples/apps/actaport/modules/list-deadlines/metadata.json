@@ -1,0 +1,8 @@
+{
+  "name": "listDeadlines",
+  "label": "List Deadlines",
+  "description": "List Deadlines in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

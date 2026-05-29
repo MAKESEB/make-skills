@@ -1,0 +1,8 @@
+{
+  "connection": "api-key",
+  "name": "getCredits",
+  "label": "Get Credits",
+  "description": "Get the remaining AddToWallet API credits.",
+  "type": "action",
+  "typeId": 4
+}

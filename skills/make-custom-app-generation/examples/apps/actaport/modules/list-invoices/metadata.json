@@ -1,0 +1,8 @@
+{
+  "name": "listInvoices",
+  "label": "List Invoices",
+  "description": "List Invoices in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

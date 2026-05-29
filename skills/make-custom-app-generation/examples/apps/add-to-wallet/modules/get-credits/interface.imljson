@@ -1,0 +1,12 @@
+[
+  {
+    "name": "credits",
+    "type": "number",
+    "label": "Credits"
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Raw Response"
+  }
+]

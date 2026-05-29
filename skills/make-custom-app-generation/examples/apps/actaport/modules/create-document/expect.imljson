@@ -1,0 +1,20 @@
+[
+  {
+    "name": "laufendeNummer",
+    "type": "text",
+    "label": "Case File Number",
+    "required": true
+  },
+  {
+    "name": "bezugsJahr",
+    "type": "number",
+    "label": "Reference Year",
+    "required": true
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Body",
+    "help": "JSON request body using Actaport API field names from the source package."
+  }
+]

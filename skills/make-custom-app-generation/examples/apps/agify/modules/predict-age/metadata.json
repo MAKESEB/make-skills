@@ -1,0 +1,8 @@
+{
+  "name": "predictAge",
+  "label": "Predict Age",
+  "description": "Predict an age for one first name using the documented Agify endpoint.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,8 @@
+{
+  "name": "requestToken",
+  "label": "Request a Token",
+  "description": "Request an Ably token from POST /keys/{keyName}/requestToken.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

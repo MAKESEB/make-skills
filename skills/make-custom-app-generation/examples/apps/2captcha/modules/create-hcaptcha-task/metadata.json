@@ -1,0 +1,8 @@
+{
+  "name": "createHCaptchaTask",
+  "label": "Create hCaptcha Task",
+  "description": "Create an HCaptchaTaskProxyless task through /createTask.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

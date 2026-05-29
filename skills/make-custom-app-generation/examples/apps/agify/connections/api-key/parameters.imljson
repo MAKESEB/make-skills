@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "Agify API Key",
+    "required": true,
+    "help": "Enter your Agify API key. It is sent as the apikey query parameter."
+  }
+]

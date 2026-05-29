@@ -1,0 +1,8 @@
+{
+  "name": "makeAnApiCall",
+  "label": "Make an API Call",
+  "description": "Send a custom request to the Agify API.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 12
+}

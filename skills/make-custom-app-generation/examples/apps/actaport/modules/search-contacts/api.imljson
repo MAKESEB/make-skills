@@ -1,0 +1,21 @@
+{
+  "url": "/kontakte/suche",
+  "method": "GET",
+  "qs": {
+    "size": "{{if(parameters.limit < 20, parameters.limit, 20)}}",
+    "page": "{{if(parameters.page != null, parameters.page, 0)}}",
+    "suchbegriff": "{{parameters.searchTerm}}"
+  },
+  "response": {
+    "iterate": "{{body.content}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  },
+  "pagination": {
+    "condition": "{{body.last === false}}",
+    "qs": {
+      "page": "{{body.number + 1}}",
+      "size": "{{body.size}}"
+    }
+  }
+}

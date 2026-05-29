@@ -1,0 +1,19 @@
+{
+  "url": "/snapshots",
+  "method": "POST",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "body": {
+    "name": "{{parameters.name}}",
+    "imageName": "{{parameters.imageName}}",
+    "entrypoint": "{{parameters.entrypoint}}",
+    "cpu": "{{parameters.cpu}}",
+    "memory": "{{parameters.memory}}",
+    "disk": "{{parameters.disk}}",
+    "regionId": "{{parameters.regionId}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

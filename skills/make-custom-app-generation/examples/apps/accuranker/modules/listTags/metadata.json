@@ -1,0 +1,8 @@
+{
+  "name": "listTags",
+  "connection": "api-key",
+  "label": "List Tags",
+  "description": "Lists tags for a domain.",
+  "type": "search",
+  "typeId": 9
+}

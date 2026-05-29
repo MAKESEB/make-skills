@@ -1,0 +1,10 @@
+{
+  "name": "watchEvents",
+  "label": "Watch Events",
+  "description": "Triggers when selected Actaport webhook events are delivered.",
+  "connection": "oauth",
+  "type": "instant_trigger",
+  "typeId": 10,
+  "webhook": "actaport-event-webhook",
+  "hookName": "actaport-event-webhook"
+}

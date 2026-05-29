@@ -1,0 +1,8 @@
+{
+  "name": "getBlacklist",
+  "connection": "api-key",
+  "label": "Get Blacklist",
+  "description": "Retrieves AbuseIPDB's blacklist with optional confidence and network filters.",
+  "type": "search",
+  "typeId": 9
+}

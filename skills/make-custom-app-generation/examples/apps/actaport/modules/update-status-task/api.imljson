@@ -1,0 +1,7 @@
+{
+  "url": "/aufgaben/{{parameters.id}}/status/{{parameters.status}}",
+  "method": "PUT",
+  "response": {
+    "output": "{{body}}"
+  }
+}

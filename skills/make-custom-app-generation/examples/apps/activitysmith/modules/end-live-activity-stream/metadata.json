@@ -1,0 +1,8 @@
+{
+  "name": "endLiveActivityStream",
+  "label": "End Live Activity Stream",
+  "description": "End Live Activity Stream using DELETE /live-activity/stream/{streamKey}.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

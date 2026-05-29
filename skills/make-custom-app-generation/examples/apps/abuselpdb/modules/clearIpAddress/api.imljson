@@ -1,0 +1,10 @@
+{
+  "url": "/clear-address",
+  "method": "DELETE",
+  "qs": {
+    "ipAddress": "{{parameters.ipAddress}}"
+  },
+  "response": {
+    "output": "{{body.data}}"
+  }
+}

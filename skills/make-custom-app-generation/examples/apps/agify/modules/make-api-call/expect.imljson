@@ -1,0 +1,81 @@
+[
+  {
+    "name": "url",
+    "type": "text",
+    "label": "Path",
+    "required": true,
+    "default": "/",
+    "help": "Relative Agify API path. Use / for the documented age prediction endpoint."
+  },
+  {
+    "name": "method",
+    "type": "select",
+    "label": "Method",
+    "required": true,
+    "default": "GET",
+    "options": [
+      {
+        "label": "GET",
+        "value": "GET"
+      },
+      {
+        "label": "POST",
+        "value": "POST"
+      },
+      {
+        "label": "PUT",
+        "value": "PUT"
+      },
+      {
+        "label": "PATCH",
+        "value": "PATCH"
+      },
+      {
+        "label": "DELETE",
+        "value": "DELETE"
+      }
+    ]
+  },
+  {
+    "name": "headers",
+    "type": "array",
+    "label": "Headers",
+    "spec": [
+      {
+        "name": "key",
+        "type": "text",
+        "label": "Key"
+      },
+      {
+        "name": "value",
+        "type": "text",
+        "label": "Value"
+      }
+    ],
+    "help": "Additional headers only. Authentication is added automatically as the apikey query parameter."
+  },
+  {
+    "name": "qs",
+    "type": "array",
+    "label": "Query String",
+    "spec": [
+      {
+        "name": "key",
+        "type": "text",
+        "label": "Key"
+      },
+      {
+        "name": "value",
+        "type": "text",
+        "label": "Value"
+      }
+    ],
+    "help": "Add Agify query parameters such as name, name[], or country_id. Do not add apikey here."
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Body",
+    "help": "Optional request body for non-GET requests. The documented prediction endpoint uses query string parameters."
+  }
+]

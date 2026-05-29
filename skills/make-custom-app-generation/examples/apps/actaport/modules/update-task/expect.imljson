@@ -1,0 +1,14 @@
+[
+  {
+    "name": "id",
+    "type": "text",
+    "label": "ID",
+    "required": true
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Body",
+    "help": "JSON request body using Actaport API field names from the source package."
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "exitCode",
+    "type": "number",
+    "label": "Exit Code"
+  },
+  {
+    "name": "stdout",
+    "type": "text",
+    "label": "Stdout"
+  },
+  {
+    "name": "stderr",
+    "type": "text",
+    "label": "Stderr"
+  }
+]

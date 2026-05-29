@@ -1,0 +1,8 @@
+{
+  "name": "createSnapshot",
+  "connection": "api-key",
+  "label": "Create a Snapshot",
+  "description": "Creates a Daytona snapshot from an image using the documented CreateSnapshot schema.",
+  "type": "action",
+  "typeId": 4
+}

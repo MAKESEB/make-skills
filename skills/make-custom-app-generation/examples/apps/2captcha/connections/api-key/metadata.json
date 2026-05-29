@@ -1,0 +1,5 @@
+{
+  "name": "api-key",
+  "label": "2Captcha API Key",
+  "type": "apikey"
+}

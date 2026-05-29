@@ -1,0 +1,24 @@
+{
+  "url": "/sandbox",
+  "method": "POST",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "body": {
+    "name": "{{parameters.name}}",
+    "snapshot": "{{parameters.snapshot}}",
+    "user": "{{parameters.user}}",
+    "env": "{{parameters.env}}",
+    "labels": "{{parameters.labels}}",
+    "public": "{{parameters.public}}",
+    "class": "{{parameters.class}}",
+    "target": "{{parameters.target}}",
+    "cpu": "{{parameters.cpu}}",
+    "memory": "{{parameters.memory}}",
+    "disk": "{{parameters.disk}}",
+    "autoStopInterval": "{{parameters.autoStopInterval}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

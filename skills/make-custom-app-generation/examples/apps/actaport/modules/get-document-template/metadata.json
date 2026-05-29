@@ -1,0 +1,8 @@
+{
+  "name": "getDocumentTemplate",
+  "label": "Get Document Template",
+  "description": "Get Document Template in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

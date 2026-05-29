@@ -1,0 +1,8 @@
+{
+  "name": "getExpense",
+  "label": "Get an Expense",
+  "description": "Get a single expense by its Rinde Gastos ID.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

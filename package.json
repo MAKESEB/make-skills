@@ -1,7 +1,7 @@
 {
   "name": "make-skills",
   "version": "0.1.3",
-  "description": "Expert skills for designing, building, and deploying Make automation scenarios — for Claude Code, Cursor, GitHub Copilot, and other AI agents",
+  "description": "Expert skills for designing, building, and deploying Make automation scenarios and custom apps — for Claude Code, Cursor, GitHub Copilot, and other AI agents",
   "license": "MIT",
   "author": {
     "name": "Make",
@@ -20,6 +20,8 @@
     "mcp",
     "automation",
     "scenarios",
+    "custom-apps",
+    "sdk",
     "integration",
     "workflow",
     "blueprint",
@@ -37,6 +39,10 @@
       {
         "name": "make-api-shell-connection-workflow",
         "path": "./skills/make-api-shell-connection-workflow"
+      },
+      {
+        "name": "make-custom-app-generation",
+        "path": "./skills/make-custom-app-generation"
       },
       {
         "name": "make-scenario-building",

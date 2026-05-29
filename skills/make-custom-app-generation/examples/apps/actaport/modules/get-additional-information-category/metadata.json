@@ -1,0 +1,8 @@
+{
+  "name": "getAdditionalInformationCategory",
+  "label": "Get Additional Information Category",
+  "description": "Get Additional Information Category in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

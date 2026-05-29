@@ -1,0 +1,10 @@
+{
+  "url": "/live-activity/stream/{{parameters.streamKey}}",
+  "method": "PUT",
+  "body": "{{removeEmpty({\"activity_id\": parameters.activityId, \"target\": {\"channels\": parameters.channels}, \"content_state\": removeEmpty({\"title\": parameters.title, \"subtitle\": parameters.subtitle, \"type\": parameters.activityType, \"color\": parameters.accentColor, \"current_step\": parameters.currentStep, \"number_of_steps\": parameters.numberOfSteps, \"percentage\": parameters.percentage, \"value\": parameters.progressValue, \"upper_limit\": parameters.upperLimit, \"metrics\": parameters.metrics, \"auto_dismiss_minutes\": parameters.autoDismissMinutes}), \"action\": removeEmpty({\"type\": parameters.liveActionType, \"title\": parameters.liveActionTitle, \"url\": parameters.liveActionUrl, \"method\": parameters.liveActionMethod, \"body\": parameters.liveActionBody})})}}",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

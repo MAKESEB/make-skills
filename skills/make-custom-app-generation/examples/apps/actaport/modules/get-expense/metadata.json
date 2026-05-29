@@ -1,0 +1,8 @@
+{
+  "name": "getExpense",
+  "label": "Get Expense",
+  "description": "Get Expense in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Make Custom App Generation"
+  short_description: "Build production-ready Make custom apps from API docs."
+  default_prompt: "Use this skill to build, validate, and package a Make.com custom app from real API documentation."

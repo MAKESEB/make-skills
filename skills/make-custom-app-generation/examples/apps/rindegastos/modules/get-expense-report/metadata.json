@@ -1,0 +1,8 @@
+{
+  "name": "getExpenseReport",
+  "label": "Get an Expense Report",
+  "description": "Get a single expense report by its Rinde Gastos ID.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,7 @@
+{
+  "url": "/benutzer/{{parameters.userId}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

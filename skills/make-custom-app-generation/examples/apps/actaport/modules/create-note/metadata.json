@@ -1,0 +1,8 @@
+{
+  "name": "createNote",
+  "label": "Create Note",
+  "description": "Create Note in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

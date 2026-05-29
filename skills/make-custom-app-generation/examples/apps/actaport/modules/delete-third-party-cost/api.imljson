@@ -1,0 +1,7 @@
+{
+  "url": "/akten/{{parameters.laufendeNummer}}/{{parameters.bezugsJahr}}/verguetungspositionen/fremde-auslagen/{{parameters.id}}",
+  "method": "DELETE",
+  "response": {
+    "output": "{{body}}"
+  }
+}

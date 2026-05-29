@@ -1,0 +1,34 @@
+[
+  {
+    "name": "organizationId",
+    "type": "text",
+    "label": "Organization ID",
+    "help": "Optional X-Daytona-Organization-ID header value when using a JWT or organization-scoped workflows."
+  },
+  {
+    "name": "sandboxId",
+    "type": "select",
+    "label": "Sandbox",
+    "required": true,
+    "options": "rpc://listSandboxes"
+  },
+  {
+    "name": "command",
+    "type": "text",
+    "label": "Command",
+    "required": true,
+    "multiline": true
+  },
+  {
+    "name": "cwd",
+    "type": "text",
+    "label": "Working Directory"
+  },
+  {
+    "name": "timeout",
+    "type": "number",
+    "label": "Timeout (seconds)",
+    "default": 10,
+    "minimum": 1
+  }
+]

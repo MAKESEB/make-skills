@@ -1,0 +1,5 @@
+{
+  "name": "listKeywords",
+  "label": "List Keywords",
+  "description": "Lists keywords for a selected AccuRanker domain."
+}

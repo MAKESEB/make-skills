@@ -1,0 +1,12 @@
+{
+  "url": "/getExpensePolicyTaxes",
+  "method": "GET",
+  "qs": {
+    "IdPolicy": "{{parameters.IdPolicy}}"
+  },
+  "response": {
+    "iterate": "{{body.Taxes}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  }
+}

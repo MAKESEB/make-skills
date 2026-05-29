@@ -1,0 +1,117 @@
+[
+  {
+    "name": "ip",
+    "type": "text",
+    "label": "IP Address",
+    "required": true
+  },
+  {
+    "name": "categories",
+    "type": "select",
+    "label": "Categories",
+    "required": true,
+    "multiple": true,
+    "options": [
+      {
+        "label": "DNS Compromise (1)",
+        "value": 1
+      },
+      {
+        "label": "DNS Poisoning (2)",
+        "value": 2
+      },
+      {
+        "label": "Fraud Orders (3)",
+        "value": 3
+      },
+      {
+        "label": "DDoS Attack (4)",
+        "value": 4
+      },
+      {
+        "label": "FTP Brute-Force (5)",
+        "value": 5
+      },
+      {
+        "label": "Ping of Death (6)",
+        "value": 6
+      },
+      {
+        "label": "Phishing (7)",
+        "value": 7
+      },
+      {
+        "label": "Fraud VoIP (8)",
+        "value": 8
+      },
+      {
+        "label": "Open Proxy (9)",
+        "value": 9
+      },
+      {
+        "label": "Web Spam (10)",
+        "value": 10
+      },
+      {
+        "label": "Email Spam (11)",
+        "value": 11
+      },
+      {
+        "label": "Blog Spam (12)",
+        "value": 12
+      },
+      {
+        "label": "VPN IP (13)",
+        "value": 13
+      },
+      {
+        "label": "Port Scan (14)",
+        "value": 14
+      },
+      {
+        "label": "Hacking (15)",
+        "value": 15
+      },
+      {
+        "label": "SQL Injection (16)",
+        "value": 16
+      },
+      {
+        "label": "Spoofing (17)",
+        "value": 17
+      },
+      {
+        "label": "Brute-Force (18)",
+        "value": 18
+      },
+      {
+        "label": "Bad Web Bot (19)",
+        "value": 19
+      },
+      {
+        "label": "Exploited Host (20)",
+        "value": 20
+      },
+      {
+        "label": "Web App Attack (21)",
+        "value": 21
+      },
+      {
+        "label": "SSH (22)",
+        "value": 22
+      },
+      {
+        "label": "IoT Targeted (23)",
+        "value": 23
+      }
+    ],
+    "help": "AbuseIPDB category IDs documented for the Report endpoint."
+  },
+  {
+    "name": "comment",
+    "type": "text",
+    "label": "Comment",
+    "required": true,
+    "multiline": true
+  }
+]

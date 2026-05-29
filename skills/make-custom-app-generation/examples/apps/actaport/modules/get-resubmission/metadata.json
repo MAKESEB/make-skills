@@ -1,0 +1,8 @@
+{
+  "name": "getResubmission",
+  "label": "Get Resubmission",
+  "description": "Get Resubmission in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

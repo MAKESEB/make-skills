@@ -1,0 +1,184 @@
+[
+  {
+    "name": "streamKey",
+    "type": "text",
+    "label": "Stream Key",
+    "required": true
+  },
+  {
+    "name": "autoDismissMinutes",
+    "type": "number",
+    "label": "Auto Dismiss Minutes",
+    "help": "Set 0 for immediate dismissal; source package leaves empty to use backend default."
+  },
+  {
+    "name": "title",
+    "type": "text",
+    "label": "Title",
+    "required": true
+  },
+  {
+    "name": "subtitle",
+    "type": "text",
+    "label": "Subtitle"
+  },
+  {
+    "name": "activityType",
+    "type": "select",
+    "label": "Activity Type",
+    "options": [
+      {
+        "label": "Metrics",
+        "value": "metrics"
+      },
+      {
+        "label": "Progress",
+        "value": "progress"
+      },
+      {
+        "label": "Segmented Progress",
+        "value": "segmented_progress"
+      }
+    ],
+    "required": true,
+    "default": "segmented_progress",
+    "help": "Source n8n package exposes metrics, progress, and segmented_progress."
+  },
+  {
+    "name": "accentColor",
+    "type": "select",
+    "label": "Color",
+    "options": [
+      {
+        "label": "Blue",
+        "value": "blue"
+      },
+      {
+        "label": "Cyan",
+        "value": "cyan"
+      },
+      {
+        "label": "Green",
+        "value": "green"
+      },
+      {
+        "label": "Lime",
+        "value": "lime"
+      },
+      {
+        "label": "Magenta",
+        "value": "magenta"
+      },
+      {
+        "label": "Orange",
+        "value": "orange"
+      },
+      {
+        "label": "Purple",
+        "value": "purple"
+      },
+      {
+        "label": "Red",
+        "value": "red"
+      },
+      {
+        "label": "Yellow",
+        "value": "yellow"
+      }
+    ],
+    "default": "blue"
+  },
+  {
+    "name": "currentStep",
+    "type": "number",
+    "label": "Current Step",
+    "default": 1,
+    "minimum": 1,
+    "help": "Used by segmented_progress activities."
+  },
+  {
+    "name": "numberOfSteps",
+    "type": "number",
+    "label": "Number of Steps",
+    "default": 3,
+    "minimum": 1,
+    "help": "Used by segmented_progress activities."
+  },
+  {
+    "name": "percentage",
+    "type": "number",
+    "label": "Percentage",
+    "minimum": 0,
+    "maximum": 100,
+    "help": "Used by progress activities. Takes precedence over value and upper limit."
+  },
+  {
+    "name": "progressValue",
+    "type": "number",
+    "label": "Value",
+    "help": "Used by progress activities with Upper Limit when Percentage is omitted."
+  },
+  {
+    "name": "upperLimit",
+    "type": "number",
+    "label": "Upper Limit",
+    "help": "Used by progress activities with Value when Percentage is omitted."
+  },
+  {
+    "name": "metrics",
+    "type": "any",
+    "label": "Metrics",
+    "help": "For metrics activities, provide up to two objects with label, value, and optional unit."
+  },
+  {
+    "name": "liveActionType",
+    "type": "select",
+    "label": "Action Type",
+    "options": [
+      {
+        "label": "None",
+        "value": ""
+      },
+      {
+        "label": "Open URL",
+        "value": "open_url"
+      },
+      {
+        "label": "Webhook",
+        "value": "webhook"
+      }
+    ],
+    "default": ""
+  },
+  {
+    "name": "liveActionTitle",
+    "type": "text",
+    "label": "Action Title"
+  },
+  {
+    "name": "liveActionUrl",
+    "type": "text",
+    "label": "Action URL"
+  },
+  {
+    "name": "liveActionMethod",
+    "type": "select",
+    "label": "Action Method",
+    "options": [
+      {
+        "label": "GET",
+        "value": "GET"
+      },
+      {
+        "label": "POST",
+        "value": "POST"
+      }
+    ],
+    "default": "POST"
+  },
+  {
+    "name": "liveActionBody",
+    "type": "any",
+    "label": "Action Body JSON"
+  }
+]

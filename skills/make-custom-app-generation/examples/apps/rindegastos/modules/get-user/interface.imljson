@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Id",
+    "type": "number",
+    "label": "Id"
+  },
+  {
+    "name": "FirstName",
+    "type": "text",
+    "label": "First Name"
+  },
+  {
+    "name": "LastName",
+    "type": "text",
+    "label": "Last Name"
+  },
+  {
+    "name": "Email",
+    "type": "text",
+    "label": "Email"
+  },
+  {
+    "name": "Identification",
+    "type": "text",
+    "label": "Identification"
+  },
+  {
+    "name": "CostingCode",
+    "type": "text",
+    "label": "Costing Code"
+  },
+  {
+    "name": "EmployeeNumber",
+    "type": "text",
+    "label": "Employee Number"
+  },
+  {
+    "name": "Department",
+    "type": "text",
+    "label": "Department"
+  },
+  {
+    "name": "Position",
+    "type": "text",
+    "label": "Position"
+  },
+  {
+    "name": "CreatedAt",
+    "type": "date",
+    "label": "Created At"
+  },
+  {
+    "name": "LastLogin",
+    "type": "date",
+    "label": "Last Login"
+  },
+  {
+    "name": "Role",
+    "type": "any",
+    "label": "Role"
+  }
+]

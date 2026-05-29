@@ -1,0 +1,8 @@
+{
+  "name": "createTurnstileTask",
+  "label": "Create Cloudflare Turnstile Task",
+  "description": "Create a TurnstileTaskProxyless task through /createTask.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

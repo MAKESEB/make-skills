@@ -1,0 +1,24 @@
+[
+  {
+    "name": "domainId",
+    "type": "select",
+    "label": "Domain",
+    "required": true,
+    "options": "rpc://listDomains"
+  },
+  {
+    "name": "keywordId",
+    "type": "select",
+    "label": "Keyword",
+    "required": true,
+    "options": "rpc://listKeywords?domainId={{parameters.domainId}}"
+  },
+  {
+    "name": "fields",
+    "type": "text",
+    "label": "Fields",
+    "default": "id,keyword,ranks.rank,ranks.created_at,competitor_ranks.rank",
+    "required": true,
+    "help": "AccuRanker Read API requires the fields query parameter; nested fields use dot notation."
+  }
+]

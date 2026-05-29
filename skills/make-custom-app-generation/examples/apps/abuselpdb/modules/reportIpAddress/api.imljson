@@ -1,0 +1,16 @@
+{
+  "url": "/report",
+  "method": "POST",
+  "type": "application/x-www-form-urlencoded",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "body": {
+    "ip": "{{parameters.ip}}",
+    "categories": "{{join(parameters.categories, ',')}}",
+    "comment": "{{parameters.comment}}"
+  },
+  "response": {
+    "output": "{{body.data}}"
+  }
+}

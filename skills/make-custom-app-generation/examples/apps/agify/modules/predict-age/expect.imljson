@@ -1,0 +1,15 @@
+[
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Name",
+    "required": true,
+    "help": "First name to analyze."
+  },
+  {
+    "name": "countryId",
+    "type": "text",
+    "label": "Country ID",
+    "help": "Optional ISO 3166-1 alpha-2 country code to localize the prediction, for example US, GB, DE, FR, BR, or JP."
+  }
+]

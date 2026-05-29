@@ -1,0 +1,64 @@
+[
+  {
+    "name": "IdEmployee",
+    "type": "select",
+    "label": "Employee",
+    "options": "rpc://getUsers",
+    "required": true
+  },
+  {
+    "name": "IdAdmin",
+    "type": "select",
+    "label": "Admin User",
+    "options": "rpc://getUsers",
+    "required": true
+  },
+  {
+    "name": "FundName",
+    "type": "text",
+    "label": "Fund Name",
+    "required": true
+  },
+  {
+    "name": "FundCurrency",
+    "type": "text",
+    "label": "Fund Currency",
+    "required": true
+  },
+  {
+    "name": "FundCode",
+    "type": "text",
+    "label": "Fund Code"
+  },
+  {
+    "name": "FundAmount",
+    "type": "number",
+    "label": "Fund Amount",
+    "required": true
+  },
+  {
+    "name": "FundComment",
+    "type": "text",
+    "label": "Fund Comment"
+  },
+  {
+    "name": "FundFlexibility",
+    "type": "boolean",
+    "label": "Fund Flexibility"
+  },
+  {
+    "name": "FundAutoDeposit",
+    "type": "boolean",
+    "label": "Fund Auto Deposit"
+  },
+  {
+    "name": "FundAutoBlock",
+    "type": "boolean",
+    "label": "Fund Auto Block"
+  },
+  {
+    "name": "FundExpirationDate",
+    "type": "date",
+    "label": "Fund Expiration Date"
+  }
+]

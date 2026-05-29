@@ -1,0 +1,21 @@
+{
+  "url": "/getUsers",
+  "method": "GET",
+  "qs": {
+    "OrderBy": "{{if(parameters.OrderBy != null, parameters.OrderBy, undefined)}}",
+    "Order": "{{if(parameters.Order != null, parameters.Order, undefined)}}",
+    "ResultsPerPage": "{{if(parameters.limit < 100, parameters.limit, 100)}}",
+    "Page": "{{pagination.page}}"
+  },
+  "response": {
+    "iterate": "{{body.Users}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  },
+  "pagination": {
+    "condition": "{{body.Records.Page < body.Records.Pages}}",
+    "qs": {
+      "Page": "{{pagination.page}}"
+    }
+  }
+}

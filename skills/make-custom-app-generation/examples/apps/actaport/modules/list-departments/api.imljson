@@ -1,0 +1,22 @@
+{
+  "url": "/info/kanzlei/dezernate",
+  "method": "GET",
+  "qs": {
+    "size": "{{if(parameters.limit < 100, parameters.limit, 100)}}",
+    "page": "{{if(parameters.page != null, parameters.page, 0)}}",
+    "filter": "{{parameters.filter}}",
+    "sort": "{{parameters.sort}}"
+  },
+  "response": {
+    "iterate": "{{body.content}}",
+    "output": "{{item}}",
+    "limit": "{{parameters.limit}}"
+  },
+  "pagination": {
+    "condition": "{{body.last === false}}",
+    "qs": {
+      "page": "{{body.number + 1}}",
+      "size": "{{body.size}}"
+    }
+  }
+}

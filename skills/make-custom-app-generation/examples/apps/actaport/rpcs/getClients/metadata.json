@@ -1,0 +1,5 @@
+{
+  "name": "getClients",
+  "label": "Get Case File Clients",
+  "description": "Lists clients for a selected Actaport case file."
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "errorId",
+    "type": "number",
+    "label": "Error ID"
+  },
+  {
+    "name": "taskId",
+    "type": "number",
+    "label": "Task ID"
+  },
+  {
+    "name": "errorCode",
+    "type": "text",
+    "label": "Error Code"
+  },
+  {
+    "name": "errorDescription",
+    "type": "text",
+    "label": "Error Description"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "searchIpReports",
+  "connection": "api-key",
+  "label": "Search IP Reports",
+  "description": "Lists reports for a specific IP address from AbuseIPDB.",
+  "type": "search",
+  "typeId": 9
+}

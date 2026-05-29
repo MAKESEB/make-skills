@@ -1,0 +1,8 @@
+{
+  "name": "getRvgFee",
+  "label": "Get RVG Fee",
+  "description": "Get RVG Fee in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

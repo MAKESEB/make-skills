@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Level",
+    "type": "number",
+    "label": "Level"
+  },
+  {
+    "name": "ApproverId",
+    "type": "text",
+    "label": "Approver ID"
+  },
+  {
+    "name": "ApproverName",
+    "type": "text",
+    "label": "Approver Name"
+  },
+  {
+    "name": "ApproverEmail",
+    "type": "text",
+    "label": "Approver Email"
+  },
+  {
+    "name": "AmmountRestriction",
+    "type": "boolean",
+    "label": "Amount Restriction"
+  },
+  {
+    "name": "RestrictionReportAmount",
+    "type": "number",
+    "label": "Restriction Report Amount"
+  }
+]

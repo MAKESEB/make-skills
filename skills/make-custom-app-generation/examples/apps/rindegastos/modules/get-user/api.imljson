@@ -1,0 +1,11 @@
+{
+  "url": "/getUser",
+  "method": "GET",
+  "qs": {
+    "Id": "{{if(parameters.Id != null, parameters.Id, undefined)}}",
+    "Email": "{{ifempty(parameters.Email, undefined)}}"
+  },
+  "response": {
+    "output": "{{body.User || body}}"
+  }
+}

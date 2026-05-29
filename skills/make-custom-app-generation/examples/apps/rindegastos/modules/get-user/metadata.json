@@ -1,0 +1,8 @@
+{
+  "name": "getUser",
+  "label": "Get a User",
+  "description": "Get a user by ID or email address.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

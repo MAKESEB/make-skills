@@ -1,0 +1,8 @@
+{
+  "name": "makeAnApiCall",
+  "label": "Make an API Call",
+  "description": "Send a custom authorized request to the Actaport REST API.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 12
+}

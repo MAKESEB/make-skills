@@ -1,0 +1,26 @@
+{
+  "baseUrl": "https://app.daytona.io/api",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "Accept": "application/json"
+  },
+  "response": {
+    "error": {
+      "401": {
+        "message": "[401] Authentication failed. Check your Daytona API key."
+      },
+      "403": {
+        "message": "[403] Access denied. Check your Daytona permissions."
+      },
+      "404": {
+        "message": "[404] Resource not found."
+      },
+      "message": "[{{statusCode}}] {{body.error.message || body.message || 'Request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "getThirdPartyCost",
+  "label": "Get Third Party Cost",
+  "description": "Get Third Party Cost in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,8 @@
+{
+  "name": "listChannels",
+  "label": "List Channels",
+  "description": "List active channels in an Ably app using GET /channels.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

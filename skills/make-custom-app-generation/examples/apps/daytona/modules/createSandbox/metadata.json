@@ -1,0 +1,8 @@
+{
+  "name": "createSandbox",
+  "connection": "api-key",
+  "label": "Create a Sandbox",
+  "description": "Creates a Daytona sandbox using the documented CreateSandbox schema.",
+  "type": "action",
+  "typeId": 4
+}

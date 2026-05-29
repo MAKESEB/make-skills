@@ -1,0 +1,14 @@
+{
+  "url": "/channels/{{parameters.channelName}}/messages",
+  "method": "GET",
+  "qs": {
+    "limit": "{{parameters.limit}}",
+    "direction": "{{parameters.direction}}",
+    "start": "{{parameters.start}}",
+    "end": "{{parameters.end}}"
+  },
+  "response": {
+    "iterate": "{{body.items || body}}",
+    "output": "{{item}}"
+  }
+}

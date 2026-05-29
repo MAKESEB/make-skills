@@ -1,0 +1,8 @@
+{
+  "name": "getCurrentUser",
+  "label": "Get Current User",
+  "description": "Get Current User in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

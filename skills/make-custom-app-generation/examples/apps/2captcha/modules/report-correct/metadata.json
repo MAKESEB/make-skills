@@ -1,0 +1,8 @@
+{
+  "name": "reportCorrect",
+  "label": "Report Correct Solution",
+  "description": "Report a successfully solved task to /reportCorrect.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

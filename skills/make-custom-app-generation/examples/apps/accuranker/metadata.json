@@ -1,0 +1,8 @@
+{
+  "name": "accuranker",
+  "label": "AccuRanker",
+  "description": "Read and maintain AccuRanker SEO rank-tracking accounts, domains, keywords, tags, and landing pages.",
+  "version": 1,
+  "language": "en",
+  "audience": "global"
+}

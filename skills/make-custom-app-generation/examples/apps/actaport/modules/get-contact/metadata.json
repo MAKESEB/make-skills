@@ -1,0 +1,8 @@
+{
+  "name": "getContact",
+  "label": "Get Contact",
+  "description": "Get Contact in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

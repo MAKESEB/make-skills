@@ -1,0 +1,30 @@
+{
+  "baseUrl": "https://api.abuseipdb.com/api/v2",
+  "headers": {
+    "Key": "{{connection.apiKey}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "401": {
+        "message": "[401] Authentication failed. Check your AbuseIPDB credentials."
+      },
+      "403": {
+        "message": "[403] Access denied. Check your AbuseIPDB permissions."
+      },
+      "404": {
+        "message": "[404] Resource not found."
+      },
+      "message": "[{{statusCode}}] {{body.error.message || body.message || body.error || 'Request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization",
+      "request.headers.key",
+      "request.body.clientKey",
+      "request.qs.api_key"
+    ]
+  }
+}

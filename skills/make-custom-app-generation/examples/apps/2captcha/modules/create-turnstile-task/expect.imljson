@@ -1,0 +1,32 @@
+[
+  {
+    "name": "websiteURL",
+    "type": "url",
+    "label": "Website URL",
+    "required": true,
+    "help": "Full URL of the page where the CAPTCHA is displayed."
+  },
+  {
+    "name": "websiteKey",
+    "type": "text",
+    "label": "Website Key / Sitekey",
+    "required": true,
+    "help": "The public sitekey from the target page."
+  },
+  {
+    "name": "action",
+    "type": "text",
+    "label": "Action"
+  },
+  {
+    "name": "data",
+    "type": "text",
+    "label": "Data"
+  },
+  {
+    "name": "pagedata",
+    "type": "text",
+    "label": "Page Data",
+    "multiline": true
+  }
+]

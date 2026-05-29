@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "AbuseIPDB API Key",
+    "required": true,
+    "help": "Paste an AbuseIPDB API key. The app sends it in the Key header."
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "listAdditionalInformationCategories",
+  "label": "List Additional Information Categories",
+  "description": "List Additional Information Categories in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

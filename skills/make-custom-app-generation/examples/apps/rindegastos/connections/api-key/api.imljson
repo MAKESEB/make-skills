@@ -1,0 +1,27 @@
+{
+  "url": "https://api.rindegastos.com/v1/getUsers",
+  "method": "GET",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "Accept": "application/json"
+  },
+  "qs": {
+    "ResultsPerPage": 1
+  },
+  "response": {
+    "uid": "{{connection.apiKey}}",
+    "metadata": {
+      "type": "text",
+      "value": "Rinde Gastos API token"
+    },
+    "error": {
+      "message": "[{{statusCode}}] Could not validate the Rinde Gastos API token."
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization",
+      "request.headers.Authorization"
+    ]
+  }
+}

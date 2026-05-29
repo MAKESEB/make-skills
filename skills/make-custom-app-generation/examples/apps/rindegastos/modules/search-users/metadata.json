@@ -1,0 +1,8 @@
+{
+  "name": "searchUsers",
+  "label": "Search Users",
+  "description": "Search company users.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

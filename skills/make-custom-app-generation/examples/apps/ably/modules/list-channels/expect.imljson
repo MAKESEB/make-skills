@@ -1,0 +1,31 @@
+[
+  {
+    "name": "limit",
+    "type": "number",
+    "label": "Limit",
+    "default": 100,
+    "minimum": 1,
+    "maximum": 1000
+  },
+  {
+    "name": "prefix",
+    "type": "text",
+    "label": "Prefix"
+  },
+  {
+    "name": "by",
+    "type": "select",
+    "label": "By",
+    "options": [
+      {
+        "label": "Value",
+        "value": "value"
+      },
+      {
+        "label": "ID",
+        "value": "id"
+      }
+    ],
+    "help": "Ably channel listing supports a by query parameter for prefix matching."
+  }
+]

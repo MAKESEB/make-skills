@@ -1,0 +1,8 @@
+{
+  "name": "startSandbox",
+  "connection": "api-key",
+  "label": "Start a Sandbox",
+  "description": "Start a Sandbox by ID or name.",
+  "type": "action",
+  "typeId": 4
+}

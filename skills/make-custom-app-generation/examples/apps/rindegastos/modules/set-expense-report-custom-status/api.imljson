@@ -1,0 +1,13 @@
+{
+  "url": "/setExpenseReportCustomStatus",
+  "method": "POST",
+  "body": {
+    "Id": "{{parameters.Id}}",
+    "IdAdmin": "{{parameters.IdAdmin}}",
+    "CustomStatus": "{{parameters.CustomStatus}}",
+    "CustomMessage": "{{ifempty(parameters.CustomMessage, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

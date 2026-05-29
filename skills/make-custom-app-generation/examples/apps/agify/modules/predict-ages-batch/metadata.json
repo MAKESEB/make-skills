@@ -1,0 +1,8 @@
+{
+  "name": "predictAgesBatch",
+  "label": "Predict Ages in Batch",
+  "description": "Predict ages for multiple first names in one Agify request using repeated name[] query parameters.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

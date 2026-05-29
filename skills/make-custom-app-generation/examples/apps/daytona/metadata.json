@@ -1,0 +1,8 @@
+{
+  "name": "daytona",
+  "label": "Daytona API",
+  "description": "Manage Daytona sandboxes, snapshots, preview URLs, and command execution from Make.",
+  "version": 1,
+  "language": "en",
+  "audience": "global"
+}

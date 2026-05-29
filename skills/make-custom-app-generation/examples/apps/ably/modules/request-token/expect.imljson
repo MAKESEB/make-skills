@@ -1,0 +1,35 @@
+[
+  {
+    "name": "keyName",
+    "type": "text",
+    "label": "API Key Name",
+    "required": true,
+    "help": "Ably key name, for example appId.keyId. This is the part before the colon in a full Ably API key."
+  },
+  {
+    "name": "clientId",
+    "type": "text",
+    "label": "Client ID"
+  },
+  {
+    "name": "ttl",
+    "type": "number",
+    "label": "TTL (Milliseconds)"
+  },
+  {
+    "name": "capability",
+    "type": "any",
+    "label": "Capability",
+    "help": "Capability object or JSON string accepted by Ably token requests."
+  },
+  {
+    "name": "timestamp",
+    "type": "text",
+    "label": "Timestamp"
+  },
+  {
+    "name": "nonce",
+    "type": "text",
+    "label": "Nonce"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "publishPresence",
+  "label": "Publish Presence",
+  "description": "Publish a presence event to an Ably channel using POST /channels/{channel}/presence.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

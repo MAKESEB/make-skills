@@ -1,0 +1,8 @@
+{
+  "name": "getDepartment",
+  "label": "Get Department",
+  "description": "Get Department in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

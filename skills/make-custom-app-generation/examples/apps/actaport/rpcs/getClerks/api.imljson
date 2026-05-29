@@ -1,0 +1,22 @@
+{
+  "url": "/benutzer",
+  "method": "GET",
+  "qs": {
+    "size": 50,
+    "filter": "eq(sachbearbeiter,'true')"
+  },
+  "response": {
+    "iterate": "{{body.content}}",
+    "output": {
+      "label": "{{item.name}}",
+      "value": "{{item.id}}"
+    }
+  },
+  "pagination": {
+    "condition": "{{body.last === false}}",
+    "qs": {
+      "page": "{{body.number + 1}}",
+      "size": "{{body.size}}"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "getDocumentTemplates",
+  "label": "Get Document Templates",
+  "description": "Searches Actaport document templates for dynamic template selections."
+}

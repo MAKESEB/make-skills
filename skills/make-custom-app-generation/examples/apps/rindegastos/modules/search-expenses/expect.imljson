@@ -1,0 +1,123 @@
+[
+  {
+    "name": "Since",
+    "type": "date",
+    "label": "Since",
+    "required": true,
+    "help": "Required. Start date in YYYY-MM-DD. Rinde Gastos limits this range to one year."
+  },
+  {
+    "name": "Until",
+    "type": "date",
+    "label": "Until"
+  },
+  {
+    "name": "Currency",
+    "type": "text",
+    "label": "Currency"
+  },
+  {
+    "name": "Status",
+    "type": "select",
+    "label": "Status",
+    "options": [
+      {
+        "label": "In Process",
+        "value": 0
+      },
+      {
+        "label": "Approved",
+        "value": 1
+      },
+      {
+        "label": "Rejected",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "name": "Category",
+    "type": "text",
+    "label": "Category"
+  },
+  {
+    "name": "ReportId",
+    "type": "number",
+    "label": "Report ID"
+  },
+  {
+    "name": "ExpensePolicyId",
+    "type": "select",
+    "label": "Expense Policy",
+    "options": "rpc://getExpensePolicies"
+  },
+  {
+    "name": "IntegrationStatus",
+    "type": "select",
+    "label": "Integration Status",
+    "options": [
+      {
+        "label": "Integrated",
+        "value": 1
+      },
+      {
+        "label": "Not Integrated",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "name": "IntegrationCode",
+    "type": "text",
+    "label": "Integration Code"
+  },
+  {
+    "name": "IntegrationDate",
+    "type": "date",
+    "label": "Integration Date"
+  },
+  {
+    "name": "UserId",
+    "type": "select",
+    "label": "User",
+    "options": "rpc://getUsers"
+  },
+  {
+    "name": "OrderBy",
+    "type": "select",
+    "label": "Order By",
+    "options": [
+      {
+        "label": "Expense Date",
+        "value": 1
+      },
+      {
+        "label": "Expense Created Date",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "name": "Order",
+    "type": "select",
+    "label": "Order",
+    "options": [
+      {
+        "label": "Descending",
+        "value": "DESC"
+      },
+      {
+        "label": "Ascending",
+        "value": "ASC"
+      }
+    ]
+  },
+  {
+    "name": "limit",
+    "type": "uinteger",
+    "label": "Limit",
+    "required": true,
+    "default": 100,
+    "help": "Maximum number of records to return. Rinde Gastos supports up to 100 records per page."
+  }
+]

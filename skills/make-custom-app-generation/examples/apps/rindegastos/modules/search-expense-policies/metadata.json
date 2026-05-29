@@ -1,0 +1,8 @@
+{
+  "name": "searchExpensePolicies",
+  "label": "Search Expense Policies",
+  "description": "Search company expense policies by status and sort order.",
+  "connection": "api-key",
+  "type": "search",
+  "typeId": 9
+}

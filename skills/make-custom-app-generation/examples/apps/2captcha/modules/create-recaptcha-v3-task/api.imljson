@@ -1,0 +1,18 @@
+{
+  "url": "/createTask",
+  "method": "POST",
+  "body": {
+    "clientKey": "{{connection.apiKey}}",
+    "task": {
+      "type": "RecaptchaV3TaskProxyless",
+      "websiteURL": "{{parameters.websiteURL}}",
+      "websiteKey": "{{parameters.websiteKey}}",
+      "minScore": "{{parameters.minScore}}",
+      "pageAction": "{{ifempty(parameters.pageAction, undefined)}}",
+      "apiDomain": "{{ifempty(parameters.apiDomain, undefined)}}"
+    }
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

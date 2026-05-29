@@ -1,0 +1,35 @@
+{
+  "baseUrl": "https://api.rindegastos.com/v1",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  "response": {
+    "error": {
+      "400": {
+        "message": "[400] Bad request: {{body.message || body.error || 'Check the submitted data.'}}"
+      },
+      "401": {
+        "message": "[401] Authentication failed. Check the Rinde Gastos API token."
+      },
+      "403": {
+        "message": "[403] Access denied. Check the token permissions for this company."
+      },
+      "404": {
+        "message": "[404] Rinde Gastos resource not found."
+      },
+      "429": {
+        "type": "RateLimitError",
+        "message": "[429] Rate limit exceeded. Try again later."
+      },
+      "message": "[{{statusCode}}] {{body.message || body.error || body.Error || 'Rinde Gastos request failed'}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.authorization",
+      "request.headers.Authorization"
+    ]
+  }
+}

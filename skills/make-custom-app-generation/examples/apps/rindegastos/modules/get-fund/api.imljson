@@ -1,0 +1,10 @@
+{
+  "url": "/getFund",
+  "method": "GET",
+  "qs": {
+    "Id": "{{parameters.Id}}"
+  },
+  "response": {
+    "output": "{{body.Fund || body}}"
+  }
+}

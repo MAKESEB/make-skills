@@ -1,0 +1,8 @@
+{
+  "name": "updateDocument",
+  "label": "Update Document",
+  "description": "Update Document in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

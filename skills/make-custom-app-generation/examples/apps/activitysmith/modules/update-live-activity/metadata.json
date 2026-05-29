@@ -1,0 +1,8 @@
+{
+  "name": "updateLiveActivity",
+  "label": "Update Live Activity",
+  "description": "Update Live Activity using POST /live-activity/update.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "laufendeNummer",
+    "type": "text",
+    "label": "Case File Number",
+    "required": true
+  },
+  {
+    "name": "bezugsJahr",
+    "type": "number",
+    "label": "Reference Year",
+    "required": true
+  },
+  {
+    "name": "id",
+    "type": "text",
+    "label": "ID",
+    "required": true
+  }
+]

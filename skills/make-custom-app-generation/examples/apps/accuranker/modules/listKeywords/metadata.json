@@ -1,0 +1,8 @@
+{
+  "name": "listKeywords",
+  "connection": "api-key",
+  "label": "List Keywords",
+  "description": "Lists keywords for a domain, with optional ranking period fields.",
+  "type": "search",
+  "typeId": 9
+}

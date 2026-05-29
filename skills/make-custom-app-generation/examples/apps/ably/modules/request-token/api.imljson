@@ -1,0 +1,10 @@
+{
+  "url": "/keys/{{parameters.keyName}}/requestToken",
+  "method": "POST",
+  "body": "{{removeEmpty({\"clientId\": parameters.clientId, \"ttl\": parameters.ttl, \"capability\": parameters.capability, \"timestamp\": parameters.timestamp, \"nonce\": parameters.nonce})}}",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "url": "/akten/{{parameters.laufendeNummer}}/{{parameters.bezugsJahr}}/dokumente",
+  "method": "GET",
+  "qs": {
+    "filter": "eq(allocatableByAuslage,'true')"
+  },
+  "response": {
+    "iterate": "{{body.dokumente}}",
+    "output": {
+      "label": "{{item.name}}",
+      "value": "{{item.id}}"
+    }
+  }
+}

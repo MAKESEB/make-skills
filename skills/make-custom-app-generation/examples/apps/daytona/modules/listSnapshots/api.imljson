@@ -1,0 +1,18 @@
+{
+  "url": "/snapshots",
+  "method": "GET",
+  "headers": {
+    "X-Daytona-Organization-ID": "{{parameters.organizationId}}"
+  },
+  "qs": {
+    "page": "{{parameters.page}}",
+    "limit": "{{parameters.limit}}",
+    "name": "{{parameters.name}}",
+    "sort": "{{parameters.sort}}",
+    "order": "{{parameters.order}}"
+  },
+  "response": {
+    "iterate": "{{body.data || body.items || body}}",
+    "output": "{{item}}"
+  }
+}

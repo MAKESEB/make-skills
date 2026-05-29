@@ -1,0 +1,8 @@
+{
+  "name": "updateThirdPartyCost",
+  "label": "Update Third Party Cost",
+  "description": "Update Third Party Cost in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

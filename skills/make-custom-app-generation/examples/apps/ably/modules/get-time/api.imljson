@@ -1,0 +1,9 @@
+{
+  "url": "/time",
+  "method": "GET",
+  "response": {
+    "output": {
+      "body": "{{body}}"
+    }
+  }
+}

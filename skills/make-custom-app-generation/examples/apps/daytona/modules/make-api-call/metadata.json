@@ -1,0 +1,8 @@
+{
+  "name": "makeAnApiCall",
+  "connection": "api-key",
+  "label": "Make an API Call",
+  "description": "Send a custom request to the Daytona API.",
+  "type": "action",
+  "typeId": 12
+}

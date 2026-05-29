@@ -1,0 +1,46 @@
+[
+  {
+    "name": "domainId",
+    "type": "select",
+    "label": "Domain",
+    "required": true,
+    "options": "rpc://listDomains"
+  },
+  {
+    "name": "keywords",
+    "type": "array",
+    "label": "Keywords",
+    "required": true,
+    "spec": {
+      "type": "text",
+      "label": "Keyword"
+    }
+  },
+  {
+    "name": "tags",
+    "type": "array",
+    "label": "Tags",
+    "spec": {
+      "type": "text",
+      "label": "Tag"
+    }
+  },
+  {
+    "name": "starred",
+    "type": "boolean",
+    "label": "Starred",
+    "default": false
+  },
+  {
+    "name": "ignoreLocalResults",
+    "type": "boolean",
+    "label": "Ignore Local Results",
+    "default": false
+  },
+  {
+    "name": "ignoreFeaturedSnippet",
+    "type": "boolean",
+    "label": "Ignore Featured Snippet",
+    "default": false
+  }
+]

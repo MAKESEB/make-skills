@@ -1,0 +1,8 @@
+{
+  "name": "createCustomTask",
+  "label": "Create Custom Task",
+  "description": "Create any documented 2Captcha task by passing the task object to /createTask.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

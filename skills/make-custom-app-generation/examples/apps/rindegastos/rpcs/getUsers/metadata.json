@@ -1,0 +1,5 @@
+{
+  "name": "getUsers",
+  "label": "Get Users",
+  "description": "Lists Rinde Gastos users for dynamic user and admin selections."
+}

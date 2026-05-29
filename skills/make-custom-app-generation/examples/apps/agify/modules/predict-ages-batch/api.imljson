@@ -1,0 +1,12 @@
+{
+  "url": "/",
+  "method": "GET",
+  "qs": {
+    "name[]": "{{parameters.names}}",
+    "country_id": "{{ifempty(parameters.countryId, undefined)}}"
+  },
+  "response": {
+    "iterate": "{{body}}",
+    "output": "{{item}}"
+  }
+}

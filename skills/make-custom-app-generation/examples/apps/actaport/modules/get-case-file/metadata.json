@@ -1,0 +1,8 @@
+{
+  "name": "getCaseFile",
+  "label": "Get Case File",
+  "description": "Get Case File in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

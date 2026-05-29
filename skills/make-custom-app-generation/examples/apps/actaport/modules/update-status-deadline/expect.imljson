@@ -1,0 +1,48 @@
+[
+  {
+    "name": "laufendeNummer",
+    "type": "text",
+    "label": "Case File Number",
+    "required": true
+  },
+  {
+    "name": "bezugsJahr",
+    "type": "number",
+    "label": "Reference Year",
+    "required": true
+  },
+  {
+    "name": "id",
+    "type": "text",
+    "label": "ID",
+    "required": true
+  },
+  {
+    "name": "status",
+    "type": "select",
+    "label": "Status",
+    "required": true,
+    "options": [
+      {
+        "label": "OFFEN",
+        "value": "OFFEN"
+      },
+      {
+        "label": "ERLEDIGT",
+        "value": "ERLEDIGT"
+      },
+      {
+        "label": "ZUGENEHMIGEN",
+        "value": "ZUGENEHMIGEN"
+      },
+      {
+        "label": "VORFRIST_ERLEDIGT",
+        "value": "VORFRIST_ERLEDIGT"
+      },
+      {
+        "label": "ZU_PRUEFEN",
+        "value": "ZU_PRUEFEN"
+      }
+    ]
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "setExpenseReportIntegration",
+  "label": "Set Expense Report Integration",
+  "description": "Mark an expense report as integrated or not integrated and optionally attach integration metadata.",
+  "connection": "api-key",
+  "type": "action",
+  "typeId": 4
+}

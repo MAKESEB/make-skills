@@ -1,0 +1,8 @@
+{
+  "name": "deleteRvgFee",
+  "label": "Delete RVG Fee",
+  "description": "Delete RVG Fee in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

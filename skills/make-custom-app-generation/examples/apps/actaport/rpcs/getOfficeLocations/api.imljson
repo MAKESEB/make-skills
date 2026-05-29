@@ -1,0 +1,11 @@
+{
+  "url": "/info/kanzlei",
+  "method": "GET",
+  "response": {
+    "iterate": "{{body.standorte}}",
+    "output": {
+      "label": "{{item.ort ? item.name + ' (' + item.ort + ')' : item.name}}",
+      "value": "{{item.id}}"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "createKeywords",
+  "connection": "api-key",
+  "label": "Create Keywords",
+  "description": "Creates one or more keywords for a domain through the AccuRanker Write API.",
+  "type": "action",
+  "typeId": 4
+}

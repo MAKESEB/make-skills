@@ -1,0 +1,16 @@
+[
+  {
+    "name": "keyName",
+    "type": "text",
+    "label": "API Key Name",
+    "required": true,
+    "help": "The part before the colon in an Ably API key."
+  },
+  {
+    "name": "keySecret",
+    "type": "password",
+    "label": "API Key Secret",
+    "required": true,
+    "help": "The part after the colon in an Ably API key."
+  }
+]

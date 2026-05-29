@@ -1,0 +1,8 @@
+{
+  "connection": "api-key",
+  "name": "makeAnApiCall",
+  "label": "Make an API Call",
+  "description": "Send a custom authorized request to the AddToWallet API.",
+  "type": "action",
+  "typeId": 12
+}

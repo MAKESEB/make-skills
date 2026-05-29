@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with this repository.
 
 ## Project Overview
 
-**make-skills** provides expert skills for designing, building, and deploying Make automation scenarios. Distributed as both a Claude Code plugin and as Open Agent Skills (compatible with 40+ AI agents via `npx skills add integromat/make-skills`). Published by Make under MIT license.
+**make-skills** provides expert skills for designing, building, and deploying Make automation scenarios and custom apps. Distributed as both a Claude Code plugin and as Open Agent Skills (compatible with 40+ AI agents via `npx skills add integromat/make-skills`). Published by Make under MIT license.
 
 The skills connect to the remote Make MCP server:
 
@@ -25,6 +25,12 @@ skills/
     retrieval-execution.md
     sanitization-and-sharing.md
     examples/generic-api-shell-blueprint.json
+  make-custom-app-generation/  # Make custom app SDK generation with knowledge base references + 10 examples
+    SKILL.md
+    references/knowledge-base/
+    references/knowledge-base-index.md
+    examples/apps/
+    examples/example-index.md
   make-mcp-reference/      # MCP config & troubleshooting (1 reference file)
     SKILL.md
     references/transport-details.md
@@ -44,9 +50,10 @@ skills/
 
 ## Skills
 
-Four auto-activated skills guide scenario building end-to-end. They divide responsibilities:
+Five auto-activated skills guide Make scenario and custom app work end-to-end. They divide responsibilities:
 
 - **make-api-shell-connection-workflow** handles reusable Make API-call shell provisioning and Make-first SaaS retrieval routing
+- **make-custom-app-generation** handles Make custom app SDK folder generation, module/RPC/webhook patterns, upload scripts, icons, and validation from real API docs
 - **make-scenario-building** decides WHICH modules to use and WHY (scenario architecture)
 - **make-module-configuring** handles HOW to configure each module (parameters, connections, mapping)
 - **make-mcp-reference** covers MCP infrastructure (connection methods, scopes, troubleshooting)
@@ -56,6 +63,12 @@ Four auto-activated skills guide scenario building end-to-end. They divide respo
 Reusable API-call shell workflow: provider/app resolution, connection reuse vs credential request, shell creation/patching, explicit interface setup, run validation, and SaaS retrieval via the shell contract.
 
 References: 4 files (discovery-and-shells, connection-requests, retrieval-execution, sanitization-and-sharing) plus 1 example blueprint
+
+### make-custom-app-generation
+
+Make custom app SDK workflow: API documentation discovery, base/connection/module generation, RPC and webhook gates, generator and upload-script patterns, icon upload/readback, and validation. Bundles custom app knowledge base references plus 10 representative app examples.
+
+References: Make Custom App Knowledge Base files, 10 app examples, and supporting script folders
 
 ### make-mcp-reference
 

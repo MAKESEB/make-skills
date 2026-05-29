@@ -1,0 +1,5 @@
+{
+  "name": "getAssistants",
+  "label": "Get Assistants",
+  "description": "Lists Actaport users flagged as assistants."
+}

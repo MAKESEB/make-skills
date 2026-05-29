@@ -1,0 +1,8 @@
+{
+  "name": "downloadDocument",
+  "label": "Download Document",
+  "description": "Download Document in Actaport.",
+  "connection": "oauth",
+  "type": "action",
+  "typeId": 4
+}

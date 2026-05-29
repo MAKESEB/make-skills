@@ -1,0 +1,47 @@
+[
+  {
+    "name": "title",
+    "type": "text",
+    "label": "Title",
+    "required": true
+  },
+  {
+    "name": "message",
+    "type": "text",
+    "label": "Message"
+  },
+  {
+    "name": "subtitle",
+    "type": "text",
+    "label": "Subtitle"
+  },
+  {
+    "name": "channels",
+    "type": "array",
+    "label": "Channels",
+    "spec": {
+      "name": "channel",
+      "type": "text",
+      "label": "Channel"
+    },
+    "help": "Optional ActivitySmith channel slugs. Leave empty to use the API key scope recipients."
+  },
+  {
+    "name": "media",
+    "type": "text",
+    "label": "Rich Media URL",
+    "help": "Supports images, video, and audio. Source package notes this cannot be combined with push actions."
+  },
+  {
+    "name": "redirection",
+    "type": "text",
+    "label": "Redirection URL",
+    "help": "Opened in browser on tap."
+  },
+  {
+    "name": "actions",
+    "type": "any",
+    "label": "Actions",
+    "help": "Optional array of up to 4 actions. Source enum action types: open_url and webhook."
+  }
+]

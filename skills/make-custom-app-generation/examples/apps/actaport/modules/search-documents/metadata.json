@@ -1,0 +1,8 @@
+{
+  "name": "searchDocuments",
+  "label": "Search Documents",
+  "description": "Search Documents in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

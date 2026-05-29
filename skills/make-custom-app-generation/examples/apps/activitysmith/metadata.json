@@ -1,0 +1,11 @@
+{
+  "name": "activitysmith",
+  "label": "ActivitySmith",
+  "description": "Send custom requests to the ActivitySmith API for push notifications and Live Activities.",
+  "version": 1,
+  "author": "OpenAI Codex",
+  "url": "https://activitysmith.com",
+  "theme": "#00008B",
+  "language": "en",
+  "audience": "global"
+}

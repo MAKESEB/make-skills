@@ -1,0 +1,8 @@
+{
+  "name": "listDocumentTemplates",
+  "label": "List Document Templates",
+  "description": "List Document Templates in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

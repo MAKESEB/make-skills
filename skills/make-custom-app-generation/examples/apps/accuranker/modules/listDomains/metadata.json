@@ -1,0 +1,8 @@
+{
+  "name": "listDomains",
+  "connection": "api-key",
+  "label": "List Domains",
+  "description": "Lists AccuRanker domains using the Read API.",
+  "type": "search",
+  "typeId": 9
+}

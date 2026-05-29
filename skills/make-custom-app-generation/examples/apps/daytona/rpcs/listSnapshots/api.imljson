@@ -1,0 +1,14 @@
+{
+  "url": "/snapshots",
+  "method": "GET",
+  "qs": {
+    "limit": 100
+  },
+  "response": {
+    "iterate": "{{body.data || body.items || body}}",
+    "output": {
+      "label": "{{item.name || item.id}}",
+      "value": "{{item.name || item.id}}"
+    }
+  }
+}

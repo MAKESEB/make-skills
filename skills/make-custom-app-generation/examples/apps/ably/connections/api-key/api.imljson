@@ -1,0 +1,18 @@
+{
+  "url": "https://rest.ably.io/stats",
+  "method": "GET",
+  "headers": {
+    "Authorization": "Basic {{base64(connection.keyName + ':' + connection.keySecret)}}",
+    "Accept": "application/json"
+  },
+  "qs": {
+    "limit": 1
+  },
+  "response": {
+    "uid": "{{connection.keyName}}",
+    "metadata": {
+      "type": "text",
+      "value": "{{connection.keyName}}"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "getFolders",
+  "label": "Get Folders",
+  "description": "Lists folders for a selected Actaport case file."
+}

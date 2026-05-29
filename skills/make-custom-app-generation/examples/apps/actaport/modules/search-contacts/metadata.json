@@ -1,0 +1,8 @@
+{
+  "name": "searchContacts",
+  "label": "Search Contacts",
+  "description": "Search Contacts in Actaport.",
+  "connection": "oauth",
+  "type": "search",
+  "typeId": 9
+}

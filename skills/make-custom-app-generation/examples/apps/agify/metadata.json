@@ -1,0 +1,11 @@
+{
+  "name": "agify",
+  "label": "Agify",
+  "description": "Predict a person's age from a first name using the Agify API.",
+  "version": 1,
+  "author": "OpenAI Codex",
+  "url": "https://agify.io/",
+  "theme": "#5468ff",
+  "language": "en",
+  "audience": "global"
+}
