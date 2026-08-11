@@ -190,7 +190,7 @@ Many modules have nested parameter structures:
 
 ## Connection Restore Metadata
 
-When a blueprint sets a connection parameter (e.g., `"account": 13911586`), Make's UI will show it as **"not selected"** unless the module's `metadata.restore.parameters` includes the connection's label and `accountName`. This is a display-only issue — the connection ID is correct — but it looks broken to users and can cause confusion.
+When a blueprint sets a connection parameter (e.g., `"account": 0` as a public placeholder), Make's UI will show it as **"not selected"** unless the module's `metadata.restore.parameters` includes the selected connection's label and `accountName`. This is a display-only issue, but it looks broken to users and can cause confusion. Replace the placeholder from current workspace metadata before deployment.
 
 **Required pattern for every connection-bearing module:**
 

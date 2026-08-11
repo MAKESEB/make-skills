@@ -363,5 +363,5 @@ Reply with YES to proceed, or tell me what to change first.
 If this workflow is being published or contributed to a shared repository:
 - replace real team IDs, organization IDs, user IDs, connection IDs, and workspace-specific names with placeholders
 - use neutral labels such as `provider-api-shell` instead of personal labels
-- avoid phrases such as `verified live` or `worked in tenant X`
+- avoid claims that imply proof from one private workspace
 - describe fallbacks as compatibility options, not as tenant-specific facts

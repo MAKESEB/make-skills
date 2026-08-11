@@ -1,8 +1,8 @@
 ---
 name: make-connected-code-hosting
-description: This skill should be used when an AI coding agent is asked to host, schedule, webhook, or deploy custom automation logic on Make. It verifies that the native Connected Code app and ExecuteConnectedCode module are available, uses Connected Code when possible, falls back to the normal Make Code module for custom code when Connected Code is unavailable, and uses make-api-shell-connection-workflow only for provider API transport.
+description: This skill should be used for custom logic on Make with Connected Code, with the normal Make Code module as the custom-code fallback. It covers availability discovery, secure code and connection patterns, schedules, webhooks, deployment, and verification.
 license: MIT
-compatibility: Requires a Make account with scenario creation permissions. Uses Connected Code or the normal Make Code module for custom code; make-api-shell-connection-workflow is required only for provider API transport fallback.
+compatibility: Requires a Make account with scenario creation permissions. Uses Connected Code or the normal Make Code module for custom logic.
 metadata:
   author: Make
   version: "0.2.0"
@@ -17,9 +17,11 @@ metadata:
 > Query Context7 first; if it has no authoritative match, search online and prefer official provider docs or OpenAPI specs.
 > Verify the base URL/scope, path/method, auth/scopes, parameters/body, pagination, and response/error shape; record the sources used.
 
-Use this skill when a user asks an AI coding agent to turn custom automation logic into a Make scenario. Keep Make as the control plane, put custom business logic in Connected Code when the app is available, and use Make connections or keychains rather than raw secrets in code.
+Use this skill only when the task requires real custom logic that normal Make modules and a Make API shell do not express cleanly. Keep Make as the control plane, use normal Make modules for orchestration, and use Make connections or keychains rather than raw secrets in code.
 
-Connected Code is the preferred execution surface, not an assumption. Confirm that the active workspace exposes the `connected-code` app and `connected-code:ExecuteConnectedCode` module before generating a blueprint. If the app or module is unavailable, use the normal Make Code module (`code:ExecuteCode`) for custom code after verifying its current interface. Use `make-api-shell-connection-workflow` only for provider API transport.
+External-system, SaaS, and API data or actions belong to `make-api-shell-connection-workflow`; they are not a fallback selected by Connected Code availability. Detailed service and API examples in this skill illustrate connection helpers inside already-selected custom logic, not default routing.
+
+Connected Code is the preferred custom-logic execution surface, not an assumption. Confirm that the active workspace exposes the `connected-code` app and `connected-code:ExecuteConnectedCode` module before generating a blueprint. If the app or module is unavailable, use the normal Make Code module (`code:ExecuteCode`) after verifying its current interface.
 
 ## Quick routing
 
@@ -27,7 +29,7 @@ Read the file that matches the current task:
 
 | Task | Reference |
 | --- | --- |
-| Decide between Connected Code, the normal Make Code module, and provider API-shell transport | [Execution surface routing](./execution-surface-routing.md) |
+| Decide whether the task needs API transport, normal-module orchestration, or real custom logic | [Execution surface routing](./execution-surface-routing.md) |
 | Understand the module contract, mapper fields, outputs, and REST create/update payload shape | [Connected Code contract](./connected-code-contract.md) |
 | Choose the correct connection helper and diagnose broker mismatches | [Connection patterns](./connection-patterns.md) |
 | Browse the complete 159-app connection reference | [Connection reference](./references/connected-code-helpers/docs/connection-reference.md) |
@@ -46,30 +48,28 @@ Read the file that matches the current task:
 
 ## When to use
 
-Use this skill for requests like:
+Use this skill only when the task has an explicit custom-logic requirement, for example:
 
-- "host this on Make"
-- "run this every morning at 9"
-- "make a webhook that runs this code"
-- "build a Make scenario for this automation"
-- "use an existing Make connection from code"
-- "the exact Make module does not exist; call the API from code"
-- "read from Supabase or Postgres and return JSON"
-- "Connected Code is not available; call this provider API through Make instead"
-- "replace a deprecated E2B skill workflow"
+- non-trivial normalization or transformation that normal mappings do not express cleanly
+- pagination, deduplication, idempotency, or decision logic across already verified API calls
+- a custom algorithm or reusable business rule that must execute inside Make
+- multiple verified API operations that must be combined into one deterministic business process
+
+A schedule, webhook, or "host this on Make" request is not by itself evidence that code is needed. Select the trigger and orchestration separately, then use this skill only for the custom-logic step.
 
 Do not use this skill for:
 
-- pure no-code scenarios when the user explicitly asks for only normal Make modules
+- scenarios where normal Make modules and a Make API shell express the work cleanly
+- external-system data or actions that a Make API shell can transport without custom logic
 - Make custom app SDK work under `apps/<app>/` and `scripts/<app>/`
 - native Connected Code product engineering inside the Make monorepo
 - reusable transport wrapper scenarios outside Connected Code
 
 ## Hard boundaries
 
-- No credential-request flow inside the Connected Code branch. The user creates or selects that connection in the Make scenario editor. After an API-shell fallback, `make-api-shell-connection-workflow` owns connection reuse and credential requests.
+- No credential-request flow inside the Connected Code branch. The user creates or selects that connection in the Make scenario editor. `make-api-shell-connection-workflow` owns connection reuse and credential requests for API transport.
 - `make-e2b-code-execution` is deprecated and removed. This repository does not document or provision an E2B workaround.
-- When Connected Code is unavailable, use the normal Make Code module for supported custom-code tasks. The API-shell workflow remains a provider API transport fallback, not a general code module.
+- When Connected Code is unavailable, use the normal Make Code module for supported custom-code tasks. The API-shell workflow is the primary external-system transport, not a general code module.
 - No raw API keys, passwords, bearer tokens, or connection strings in chat, code, scenario inputs, logs, or generated files.
 - No direct authenticated SDK calls when a Make connection or HTTP credential can represent the auth boundary.
 
@@ -85,6 +85,7 @@ Blueprint generated. Please create or select the required Make connection in the
    - State the trigger shape: schedule, webhook, manual/on-demand, or polling.
    - State the work payload and final output.
    - Decide which pieces should stay visible as normal Make modules.
+   - Confirm that the selected code step is real custom logic rather than external-system API transport that belongs in `make-api-shell-connection-workflow`.
    - Completion criterion: one sentence names trigger, Connected Code action, connection surface, and output.
 
 2. Verify the execution surface.
@@ -92,14 +93,13 @@ Blueprint generated. Please create or select the required Make connection in the
    - Discover the `connected-code` app and confirm that `connected-code:ExecuteConnectedCode` can be resolved in the active workspace.
    - Treat transient metadata or authorization failures as blockers to investigate, not proof that the app does not exist.
    - If Connected Code is unavailable for custom code, discover and verify the normal Make Code module (`code:ExecuteCode`) and its current interface before generating the blueprint.
-   - If Connected Code is unavailable for provider API transport, invoke `make-api-shell-connection-workflow`.
    - For `route: make-code`, follow the Normal Make Code fallback branch in `execution-surface-routing.md` and do not continue into Connected Code-only steps 3–7.
-   - For `route: make-api-shell`, hand off to `make-api-shell-connection-workflow` and do not continue into Connected Code-only steps 3–7.
-   - Completion criterion: the route is explicitly `connected-code`, `make-code`, or `make-api-shell`, with discovery evidence.
+   - If the task is API transport rather than custom logic, route to `make-api-shell-connection-workflow` before this availability gate and do not continue into Connected Code-only steps 3–7.
+   - Completion criterion: the custom-logic route is explicitly `connected-code` or `make-code`, with discovery evidence.
 
 3. Discover the Connected Code app and connection surface (`route: connected-code` only).
    - Use current module metadata, an exported blueprint, Make MCP, CLI, SDK, or REST metadata; do not guess.
-   - Prefer a selected service App when it exists. Use the HTTP App when Connected Code is available but the provider is not in its catalog and a stable HTTP scope plus Make credential can represent access.
+   - For API access inseparable from the selected custom logic, prefer a selected service App when it exists. The HTTP App is an implementation option inside that custom logic, not a replacement for the Make API Shell route.
    - Find the exact `connectionType` and current binder fields. Connected Code 1.2.2 uses one hidden account binder, `__IMTCONN__`; stale sharded binders such as `__IMTCONN_2__` are not supported.
    - Completion criterion: the blueprint names the exact `connectionType`, required binder, and whether `httpBaseUrl` is needed.
 
@@ -115,7 +115,7 @@ Blueprint generated. Please create or select the required Make connection in the
 5. Build the scenario blueprint.
    - Use `connected-code:ExecuteConnectedCode`.
    - Document each Connected Code module in both places: add a concise implementation-focused comment in the code, and add a matching canvas-friendly note under `metadata.designer.notes`. The code comment explains technical behavior; the scenario note explains what the module does in the workflow.
-   - Use normal Make modules only where they make the trigger/control/delivery contract clearer.
+   - Use normal Make modules only where they make the trigger or visible control-flow contract clearer. Use Make API Shell for separable external-system data or actions.
    - For REST calls, send stringified `blueprint` and stringified `scheduling` values unless the client wrapper documents object input.
    - Completion criterion: the scenario can be created or the blueprint can be handed to a user without missing mapper fields.
 
@@ -148,7 +148,7 @@ Named services in the vendored connection reference are concrete catalog example
 ## Common pitfalls
 
 1. Choosing normal modules for code-shaped logic.
-   - Fix: keep normal modules for trigger/control/delivery and put custom logic in Connected Code.
+   - Fix: keep normal modules for trigger and visible control flow, put custom logic in Connected Code, and use Make API Shell for separable external-system data or actions.
 
 2. Guessing the Connected Code binder.
    - Fix: inspect the current module interface, manifest, or an exported blueprint.
@@ -169,7 +169,7 @@ Named services in the vendored connection reference are concrete catalog example
    - Fix: `Broker is not configured for this connection` means the selected helper does not match the App. Gmail and Sage use `connection.fetch(...)`; the Make automatic error handler does not fix this configuration error.
 
 8. Generating Connected Code when the app is unavailable.
-   - Fix: verify the module first. Use the normal Make Code module for custom code, or `make-api-shell-connection-workflow` for provider API transport.
+   - Fix: verify the module first and use the normal Make Code module for custom code. Route ordinary external-system API transport to `make-api-shell-connection-workflow` before entering this skill.
 
 9. Routing hosted or reusable code to E2B.
    - Fix: `make-e2b-code-execution` is deprecated and removed. Do not provide E2B setup or workaround instructions in this repository; use Connected Code or the normal Make Code module according to current availability and interface support.
@@ -178,9 +178,9 @@ Named services in the vendored connection reference are concrete catalog example
 
 - [ ] Trigger shape is explicit: schedule, webhook, manual/on-demand, or polling.
 - [ ] Connected Code app/module availability was checked in the active workspace.
-- [ ] The selected route is explicit: Connected Code, normal Make Code, or Make API shell.
+- [ ] The selected custom-logic route is explicit: Connected Code or normal Make Code.
 - [ ] Connected Code owns custom business logic by default.
-- [ ] Normal Make modules are limited to trigger/control/delivery roles except for the verified `code:ExecuteCode` fallback.
+- [ ] Normal Make modules are limited to trigger, visible control-flow, and binary-file orchestration roles except for the verified `code:ExecuteCode` fallback.
 - [ ] Connected Code routes use app search/current metadata before choosing `connectionType`; Make Code routes verify the current module interface.
 - [ ] A Connected Code route uses `connected-code:ExecuteConnectedCode`; a Make Code route uses the verified `code:ExecuteCode` module/version.
 - [ ] Connected Code uses `input` and Make connection helpers; Make Code follows its verified current interface and keeps secrets out of mapped inputs.
@@ -189,7 +189,7 @@ Named services in the vendored connection reference are concrete catalog example
 - [ ] PostgreSQL/MySQL workflows use `connection.sql.query`, not direct database passwords.
 - [ ] Generic Email uses `connection.email.*`; Gmail and Sage service Apps use `connection.fetch(...)`.
 - [ ] No blueprint uses stale sharded binders such as `__IMTCONN_2__`.
-- [ ] If Connected Code is unavailable, custom code uses the verified normal Make Code module and provider API transport uses `make-api-shell-connection-workflow`.
+- [ ] External-system API transport uses `make-api-shell-connection-workflow`; API examples here remain illustrative helpers inside real custom logic.
 - [ ] No workflow routes to `make-e2b-code-execution` or documents an E2B workaround.
 - [ ] If Connected Code editor connection setup is still required, final response includes the exact handoff sentence.
 - [ ] After user confirmation, a real run was executed and inspected.

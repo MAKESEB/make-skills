@@ -140,42 +140,24 @@ Do not replace it with `{{MIDDLE_API_MODULE_ID}}` or `{{MIDDLE_API_MODULE_ID.dat
 
 Use bundle inspection only to confirm that `body` contains the expected payload or error object. Do not use bundle inspection to redefine the generic shell contract.
 
-## App-action shell fallback
+## Generic Make HTTP shell fallback
 
 Use this only when the version sweep proves that no app version exposes a
-universal API-call module.
+suitable app-specific API-call module.
 
-Keep the same three-module frame, but the middle module is an app-specific
-action module with its own real parameter mapping instead of the HTTP
-transport mapper:
+Keep transport inside Make by following
+[HTTP Fallback Shells](./http-fallback-shells.md). The reusable on-demand
+scenario remains a three-module shell:
 
-- `scenario-service:StartSubscenario` with the standard interface
-- one app action module, for example `google-calendar:ActionGetEvents` v4
+- `scenario-service:StartSubscenario` with the documented HTTP-shell interface
+- `http:MakeRequest` using a Make-managed keychain or connection
 - `scenario-service:ReturnData`
 
-Rules that differ from the generic shell:
-
-1. Map the module's real parameters, not `url`/`method`/`headers`. Feed
-   variable inputs from the standard interface's `qs` object as
-   `{{2.qs.<field>}}`. Required module parameters must be mapped or set as
-   literals or the run fails with
-   `BundleValidationError: Missing value of required parameter '<name>'`
-   (confirmed example: `ActionGetEvents` requires `singleEvents`).
-2. `ReturnData.data` maps the module's actual output field, which is usually
-   not `body`. `ActionGetEvents` returns its events under `array`, so the
-   mapper is `{{5.array}}` when the middle module id is `5`.
-3. `__IMTCONN__` binding is mandatory, exactly as for the generic shell.
-4. Write safety cannot use the HTTP method, because the action itself decides
-   mutation. Treat module names matching Get/List/Search/Watch/Download/Read/
-   Fetch as read-style; require explicit confirmation for everything else
-   (Create/Update/Delete/Send/...).
-5. Pass run inputs as a plain `qs` object so named fields resolve in the
-   mapper. Do not convert `qs` to key/value pair lists for action shells;
-   that format is only correct for universal API-call modules.
-
-An app-action shell is bound to one module and one parameter shape. It is
-reusable for that one operation, not a generic transport. Name it after the
-operation, and prefer the generic shell whenever a universal module exists.
+Discover the current HTTP module metadata, credential type, interface, mapper,
+and output contract before creating the shell. Do not substitute a native app
+action/search/list/get module as transport merely because the app lacks a
+universal API-call module. Native app modules may be inspected as metadata
+evidence, but they do not replace this workflow's API Shell transport.
 
 ## Activation readiness rule
 
@@ -216,7 +198,7 @@ modules (`ActionGetEvents`, `ActionCreateEvent`, ...) and has no universal
 API-call module at all, while `google-calendar` v5 exposes `makeApiCall`
 ("Make an API Call"). Slack exposes `MakeAPICall` in v4.
 
-Before falling back to app-specific action modules:
+Before selecting the generic Make HTTP shell fallback:
 1. enumerate the app's available versions
 2. query the module catalog per version:
    `GET /api/v2/imt/apps/{appName}/{version}/modules-with-credentials`
@@ -224,8 +206,8 @@ Before falling back to app-specific action modules:
 4. prefer the version that has the universal module, even if it is not the
    version an existing scenario or first lookup returned
 
-Only when no version has a universal API-call module, use the app-action
-shell fallback described below.
+Only when no version has a suitable API-call module, use the generic Make HTTP
+shell fallback described in [HTTP Fallback Shells](./http-fallback-shells.md).
 
 ### Module base URL and path prefix
 

@@ -5,6 +5,8 @@ description: Splitting scenario flow into multiple independent routes using the 
 
 # Routing
 
+> **Routing gate:** Provider-named module chains below are illustrative configuration examples only. External-system data and actions use `make-api-shell-connection-workflow`; normal modules remain limited to triggers and visible orchestration. Do not execute these examples as transport defaults.
+
 ## What It Is
 
 Routing splits a scenario flow into multiple independent routes using the Router module (`builtin:BasicRouter`). Each route is a separate sequence of modules that processes the same incoming bundle(s). Multiple routes can execute for the same bundle.

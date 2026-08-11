@@ -1,232 +1,80 @@
 ---
 name: quick-patterns
-description: Compressed MCP call chains for common one-shot Make scenarios — Slack message, Google Sheets fetch, Airtable record, email send.
+description: Compressed Make-first call chains for API transport, orchestration, custom logic, and HTTP fallback.
 ---
 
 # Quick Patterns
 
-Minimum MCP call chains for common one-shot scenarios. Each pattern assumes the user has confirmed the use case and specific apps. Follow the full `make-module-configuring` skill for detailed configuration guidance.
+Use these role-level patterns only after the user confirms the use case. Resolve every concrete app, module, connection, scenario, shell, account, and resource from current Make metadata. Provider names and native action modules are not routing defaults.
 
-## Send a Slack Message
+## External data read
 
-Goal: Send a direct message to a specific user via Slack.
-
-```
-1. connections_list              → Find existing Slack connection (accountName: "slack2")
-   - If missing: credential_requests_create → user completes OAuth → credential_requests_get
-2. app-module_get                → slack:CreateMessage (outputFormat: "instructions")
-3. rpc_execute                   → IMChannels RPC (resolve target user's DM channel ID)
-   ⚠ Do NOT use the connection's userId — that's the bot, not the recipient
-4. Construct blueprint JSON      → Build blueprint with configured module (see blueprint-construction.md)
-5. validate_blueprint_schema     → Validate structure
-6. scenarios_create              → Create scenario (blueprint must include metadata)
-7. scenarios_activate            → Activate (required before running)
-8. scenarios_run                 → Execute
+```text
+1. Resolve provider/account ambiguity
+2. Load make-api-shell-connection-workflow
+3. Discover app versions and the exact API-call module
+4. Reuse a suitable connection and verified read-only API shell
+5. Run the narrowest provider-relative GET request
+6. Inspect the execution result before expanding the query
 ```
 
-## Fetch Google Sheets Data
+If no app version exposes a suitable API-call module, use the generic Make HTTP API shell with a Make-managed connection or keychain.
 
-Goal: Read rows from a Google Sheets spreadsheet.
+## External action
 
-```
-1. connections_list              → Find existing Google connection (accountName: "google")
-   - If missing: credential_requests_create with required scopes → user completes OAuth
-2. app-module_get                → google-sheets:getRows or google-sheets:SearchRows (instructions format)
-3. rpc_execute                   → Spreadsheets RPC (resolve spreadsheet ID by name)
-4. rpc_execute                   → Sheets RPC (resolve sheet/tab within spreadsheet)
-5. Construct blueprint JSON      → Build blueprint with configured module (see blueprint-construction.md)
-6. validate_blueprint_schema → scenarios_create → scenarios_activate → scenarios_run
-```
-
-## Create an Airtable Record
-
-Goal: Add a new record to an Airtable base.
-
-```
-1. connections_list              → Find existing Airtable connection (accountName: "airtable")
-2. app-module_get                → airtable:ActionCreateRecord (instructions format)
-3. rpc_execute                   → Bases RPC (resolve base ID)
-4. rpc_execute                   → Tables RPC (resolve table ID within base)
-5. Construct blueprint JSON      → Build blueprint with configured module + mapper fields (see blueprint-construction.md)
-6. validate_blueprint_schema → scenarios_create → scenarios_activate → scenarios_run
+```text
+1. Resolve provider/account and intended mutation
+2. Load make-api-shell-connection-workflow
+3. Discover the exact app API-call module and connection
+4. Reuse or provision the verified API shell
+5. Obtain explicit confirmation for the concrete write
+6. Execute through Make and verify the resulting provider state
 ```
 
-## Send an Email via Gmail
+Do not replace this transport path with a native Create/Update/Delete/Send module merely because such a module exists.
 
-Goal: Send an email to a specific recipient via Gmail.
+## Trigger plus external transport
 
-```
-1. connections_list              → Find existing Google Email connection (accountName: "google-email")
-   - google-email is a SEPARATE connection type from "google" (Sheets/Calendar/Drive)
-   - If missing: credential_requests_create for google-email → user completes OAuth → credential_requests_get
-2. app-module_get                → google-email:sendAnEmail (instructions format)
-3. Construct blueprint JSON      → Build blueprint with mapper (to, subject, body) (see blueprint-construction.md)
-4. validate_blueprint_schema → scenarios_create → scenarios_activate → scenarios_run
+```text
+Normal Make trigger
+→ Make API Shell read/action
+→ visible router/iterator/aggregator/error handling as needed
+→ Make API Shell action when an external write follows
 ```
 
-## Google Sheets → Make AI Tools → Google Sheets (read + enrich + update)
+Normal modules own the trigger and visible orchestration. API Shell owns separable external-system data and actions.
 
-Goal: Watch new rows, send a column value to AI, write the AI response back to the same row.
+## Custom logic between API operations
 
-```
-1. connections_list              → Find Google connection (accountName: "google")
-   - If missing: credential_requests_create → user completes OAuth → credential_requests_get
-2. connections_list              → Find AI Provider connection (accountName: "ai-provider" or similar)
-   - If missing: credential_requests_create for ai-provider → user completes OAuth
-3. app-module_get                → google-sheets:watchRows (outputFormat: "instructions")
-4. rpc_execute                   → Spreadsheets RPC (resolve spreadsheet ID)
-5. rpc_execute                   → Sheets RPC (resolve sheet tab ID)
-6. app-module_get                → ai-tools:Ask (outputFormat: "instructions")
-   ⚠ Do NOT call RpcGetModels — it fails via MCP. Use tier names: "low", "medium", "high"
-7. app-module_get                → google-sheets:updateRow (outputFormat: "instructions")
-8. Construct blueprint JSON      → Build blueprint with all three modules (see blueprint-construction.md):
-   - watchRows                   → parameters: connection, spreadsheetId, sheetId, includesHeaders: true, limit, tableFirstRow
-   - ai-tools:Ask                → parameters.model: "medium", mapper.input: "{{1.`0`}}" (column A, 0-based backtick index)
-   - updateRow                   → mapper.rowNumber: "{{1.__ROW_NUMBER__}}", mapper.valueInputOption: "USER_ENTERED"
-9. validate_blueprint_schema → scenarios_create → scenarios_activate
+```text
+Make API Shell read
+→ Connected Code custom logic
+→ Make API Shell action
 ```
 
-**Key configuration values:**
+Use this only when transformation, normalization, decisions, pagination, deduplication, idempotency, or another explicit business rule requires code. If Connected Code is unavailable, verify and use the normal Make Code module. Do not use API Shell as a custom-code fallback.
 
-```javascript
-// Module 1: google-sheets:watchRows
-parameters: {
-  __IMTCONN__: <google_connection_id>,
-  mode: "fromAll",
-  spreadsheetId: "<spreadsheet_id>",
-  sheetId: "<sheet_name>",
-  includesHeaders: true,
-  tableFirstRow: "A1:Z1",
-  limit: 2
-}
-mapper: {}
+## Generic Make HTTP fallback
 
-// Module 2: ai-tools:Ask
-parameters: {
-  makeConnectionId: <ai_provider_connection_id>,
-  model: "medium"   // tier name — NOT a model ID like "gpt-4o-mini"
-}
-mapper: {
-  input: "{{1.`0`}}"   // column A — 0-based backtick-quoted numeric index
-}
-
-// Module 3: google-sheets:updateRow
-parameters: {
-  __IMTCONN__: <google_connection_id>
-}
-mapper: {
-  mode: "fromAll",
-  spreadsheetId: "<spreadsheet_id>",
-  sheetId: "<sheet_name>",
-  rowNumber: "{{1.__ROW_NUMBER__}}",
-  includesHeaders: true,
-  useColumnHeaders: true,
-  valueInputOption: "USER_ENTERED",   // required — omitting breaks date/number formatting
-  values: {
-    "undefined": "{{2.answer}}"        // column B (no header) — key is "undefined" when header is blank
-  }
-}
+```text
+1. Prove no suitable app-specific API-call module exists across current app versions
+2. Inspect current http:MakeRequest metadata and credential types
+3. Reuse or request a Make-managed keychain/connection
+4. Build the documented three-module HTTP shell
+5. Validate on-demand before scheduling or webhook exposure
 ```
 
-**Gotchas:**
-- Column references use `{{1.\`0\`}}` — 0-based, backtick-quoted. NOT `{{1.1}}` or `{{1.jan}}`.
-- `model: "small"` for Make AI Provider (cost-effective tier; valid slugs: `small`/`medium`/`large`). Older docs say `low/medium/high` — stale. `RpcGetModels` fails via MCP, so the dropdown can't be queried from the agent side — confirm the slug via Make UI if unsure.
-- `valueInputOption: "USER_ENTERED"` in updateRow mapper — mandatory for correct value formatting.
-- Columns without headers get `"undefined"` as their key in the `values` object.
+Browser use, local curl, and provider SDK execution are not automatic fallbacks.
 
-## Google Calendar → Aggregated Email Summary
+## Common verification tail
 
-Goal: Search today's calendar events, aggregate them into a text summary, and email it.
-
-```
-1a. connections_list             → Find existing Google connection (accountName: "google") for Calendar
-1b. connections_list             → Find existing Google Email connection (accountName: "google-email") for Gmail
-    - Calendar and Gmail require SEPARATE connections — google-email is a different connection type than google
-2. app-module_get                → google-calendar:searchEvents (outputFormat: "instructions")
-3. rpc_execute                   → listCalendars RPC (resolve calendar ID)
-4. app-module_get                → util:TextAggregator (outputFormat: "instructions")
-5. app-module_get                → google-email:sendAnEmail (outputFormat: "instructions")
-6. Construct blueprint JSON      → Three modules chained:
-   - google-calendar:searchEvents (parameters: connection, calendarId, timeMin/timeMax)
-   - util:TextAggregator (parameters.feeder: <searchEvents module ID>, parameters.rowSeparator: "\n")
-   - google-email:sendAnEmail (mapper: to, subject, content referencing aggregated text)
-   ⚠ feeder goes inside parameters, not as a top-level module property
-   ⚠ Include metadata.restore.extra.feeder with source module label for UI display
-7. validate_blueprint_schema → scenarios_create → scenarios_activate → scenarios_run
+```text
+validate blueprint/interface
+→ create or reuse scenario
+→ activate only when required
+→ run narrow smoke test
+→ inspect status/output/logs
+→ apply requested schedule only after proof
 ```
 
-**Key configuration values:**
-
-```javascript
-// Module 1: google-calendar:searchEvents
-parameters: {
-  __IMTCONN__: <google_connection_id>,
-  calendarId: "<calendar_id>",    // from rpc_execute listCalendars
-  timeMin: "{{formatDate(now; \"YYYY-MM-DD\")}}T00:00:00Z",
-  timeMax: "{{formatDate(now; \"YYYY-MM-DD\")}}T23:59:59Z"
-}
-
-// Module 2: util:TextAggregator
-parameters: {
-  feeder: 1,           // ID of searchEvents module
-  rowSeparator: "\n"
-}
-mapper: {
-  value: "{{1.summary}} ({{1.start}} - {{1.end}})"
-}
-metadata: {
-  expect: [{ name: "value", type: "text", label: "Text" }],
-  restore: {
-    extra: { feeder: { label: "Search Events - Search Events [1]" } },  // match actual source module name and ID
-    parameters: { rowSeparator: { label: "New row" } }
-  }
-}
-
-// Module 3: google-email:sendAnEmail
-parameters: {
-  __IMTCONN__: <google_email_connection_id>
-}
-mapper: {
-  to: "recipient@example.com",
-  subject: "Today's Calendar Summary",
-  content: "{{2.text}}"   // aggregated text output from TextAggregator
-}
-```
-
-**Gotchas:**
-- `feeder: 1` must be inside `parameters`, not a top-level property on the module object.
-- `timeMin`/`timeMax` use IML expressions to scope to today's events.
-- The TextAggregator outputs its result as `{{2.text}}` (where 2 is the aggregator's module ID).
-
-## Common Tail Sequence
-
-Every pattern ends with the same deployment steps:
-
-```
-validate_blueprint_schema → scenarios_create → scenarios_activate → scenarios_run
-```
-
-- `scenarios_create` requires blueprint `metadata` — always include the metadata block (see blueprint-construction.md)
-- `scenarios_activate` is mandatory before `scenarios_run` — newly created scenarios are inactive
-- Always provide the scenario URL to the user after creation
-
-## Canonical Real-World Examples
-
-The chains above describe the call sequence; for fully-configured production blueprints (real mapper expressions, `restore` metadata, scheduling, designer coords) see the top-10-by-usage templates under [examples/popular-templates/](./examples/popular-templates/). Cross-reference by use case:
-
-| Pattern above | Production blueprint to study |
-|---|---|
-| Send a Slack Message | (no popular-templates match — use `quick-patterns.md` chain as-is) |
-| Fetch Google Sheets Data | [02-add-webhook-data-to-google-sheet.json](./examples/popular-templates/02-add-webhook-data-to-google-sheet.json) (writes; trigger differs but `addRow` mapper is canonical), [05-facebook-leads-to-google-sheets.json](./examples/popular-templates/05-facebook-leads-to-google-sheets.json) |
-| Create an Airtable Record | (no popular-templates match — Airtable templates exist further down the usage list) |
-| Send an Email via Gmail | [04-send-gmail-from-google-sheets-row.json](./examples/popular-templates/04-send-gmail-from-google-sheets-row.json) — canonical `google-email:ActionSendEmail` mapper with `to`/`subject`/`html` from sheet columns |
-| Google Sheets → AI Tools → Google Sheets | [01-chatgpt-completions-from-google-sheets.json](./examples/popular-templates/01-chatgpt-completions-from-google-sheets.json) — same shape as this pattern but using OpenAI directly. Mirror the `watchRows` parameters, `{{1.\`0\`}}` input mapping, and the `updateRow` mapper using `__ROW_NUMBER__`/`__SHEET__`/`__SPREADSHEET_ID__` for write-back |
-| Notion ↔ Google Calendar sync (router: create/update/delete) | [10-sync-notion-to-google-calendar.json](./examples/popular-templates/10-sync-notion-to-google-calendar.json) — canonical reference for state-routing a single bundle into Calendar create/update/delete branches |
-
-Adjacent patterns not covered by the chains above:
-
-- **Webhook → addRow (instant trigger):** [02-add-webhook-data-to-google-sheet.json](./examples/popular-templates/02-add-webhook-data-to-google-sheet.json), [05-facebook-leads-to-google-sheets.json](./examples/popular-templates/05-facebook-leads-to-google-sheets.json)
-- **Conversational chatbot (trigger → AI → reply):** [03-chatgpt-telegram-bot.json](./examples/popular-templates/03-chatgpt-telegram-bot.json), [06-whatsapp-basic-chatbot.json](./examples/popular-templates/06-whatsapp-basic-chatbot.json)
-- **IMAP email → sheet:** [07-incoming-emails-to-google-sheets.json](./examples/popular-templates/07-incoming-emails-to-google-sheets.json) — IMAP/Google-Restricted/Microsoft-SMTP-IMAP connection variants in `account` type spec
-- **Iterator over array bundle:** [09-save-gmail-attachments-to-drive.json](./examples/popular-templates/09-save-gmail-attachments-to-drive.json) — `builtin:BasicFeeder` with `{{4.attachments}}`
-- **Router fanout (multi-platform publish):** [08-summarize-website-and-create-social-posts.json](./examples/popular-templates/08-summarize-website-and-create-social-posts.json)
+Always report the selected execution surface, discovered Make metadata, scenario ID, execution ID, account/connection ambiguity, and any credential handoff. Public templates may be consulted for structural concepts such as routing, aggregation, and mapper shape, but never copy their provider modules, connection labels, resource IDs, or tenant metadata as a routing decision.

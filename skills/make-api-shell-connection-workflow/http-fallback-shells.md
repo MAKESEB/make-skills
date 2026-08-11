@@ -1,14 +1,14 @@
 # HTTP Fallback Shells
 
-Use this reference when the target provider has **no dedicated Make app** (or
-no usable API-call module). Instead of giving up or asking for a custom app,
+Use this reference when the target system has **no suitable app-specific
+API-call module**. Instead of giving up or asking for a custom app,
 build a generic HTTP shell: the same three-module on-demand scenario family as
 the API-call shells, but with `http:MakeRequest` (HTTP app, version 4) in the
 middle. The shell takes `url`, `method`, `headers`, `qs`, and `body` as inputs
 and returns `data`, `statusCode`, and `headers`.
 
-All four authentication variants below were verified live against the Make
-REST API (scenario creation, activation, and execution).
+The current Make HTTP module contract supports the four authentication variants
+below. Re-discover current metadata before creating or changing a shell.
 
 ## Module anatomy
 
@@ -77,7 +77,7 @@ curl -sS -X POST "${BASE_URL}/api/v2/connections?teamId=${TEAM_ID}" \
   }'
 ```
 
-Constraints verified live:
+Current contract constraints:
 
 - Valid `flowType` options are `authorizationCode` and `implicit` only. There
   is no client-credentials flow on this connection type.
@@ -110,7 +110,7 @@ proxy keychain variants. This means API keys and Basic credentials can also be
 collected through a credential request instead of asking the user to paste
 secrets into chat.
 
-Create the request (verified live; note `appModules` **must be an array** —
+Create the request (`appModules` **must be an array** —
 a plain string fails with `Expected array`):
 
 ```bash
@@ -142,7 +142,7 @@ curl -sS -o /dev/null -w "%{redirect_url}" \
   -H "authorization: Token $API_KEY"
 ```
 
-Verified live: this returns `302` to a `https://www.make.com/oauth/init?...`
+The current API contract returns `302` to a `https://www.make.com/oauth/init?...`
 URL that wraps the provider authorize call. Hand that URL (or the
 `/api/v2/oauth/auth/{connectionId}` link itself, opened while logged into
 Make) to the user to complete the consent. An optional `scope` query
@@ -158,7 +158,7 @@ for the full flow (StartSubscenario -> http:MakeRequest -> ReturnData). The
 middle module for the keychain variants differs only in `parameters`, e.g.:
 
 ```json
-{"tlsType": "", "proxyKeychain": "", "authenticationType": "apiKey", "apiKeyKeychain": 182303}
+{"tlsType": "", "proxyKeychain": "", "authenticationType": "apiKey", "apiKeyKeychain": 12345}
 ```
 
 Creation rules that differ from app API-call shells:
@@ -196,8 +196,7 @@ Creation rules that differ from app API-call shells:
   are `get`, `head`, `post`, `put`, `patch`, `delete`, `options`.
 - The mapper sets `contentType` conditionally:
   `{{if(length(2.body) > 0; "json")}}`. Leave `body` empty for GET — CDNs
-  such as CloudFront in front of provider APIs (verified with Daytona) reject
-  GET requests that carry a body with an opaque edge `403`. With a static
+  in front of provider APIs can reject GET requests that carry a body. With a static
   `contentType: json` the shell always sends a body, and an empty string then
   fails the run with `BundleValidationError` — the conditional avoids both
   failure modes. When a body is provided it must be valid JSON text.

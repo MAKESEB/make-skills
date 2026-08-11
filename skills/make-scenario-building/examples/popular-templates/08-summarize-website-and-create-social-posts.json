@@ -450,7 +450,7 @@
                           "scoped": "true",
                           "connection": "openai-gpt-3"
                         },
-                        "label": "Make Ent GPT4"
+                        "label": "AI Provider Connection"
                       }
                     }
                   },
@@ -870,7 +870,7 @@
                       },
                       "organization": {
                         "mode": "chose",
-                        "label": "test11111111122"
+                        "label": "Organization placeholder"
                       },
                       "feedDistribution": {
                         "mode": "chose",
@@ -886,7 +886,7 @@
                           "scoped": "true",
                           "connection": "linkedin2"
                         },
-                        "label": "My LinkedIn connection (integromat Developer)"
+                        "label": "Social Connection"
                       }
                     }
                   },
@@ -1320,7 +1320,7 @@
                           "scoped": "true",
                           "connection": "openai-gpt-3"
                         },
-                        "label": "Make Ent GPT4"
+                        "label": "AI Provider Connection"
                       }
                     }
                   },
@@ -1591,7 +1591,7 @@
                     "expect": {
                       "page_id": {
                         "mode": "chose",
-                        "label": "Make Testing"
+                        "label": "Page placeholder"
                       }
                     },
                     "parameters": {
@@ -1600,7 +1600,7 @@
                           "scoped": "true",
                           "connection": "facebook"
                         },
-                        "label": "My Facebook connection (Development Make)"
+                        "label": "Social Connection"
                       }
                     }
                   },

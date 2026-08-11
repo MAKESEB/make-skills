@@ -10,7 +10,7 @@
 					"restore": {
 						"parameters": {
 							"from": {
-								"label": "My Drive"
+								"label": "Drive placeholder"
 							},
 							"mode": {
 								"label": "Search by path"
@@ -23,7 +23,7 @@
 									"scoped": "true",
 									"connection": "google"
 								},
-								"label": "My Google connection"
+								"label": "Connection placeholder"
 							},
 							"spreadsheetId": {
 								"path": [

@@ -5,6 +5,8 @@ description: Configuring ai-local-agent:RunLocalAIAgent modules — tools array,
 
 # AI Agent Module Configuration
 
+> **Routing gate:** Provider-named tool-module chains below illustrate mapper configuration only. External-system data and actions use `make-api-shell-connection-workflow`; they are not normal-module transport recipes.
+
 Module: `ai-local-agent:RunLocalAIAgent`, version `0`.
 
 ## Additional Agent Capabilities
@@ -38,13 +40,13 @@ The agent module uses `makeConnectionId` in **parameters** (not `__IMTCONN__`). 
 
 ```json
 "parameters": {
-    "makeConnectionId": 14613
+    "makeConnectionId": 0
 },
 "metadata": {
     "restore": {
         "parameters": {
             "makeConnectionId": {
-                "label": "Maiak Token",
+                "label": "AI Provider Connection",
                 "data": {
                     "scoped": "true",
                     "connection": "openai-gpt-3"
@@ -147,13 +149,13 @@ Tool modules that need connections use `__IMTCONN__` in `parameters` (same as no
     "id": 4,
     "module": "discord:createMessage",
     "parameters": {
-        "__IMTCONN__": 11867
+        "__IMTCONN__": 0
     },
     "metadata": {
         "restore": {
             "parameters": {
                 "__IMTCONN__": {
-                    "label": "DomiZ's Discord (Make (team1278341651986911253))",
+                    "label": "Connection placeholder",
                     "data": {
                         "scoped": "true",
                         "connection": "discord"

@@ -5,6 +5,8 @@ description: How scenarios start executing — trigger types, scheduling, and ex
 
 # Scheduling & Triggers
 
+> **Routing gate:** Provider-named module chains below are illustrative configuration examples only. External-system data and actions use `make-api-shell-connection-workflow`; normal modules remain limited to triggers and visible orchestration. Do not execute these examples as transport defaults.
+
 ## What It Is
 
 Every scenario needs something to start it. Make supports multiple trigger mechanisms that determine when and how a scenario begins executing.

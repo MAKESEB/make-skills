@@ -36,9 +36,9 @@ Better:
 ## Rewrite evidence language
 
 Bad:
-- `verified live`
-- `worked in tenant X`
-- `confirmed from private reverse-engineering`
+- claims of private live verification
+- claims that something worked in one named tenant
+- claims based on private reverse-engineering
 
 Better:
 - `example observed during development`
@@ -67,7 +67,7 @@ Search for and remove or replace:
 - workspace-specific hosts; use `https://us1.make.com` as the public example base URL
 - `providerMakeUserId`
 - absolute home-directory paths copied from a personal machine
-- phrases such as `verified live`, `working example`, or `for debugging` if they imply private validation or tenant-specific state
+- phrases that imply private validation, tenant-specific state, or unpublished debugging evidence
 
 ## Repository fit
 

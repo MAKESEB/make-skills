@@ -5,6 +5,8 @@ description: Input filters that control which bundles are allowed to enter a mod
 
 # Filtering
 
+> **Routing gate:** Provider-named module chains below are illustrative configuration examples only. External-system data and actions use `make-api-shell-connection-workflow`; normal modules remain limited to triggers and visible orchestration. Do not execute these examples as transport defaults.
+
 ## What It Is
 
 A filter is a condition placed on a module's input that decides whether each incoming bundle is allowed to proceed into the module or is blocked. Filters are the primary mechanism for controlling data flow in Make scenarios.

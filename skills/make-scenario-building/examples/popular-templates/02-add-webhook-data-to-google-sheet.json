@@ -11,7 +11,7 @@
 						"parameters": {
 							"hook": {
 								"data": { "editable": "true" },
-								"label": "My gateway-webhook webhook"
+								"label": "Webhook placeholder"
 							}
 						}
 					},

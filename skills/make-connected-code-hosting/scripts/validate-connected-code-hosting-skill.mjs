@@ -37,6 +37,64 @@ function walk(root) {
   return files;
 }
 
+function skillDescription(skillName) {
+  const source = readRepo(`skills/${skillName}/SKILL.md`);
+  const match = source.match(/^description:\s*(.+)$/m);
+  if (!match) {
+    fail(`${skillName} must have a one-line frontmatter description`);
+    return '';
+  }
+  return match[1].trim();
+}
+
+const distributedSkillRoles = new Map([
+  ['make-api-shell-connection-workflow', 'Make API access'],
+  ['make-connected-code-hosting', 'custom logic on Make'],
+  ['make-scenario-building', 'designing Make scenarios'],
+  ['make-module-configuring', 'configuring Make module'],
+  ['make-mcp-reference', 'Make MCP'],
+]);
+const distributedSkillDescriptions = new Map();
+for (const [skillName, role] of distributedSkillRoles) {
+  const description = skillDescription(skillName);
+  distributedSkillDescriptions.set(skillName, description);
+  const visibleDescription = [...description].slice(0, 57).join('');
+  if (!visibleDescription.includes(role)) {
+    fail(`${skillName} description must expose its generic Make role ${JSON.stringify(role)} within the first 57 characters; found ${JSON.stringify(visibleDescription)}`);
+  }
+}
+
+const runtimeSpecificDescription = new RegExp(
+  ['Claude|Codex|Cursor|Windsurf|Cline|Herm', 'es|AI coding agent'].join(''),
+  'i',
+);
+for (const [skillName, description] of distributedSkillDescriptions) {
+  if (runtimeSpecificDescription.test(description)) {
+    fail(`${skillName} description must be runtime-independent`);
+  }
+}
+
+const providerOrUseCaseRouting = /\b(?:provider|email|CRM|tickets?|Gmail|Outlook|HubSpot|Salesforce|Jira|Zendesk|Linear|Supabase|PostgreSQL|MySQL)\b/i;
+for (const skillName of ['make-api-shell-connection-workflow', 'make-connected-code-hosting']) {
+  if (providerOrUseCaseRouting.test(distributedSkillDescriptions.get(skillName) || '')) {
+    fail(`${skillName} description must not encode provider- or use-case-specific routing`);
+  }
+}
+
+for (const [relativePath, phrase] of [
+  ['README.md', 'External-system, SaaS, and API data or actions start with the Make API Shell workflow.'],
+  ['skills/make-api-shell-connection-workflow/SKILL.md', 'This is the primary Make route for external-system, SaaS, and API data or actions.'],
+  ['skills/make-api-shell-connection-workflow/SKILL.md', 'no suitable app-specific API-call module'],
+  ['skills/make-connected-code-hosting/SKILL.md', 'Use this skill only when the task requires real custom logic'],
+  ['skills/make-connected-code-hosting/SKILL.md', 'A schedule, webhook, or "host this on Make" request is not by itself evidence that code is needed.'],
+  ['skills/make-scenario-building/SKILL.md', 'Use normal Make modules for orchestration.'],
+  ['skills/make-scenario-building/SKILL.md', 'Do not select native provider search/list/get/action modules as transport'],
+]) {
+  if (!readRepo(relativePath).includes(phrase)) {
+    fail(`${relativePath} must include ${JSON.stringify(phrase)}`);
+  }
+}
+
 const requiredFiles = [
   'SKILL.md',
   'execution-surface-routing.md',
@@ -76,12 +134,12 @@ for (const phrase of [
   if (!frontmatter.includes(phrase)) fail(`frontmatter must include ${JSON.stringify(phrase)}`);
 }
 for (const phrase of [
-  'Connected Code is the preferred execution surface, not an assumption',
+  'Connected Code is the preferred custom-logic execution surface, not an assumption',
   'connected-code:ExecuteConnectedCode',
   'make-api-shell-connection-workflow',
   'Broker is not configured for this connection',
   '__IMTCONN__',
-  'use the normal Make Code module (`code:ExecuteCode`) for custom code',
+  'use the normal Make Code module (`code:ExecuteCode`) after verifying its current interface',
   'This repository does not document or provision an E2B workaround',
   'do not continue into Connected Code-only steps 3–7',
   'a Make Code route uses the verified `code:ExecuteCode` module/version',
@@ -271,10 +329,12 @@ const publicText = allFiles
   .map((file) => fs.readFileSync(file, 'utf8'))
   .join('\n');
 for (const [label, pattern] of [
-  ['tenant-specific host', /\bwe\.make\.com\b/i],
+  ['private live-verification phrase', new RegExp(['verified', 'live'].join('\\s+'), 'i')],
+  ['fuzzy working-example phrase', new RegExp(['working', 'examples'].join('\\s+'), 'i')],
+  ['private keychain id', new RegExp(['182', '303'].join(''))],
+  ['local runtime adapter', new RegExp(['Herm', 'es|Open', 'Shell|MAKE_CLOUD_', 'AGENT'].join(''), 'i')],
   ['local user path', /\/Users\/[^/]+\//],
-  ['personal email', /s\.mertens@/i],
-  ['personal name', /Sebastian\s+Mertens/i],
+  ['email address', /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/],
   ['AWS access key', /\bAKIA[0-9A-Z]{16}\b/],
   ['GitHub token', /\bgh[pousr]_[A-Za-z0-9_]{20,}\b/],
   ['Slack token', /\bxox[baprs]-[A-Za-z0-9-]{10,}\b/],
@@ -310,23 +370,94 @@ if (!readRepo('CLAUDE.md').includes('make-connected-code-hosting')) fail('CLAUDE
 if (!readRepo('CLAUDE.md').includes('`make-e2b-code-execution` is deprecated and removed')) fail('CLAUDE.md must document E2B removal');
 
 const apiShellSkill = readRepo('skills/make-api-shell-connection-workflow/SKILL.md');
-if (!apiShellSkill.includes('receives explicit fallback handoffs from `make-connected-code-hosting`')) {
-  fail('make-api-shell-connection-workflow must accept the Connected Code fallback handoff');
+if (!apiShellSkill.includes('primary Make route for external-system, SaaS, and API data or actions')) {
+  fail('make-api-shell-connection-workflow must be the generic primary external-system route');
 }
 const apiShellConnectionRequests = readRepo('skills/make-api-shell-connection-workflow/connection-requests.md');
 if (/\be2b\b/i.test(apiShellConnectionRequests)) {
   fail('make-api-shell-connection-workflow must not retain an E2B credential route');
 }
+const apiShellDiscovery = readRepo('skills/make-api-shell-connection-workflow/discovery-and-shells.md');
+for (const forbidden of [
+  'App-action shell fallback',
+  'falling back to app-specific action modules',
+  'use the app-action',
+]) {
+  if (apiShellDiscovery.includes(forbidden)) {
+    fail(`make-api-shell-connection-workflow retains native action fallback: ${JSON.stringify(forbidden)}`);
+  }
+}
+const publicAgentBlueprint = readRepo('skills/make-module-configuring/examples/ai-agent-full-blueprint.json');
+for (const [label, pattern] of [
+  ['large connection or webhook id', /"(?:hook|makeConnectionId|__IMTCONN__)"\s*:\s*[1-9][0-9]{3,}/],
+  ['large channel id', /"channelId"\s*:\s*"[0-9]{6,}"/],
+  ['private token or team label', /"label"\s*:\s*"[^"]*(?:\bToken\b|team[0-9]{4,})[^"]*"/i],
+]) {
+  if (pattern.test(publicAgentBlueprint)) {
+    fail(`public AI agent blueprint contains ${label}`);
+  }
+}
 const scenarioSkill = readRepo('skills/make-scenario-building/SKILL.md');
 for (const phrase of ['Select the Custom-Code Execution Surface', 'make-connected-code-hosting', 'make-api-shell-connection-workflow', 'normal Make Code module (`code:ExecuteCode`)', '`make-e2b-code-execution` is deprecated and removed']) {
   if (!scenarioSkill.includes(phrase)) fail(`make-scenario-building must include ${JSON.stringify(phrase)}`);
+}
+const scenarioBlueprintConstruction = readRepo('skills/make-scenario-building/blueprint-construction.md');
+if (scenarioBlueprintConstruction.includes('use the corresponding app-specific module instead of `ai-tools:Ask`')) {
+  fail('make-scenario-building retains native AI provider action fallback instead of Make API Shell transport');
+}
+for (const forbidden of ['copy the relevant module config', 'copy the module sequence', 'Canonical reference']) {
+  if (scenarioBlueprintConstruction.includes(forbidden)) {
+    fail(`make-scenario-building treats provider templates as operative guidance: ${JSON.stringify(forbidden)}`);
+  }
+}
+const scenarioQuickPatterns = readRepo('skills/make-scenario-building/quick-patterns.md');
+for (const forbidden of ['chain as-is', '## Send a Slack Message', '## Fetch Google Sheets Data', '## Create an Airtable Record', '## Send an Email via Gmail', 'Canonical Real-World Examples']) {
+  if (scenarioQuickPatterns.includes(forbidden)) {
+    fail(`quick patterns retain native provider recipe: ${JSON.stringify(forbidden)}`);
+  }
+}
+if (scenarioSkill.includes('unless the user explicitly requires a particular native module')) {
+  fail('make-scenario-building permits a native provider transport exception');
+}
+if (/empirically verified|use the corresponding app-specific module instead of/i.test(scenarioSkill)) {
+  fail('make-scenario-building retains private proof or native AI provider fallback');
+}
+const aiAgentReference = readRepo('skills/make-module-configuring/ai-agents.md');
+for (const [label, pattern] of [
+  ['large connection id', /"(?:makeConnectionId|__IMTCONN__)"\s*:\s*[1-9][0-9]{3,}/],
+  ['private token or team label', /"label"\s*:\s*"[^"]*(?:\bToken\b|team[0-9]{4,})[^"]*"/i],
+]) {
+  if (pattern.test(aiAgentReference)) fail(`public AI agent reference contains ${label}`);
+}
+const templateReadme = readRepo('skills/make-scenario-building/examples/popular-templates/README.md');
+if (/preserved verbatim|original publisher's connection label/i.test(templateReadme)) {
+  fail('popular template README permits private labels');
+}
+const socialTemplate = readRepo('skills/make-scenario-building/examples/popular-templates/08-summarize-website-and-create-social-posts.json');
+if (/"label"\s*:\s*"(?:My |Make Ent|Make Testing|[^"\n]*Development Make)/i.test(socialTemplate)) {
+  fail('popular social template contains a workspace-specific label');
 }
 const publicMarkdownText = allFiles
   .filter((file) => file.endsWith('.md'))
   .map((file) => fs.readFileSync(file, 'utf8'))
   .join('\n');
-for (const forbidden of ['arbitrary custom-code execution is reported as blocked', 'no supported hosted-code runtime is available', 'route: blocked — Connected Code unavailable for hosted-code migration']) {
-  if (publicMarkdownText.includes(forbidden)) fail(`public skill must not claim unavailable Connected Code blocks custom code: ${JSON.stringify(forbidden)}`);
+for (const forbidden of [
+  'arbitrary custom-code execution is reported as blocked',
+  'no supported hosted-code runtime is available',
+  'route: blocked — Connected Code unavailable for hosted-code migration',
+  'before leaving Connected Code for the Make API-shell provider-transport fallback',
+  'Connected Code app/module cannot be resolved for provider API transport',
+  '- "run this every morning at 9"',
+  '- "build a Make scenario for this automation"',
+  'Trigger: Google Sheets - Watch New Rows → Slack - Send Message',
+  'continue with `make-api-shell-connection-workflow`',
+  'optional delivery module',
+  'trigger/control/delivery',
+  'trigger/control/delivery roles',
+  'routing, mapping, or delivery that normal Make modules express',
+  'delivery modules when a non-technical user should see the final action clearly',
+]) {
+  if (publicMarkdownText.includes(forbidden)) fail(`public skill contains stale execution-surface routing: ${JSON.stringify(forbidden)}`);
 }
 
 if (failures.length) {

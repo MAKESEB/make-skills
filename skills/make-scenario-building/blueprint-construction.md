@@ -15,33 +15,17 @@ See [examples/full-blueprint.json](./examples/full-blueprint.json) for a complet
 
 The `flow` array contains modules executed in sequence. Each module can have nested flows via `routes` (for routers) or `onerror` (for error handlers).
 
-### Real-world template examples
+### Public template references
 
-The teaching blueprints above are deliberately stripped to highlight structure. When a real mapper expression, `restore` metadata block, scheduling shape, or production-shaped module config is needed, consult the top-10-by-usage public templates kept under [examples/popular-templates/](./examples/popular-templates/). Each file is the full Make API response (`blueprint`, `controller`, `scheduling`; most also include `metadata.templateUrl` and `metadata.usage`) — copy the relevant module config and adapt rather than reconstructing from scratch.
+The teaching blueprints above are deliberately stripped to highlight structure. Public templates under [examples/popular-templates/](./examples/popular-templates/) may be consulted only for generic structural concepts such as router shape, iterator/aggregator placement, error handling, mapper nesting, scheduling, and designer coordinates.
 
-Match a planned scenario to the closest analogue:
+Do not copy their provider module sequence, connection labels, resource IDs, organization metadata, or native action choices into a new scenario. Classify the requested work first:
 
-**Linear 2-module (trigger → action):**
-- [02-add-webhook-data-to-google-sheet.json](./examples/popular-templates/02-add-webhook-data-to-google-sheet.json) — `gateway:CustomWebHook` → `google-sheets:addRow`
-- [04-send-gmail-from-google-sheets-row.json](./examples/popular-templates/04-send-gmail-from-google-sheets-row.json) — `google-sheets:watchRows` → `google-email:ActionSendEmail`
-- [05-facebook-leads-to-google-sheets.json](./examples/popular-templates/05-facebook-leads-to-google-sheets.json) — `facebook-lead-ads:NewLeadMultiple` → `google-sheets:addRow`
-- [06-whatsapp-basic-chatbot.json](./examples/popular-templates/06-whatsapp-basic-chatbot.json) — `whatsapp-business-cloud:watchEvents` → `whatsapp-business-cloud:sendMessage`
-- [07-incoming-emails-to-google-sheets.json](./examples/popular-templates/07-incoming-emails-to-google-sheets.json) — `email:TriggerNewEmail` (IMAP) → `google-sheets:addRow`
+- external-system data or actions use `make-api-shell-connection-workflow`;
+- real custom logic uses Connected Code or the verified normal Make Code fallback;
+- normal Make modules remain responsible for triggers and visible orchestration.
 
-**Linear 3-module AI enrichment:**
-- [01-chatgpt-completions-from-google-sheets.json](./examples/popular-templates/01-chatgpt-completions-from-google-sheets.json) — `watchRows` → `openai-gpt-3:CreateCompletion` → `updateRow`. Canonical reference for the row-level AI enrichment pattern, including `{{1.\`0\`}}` column mapping and `mapper.rowNumber: "{{1.\`__ROW_NUMBER__\`}}"` for write-back.
-- [03-chatgpt-telegram-bot.json](./examples/popular-templates/03-chatgpt-telegram-bot.json) — `telegram:WatchUpdates` → `openai-gpt-3:CreateCompletion` → `telegram:SendReplyMessage`
-
-**Iterator (BasicFeeder):**
-- [09-save-gmail-attachments-to-drive.json](./examples/popular-templates/09-save-gmail-attachments-to-drive.json) — `google-email:TriggerNewEmail` → `builtin:BasicFeeder` (iterates `{{4.attachments}}`) → `google-drive:uploadAFile`. The canonical shape for breaking an array bundle into per-item executions.
-
-**Router with branching/fanout:**
-- [08-summarize-website-and-create-social-posts.json](./examples/popular-templates/08-summarize-website-and-create-social-posts.json) — `browse-ai:onTaskFinished` → `builtin:BasicRouter` fanning out to ChatGPT-summarize-then-post on LinkedIn and Facebook. Reference for multi-platform fanout where each route is independent.
-- [10-sync-notion-to-google-calendar.json](./examples/popular-templates/10-sync-notion-to-google-calendar.json) — `notion:watchDatabaseItems` → router with create/update/delete branches against Google Calendar. Reference for state-routing on a single bundle (created vs. updated vs. archived).
-
-When the user's request is a near-match for one of these, copy the module sequence and `mapper`/`parameters` shape directly, then swap connection IDs and resource IDs. When it diverges, treat the file as a structural reference for the modules it shares.
-
-Before reusing any of these files as a blueprint, see [`examples/popular-templates/README.md`](./examples/popular-templates/README.md) — hardcoded resource IDs have been emptied to `""` and need to be supplied, and real-world module IDs are often non-sequential and must be renumbered to satisfy the construction rules below.
+Discover all actual module names, versions, connections, shell bindings, and interfaces from current Make metadata. Treat every checked-in template as non-authoritative sample data that must be sanitized and revalidated before reuse.
 
 ## Module Structure
 
@@ -487,18 +471,9 @@ limitation. Always use the tier names above directly — do not attempt to resol
 }
 ```
 
-For custom AI provider connections (OpenAI, Anthropic), the model values are provider-specific
-IDs (e.g., `"gpt-4o-mini"`, `"claude-3-haiku-20240307"`). Only the Make AI Provider uses tiers.
+For external AI provider calls, model identifiers and request contracts are provider-specific and must be discovered from current official API documentation.
 
-**Fallback when Make AI Provider is unavailable:** If the user has no `ai-provider` connection (or cannot create one due to plan limitations), check `connections_list` for alternative AI provider connections and use the corresponding app-specific module instead of `ai-tools:Ask`:
-
-| Connection `accountName` | App module alternative | Model ID format |
-|---|---|---|
-| `openai-gpt-3` | `openai:CreateChatCompletion` | Provider-specific: `"gpt-4o"`, `"gpt-4o-mini"` |
-| `anthropic-claude` | Anthropic app modules | Provider-specific: `"claude-sonnet-4-5"`, `"claude-haiku-4-5"` |
-| `gemini-ai-*` | Gemini app modules | Provider-specific: `"gemini-2.0-flash"`, `"gemini-1.5-pro"` |
-
-These modules use `__IMTCONN__` (not `makeConnectionId`) and accept provider-specific model IDs. Call `app_modules_list` for the specific app to discover available modules and `app-module_get` for configuration details.
+**Fallback when Make AI Provider is unavailable:** Treat the external provider invocation as API transport. Load `make-api-shell-connection-workflow`, discover the provider's app-specific API-call module and existing connection, and use its reusable API shell. If no suitable app API-call module exists, use the generic Make HTTP API shell with a Make-managed keychain or connection. Do not automatically switch to a native provider action module.
 
 ### Google Sheets: `valueInputOption` for Write Modules
 
@@ -523,7 +498,7 @@ Use the exact token `builtin:Ignore`. Do not document or search for a separate `
 
 After constructing a blueprint, follow this sequence to deploy and run it:
 
-1. **Validate the blueprint** — call `validate_blueprint_schema` to catch structural errors before submission. Note: this validator checks the static blueprint schema but may reject valid module-specific properties (e.g., aggregator `metadata.expect` or `metadata.restore` fields) that the runtime accepts. If validation fails on metadata or module-specific fields that you know are correct from working examples, proceed with `scenarios_create` — the runtime is the authoritative validator.
+1. **Validate the blueprint** — call `validate_blueprint_schema` to catch structural errors before submission. Note: this validator checks the static blueprint schema but may reject valid module-specific properties (e.g., aggregator `metadata.expect` or `metadata.restore` fields) that the runtime accepts. If validation fails on metadata or module-specific fields that match current module metadata or a current blueprint export, proceed with `scenarios_create` — the runtime is the authoritative validator.
 
 2. **Ensure `metadata` is present** — `scenarios_create` **requires** a top-level `metadata` object. Add the default metadata block (see [Global Scenario Metadata](#blueprint-structure) above for the full structure). At minimum include:
 ```json

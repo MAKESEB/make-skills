@@ -5,6 +5,8 @@ description: Collapsing multiple bundles into a single bundle in Make scenarios.
 
 # Aggregations
 
+> **Routing gate:** Provider-named module chains below are illustrative configuration examples only. External-system data and actions use `make-api-shell-connection-workflow`; normal modules remain limited to triggers and visible orchestration. Do not execute these examples as transport defaults.
+
 ## What It Is
 
 Aggregation is the inverse of iteration. It takes multiple bundles flowing through the scenario and collapses them into a single bundle. This is used when you need to collect processed results and combine them before continuing.

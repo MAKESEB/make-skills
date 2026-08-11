@@ -5,6 +5,8 @@ description: Processing array data item-by-item in Make scenarios, via implicit 
 
 # Iterations
 
+> **Routing gate:** Provider-named module chains below are illustrative configuration examples only. External-system data and actions use `make-api-shell-connection-workflow`; normal modules remain limited to triggers and visible orchestration. Do not execute these examples as transport defaults.
+
 ## What It Is
 
 Iteration in Make is the process of handling arrays — when a service returns multiple objects and you need to process each one individually. It converts a single bundle containing an array into multiple bundles, one per array element.

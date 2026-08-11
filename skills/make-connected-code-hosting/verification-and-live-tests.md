@@ -52,7 +52,7 @@ The pass criterion for live agent tests is:
 | HTTP request fails out of scope | URL is outside `httpBaseUrl` | Use a relative path or correct the HTTP Base URL in the editor. |
 | Postgres helper missing | Wrong app or connection surface selected | Recheck module parameters and selected connection. |
 | `Broker is not configured for this connection` | HTTP-transport service App called through `connection.email.*` or `connection.sql.query(...)` | Match the helper to the App. Gmail/Sage use `connection.fetch(...)`; generic Email uses `connection.email.*`; PostgreSQL/MySQL use `connection.sql.query(...)`. |
-| Connected Code app/module cannot be resolved for provider API transport after zone, auth, and team checks | App is unavailable in the active workspace | Stop generating Connected Code and continue with `make-api-shell-connection-workflow`. |
+| Separable external-system API transport reached a Connected Code availability check | Wrong execution role selected | Stop the code branch and use `make-api-shell-connection-workflow`. |
 | Connected Code app/module cannot be resolved for a custom-code task | Connected Code is unavailable in the workspace | Discover and verify the normal Make Code module (`code:ExecuteCode`), then run the supported task through that module. |
 | Webhook fields missing | Webhook payload interface was not controlled | Define/capture webhook structure and remap `input`. |
 | Model-style API reports missing model | Model id was guessed | Run a read-only metadata probe through the selected connection and rerun with a returned id. |

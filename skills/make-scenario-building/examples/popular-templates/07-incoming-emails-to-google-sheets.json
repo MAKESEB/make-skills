@@ -12,7 +12,7 @@
 							"folder": { "path": ["INBOX"] },
 							"account": {
 								"data": { "scoped": "true", "connection": "imap" },
-								"label": "My Others (IMAP) connection"
+								"label": "Connection placeholder"
 							},
 							"criteria": { "label": "Only Unread emails" }
 						}

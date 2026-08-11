@@ -1,10 +1,10 @@
 # Connection patterns
 
-Use this reference to choose the safest code access pattern for a Connected Code scenario.
+Use this reference only after real custom logic has selected a Connected Code scenario. Ordinary external-system, SaaS, or API data and actions use `make-api-shell-connection-workflow`; the examples below are implementation guidance inside custom logic.
 
 ## Selection rule
 
-Choose the narrowest capability that matches the task:
+Within already-selected custom logic, choose the narrowest capability that matches the task:
 
 | Task shape | Use |
 | --- | --- |
@@ -37,7 +37,7 @@ Gmail is not the generic Email App. Sage is not a SQL broker. All three examples
 
 ## HTTP App
 
-HTTP App is the generic Connected Code fallback for APIs that have a stable base URL and standard auth. It is considered before leaving Connected Code for the Make API-shell provider-transport fallback. The module should include:
+For API access inseparable from custom logic, the HTTP App supports APIs with a stable base URL and standard auth. It does not replace the primary Make API Shell route for separable API transport. The module should include:
 
 - `connectionType: "http"`
 - `httpBaseUrl` set to the allowed prefix

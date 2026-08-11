@@ -1,6 +1,6 @@
 ---
 name: make-api-shell-connection-workflow
-description: This skill should be used when Claude needs to build or reuse a reusable Make API-call shell by discovering the correct app-specific Make an API Call module, resolving or requesting the right connection, explicitly setting the scenario interface, running the scenario, and using that shell as the retrieval transport for email, CRM, tickets, and similar SaaS systems.
+description: This skill should be used for Make API access to external systems through reusable app API-call shell scenarios, with a generic Make HTTP API shell when no app API-call module exists. It covers connection reuse or requests, shell setup, validated execution, data retrieval, and actions.
 license: MIT
 compatibility: Requires a Make account with API access and permissions to create scenarios or credential requests. Works best in environments that can call Make APIs or Make MCP tools.
 metadata:
@@ -12,18 +12,18 @@ metadata:
 
 # Make API Shell + Connection Workflow
 
-Use this skill for one specific workflow family:
+Use this skill for one generic workflow family:
 - discover the correct Make app and app-specific API-call module
 - reuse or build a reusable shell scenario with StartSubscenario, one app API-call module, and ReturnData
 - reuse an existing suitable connection or create the connection request needed by that shell
 - patch the shell with the selected connection once authorization is complete
-- run the scenario and use it as a generic SaaS retrieval transport for email, CRM, tickets, and similar systems
+- run the scenario and use it for external-system, SaaS, or API data and actions
 
-This skill is primarily about provisioning and shell construction. Treat business retrieval as a second phase that starts only after the connection is ready and the shell has been validated against current workspace metadata.
+This is the primary Make route for external-system, SaaS, and API data or actions. Prefer the target app's discovered API-call module; when no suitable app-specific API-call module exists, use the generic Make HTTP API shell.
 
-The generic shell described here is an API transport wrapper, not business logic. It should behave like a reusable API endpoint for any SaaS app that Make can front, including email, CRM, ticketing, support, marketing, or task systems.
+This skill is primarily about provisioning and shell construction. Treat business data or actions as a second phase that starts only after the connection is ready and the shell has been validated against current workspace metadata.
 
-This skill also receives explicit fallback handoffs from `make-connected-code-hosting`. When that skill proves that `connected-code:ExecuteConnectedCode` is unavailable in the active workspace, accept the handoff and begin here at provider/app resolution. Do not bounce the request back to Connected Code, and do not require another user confirmation merely because the execution surface changed. Preserve the availability evidence in the final report.
+The generic shell described here is API transport, not business logic. Normal Make modules handle orchestration; `make-connected-code-hosting` is reserved for real custom logic that the shell and normal modules do not express cleanly.
 
 Known Make module id: the Make Code module is `"module": "code:ExecuteCode"`.
 
@@ -39,7 +39,7 @@ Read the file that matches the current task:
 | Repair provider authorization or scope failures after a shell run | [Retrieval Execution](./retrieval-execution.md#authorization-repair-playbook) |
 | Sanitize examples and prepare a public shareable version | [Sanitization and Sharing](./sanitization-and-sharing.md) |
 | Start from a generic blueprint template | [Example shell blueprint](./examples/generic-api-shell-blueprint.json) |
-| Provider has no Make app: generic HTTP shell with noAuth / API key / Basic auth / OAuth 2.0 | [HTTP Fallback Shells](./http-fallback-shells.md) |
+| No suitable app-specific API-call module: generic HTTP shell with noAuth / API key / Basic auth / OAuth 2.0 | [HTTP Fallback Shells](./http-fallback-shells.md) |
 
 ## Fresh-agent operating sequence
 
@@ -60,7 +60,7 @@ When a fresh agent gets a request such as "get my unread emails", "pull my open 
 9. After the connection decision is settled, create or patch the shell according to the reuse rule above and verify that the shell can run.
 10. Run the narrowest possible retrieval request first through the API-call shell.
 11. Expand into list/search -> detail -> normalization only after the first shell run proves the path works.
-12. If no Make app exists for the provider at all, build a generic HTTP fallback shell with `http:MakeRequest` instead of giving up — see [HTTP Fallback Shells](./http-fallback-shells.md).
+12. If no suitable app-specific API-call module exists, build a generic HTTP fallback shell with `http:MakeRequest` instead of giving up — see [HTTP Fallback Shells](./http-fallback-shells.md).
 
 The agent should not jump straight from "user wants SaaS data" to "create a new connection" or "call a direct SDK" without walking this sequence.
 
@@ -85,7 +85,7 @@ If one of those items is missing and cannot be discovered safely, stop and ask o
    - existing suitable connection before new credential request
    - existing shell scenario only when reusing an existing suitable connection
    - a newly authorized connection must get a newly created shell
-5. Do not route business retrieval to native Make search/list/get modules. For this workflow family, always retrieve through the Make app's API-call shell.
+5. Do not route external-system data or actions to native Make search/list/get/action modules. For this workflow family, use the app API-call shell or its generic Make HTTP fallback.
 6. Ask for confirmation before writing into an existing live scenario or replacing a connection mapping.
 7. Keep public examples sanitized. Do not include real names, user IDs, team IDs, organization IDs, tenant-specific hosts, or claims that a single private workspace proves a universal rule.
 8. Use a clean base URL variable in examples. For public examples, default to `https://us1.make.com` and keep placeholders generic. Do not mention `we.make.com` in public examples unless the current user explicitly provides or requests that zone. Valid zones can be `eu1`, `eu2`, `us1`, `us2`, or `we`, and if the user provides a custom zone or `BASE_URL`, accept it.

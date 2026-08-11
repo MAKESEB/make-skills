@@ -5,6 +5,8 @@ description: Make AI Agents (New) — non-deterministic modules with tool-callin
 
 # AI Agents
 
+> **Routing gate:** Provider-named module chains below are illustrative configuration examples only. External-system data and actions use `make-api-shell-connection-workflow`; normal modules remain limited to triggers and visible orchestration. Use Connected Code only for explicit custom logic.
+
 ## What It Is
 
 Make AI Agents (New) are modules that sit within a Make scenario and provide non-deterministic, AI-driven logic. Unlike Router or If-Else (which use deterministic conditions), an AI agent module decides on its own which tools to call, how many times, and in what order — based on instructions and the incoming data.

@@ -1,6 +1,6 @@
 ---
 name: make-scenario-building
-description: This skill should be used when designing Make scenarios, choosing which modules to use, composing module flows, setting up routing/branching/filtering/iterations/aggregations, building blueprints, deploying scenarios, handling errors, configuring scheduling and triggers, or discussing scenario architecture. Covers WHICH modules to use and WHY — complementary to make-module-configuring which covers HOW to configure each module.
+description: This skill should be used when designing Make scenarios: choosing modules, composing flows, routing, filtering, iterating, aggregating, handling errors, scheduling triggers, building blueprints, and deploying. It covers scenario architecture and module choice; make-module-configuring covers module setup.
 license: MIT
 compatibility: Requires a Make.com account with permissions to create scenarios. Works with any agent that supports MCP (Claude Code, Cursor, GitHub Copilot, etc.).
 metadata:
@@ -71,10 +71,12 @@ Once the use case is clear, map it to Make modules using the MCP tools available
 
 3. **Get app documentation.** For each app, call `app_documentation_get` using the exact `appName` value returned by `apps_recommend` (do not abbreviate or modify it). This returns detailed capabilities and module descriptions. Call once per app, not per module.
 
-4. **Select modules.** Pick the specific modules needed:
+4. **Select orchestration modules.** Pick the specific modules needed around the selected execution surface:
    - **Trigger module** — what starts the scenario (e.g., Watch New Rows, Webhook, Schedule). Instant/webhook triggers are generally preferred when available — they're faster and use fewer operations (see [Webhooks Gotchas](./webhooks.md#gotchas)) — but they're significantly harder to verify end-to-end after deployment, see "Webhook Scenarios: Verifying via `scenarios_run` Is Unreliable" below. Weigh that tradeoff explicitly: use a webhook trigger when the user needs real-time delivery or the source system only offers webhooks; otherwise, if a polling "Watch..." module or Schedule is available and verifiability matters more than the operations/latency savings, prefer that instead.
-   - **Action modules** — what the scenario does (e.g., Create Record, Send Message, Update Row)
-   - **Utility modules** — if needed for data transformation, iteration, aggregation, routing, or error handling
+   - **Execution-surface step** — external-system data or actions use the Make API Shell route selected in Step 2.1; real custom logic uses Connected Code or the verified Make Code fallback.
+   - **Orchestration modules** — visible workflow control such as iterators, aggregators, routers, error handlers, and binary-file operations.
+
+Do not select native provider search/list/get/action modules as transport for external-system data or actions. Discover those apps and modules as metadata evidence, but route separable transport through `make-api-shell-connection-workflow`.
 
 If a tool is not found by exact name, search for similarly named tools on the Make MCP server. The key capability needed is: recommending apps and listing their modules.
 
@@ -89,20 +91,21 @@ If a tool is not found by exact name, search for similarly named tools on the Ma
 
 ### Step 2.1: Select the Custom-Code Execution Surface
 
-When the use case requires custom code or API behavior that normal modules do not express cleanly:
+Use normal Make modules for orchestration. Route external-system, SaaS, or API data and actions to `make-api-shell-connection-workflow`, using the discovered app-specific API-call module when available and its generic Make HTTP API shell when no suitable app-specific API-call module exists.
+
+Only when the use case requires real custom logic that normal modules and the API shell do not express cleanly:
 
 1. Load `make-connected-code-hosting` and run its execution-surface availability gate.
 2. If `connected-code:ExecuteConnectedCode` resolves in the active workspace, use Connected Code for the custom logic.
-3. If Connected Code is available but the provider is absent from its service-App catalog, evaluate the Connected Code HTTP App before leaving Connected Code.
-4. If Connected Code is unavailable for custom code, discover and verify the normal Make Code module (`code:ExecuteCode`) and use it when its current interface supports the task.
-5. If Connected Code is unavailable for provider API transport, route to `make-api-shell-connection-workflow`.
-6. `make-e2b-code-execution` is deprecated and removed. Do not provide E2B setup or workaround guidance in this repository.
+3. If API access is inseparable from that custom logic, the Connected Code service-App and HTTP examples are implementation guidance, not transport routing defaults.
+4. If Connected Code is unavailable, discover and verify the normal Make Code module (`code:ExecuteCode`) and use it when its current interface supports the task.
+5. `make-e2b-code-execution` is deprecated and removed. Do not provide E2B setup or workaround guidance in this repository.
 
 Record the selected route and evidence in the Scenario Plan. The choice is part of module composition and must be shown to the user before confirmation.
 
 ### Step 2.5: Look Up Reference Templates
 
-Once apps and modules are identified, search the Make public template library for similar scenarios. Studying an existing template's blueprint reveals canonical module versions, mapper shapes, and aggregator/feeder bindings that aren't visible from `app-module_get` alone.
+After the execution surface is selected, public templates may be inspected for generic structural concepts such as router, iterator, aggregator, error-handler, scheduling, and mapper nesting. They are not authoritative for module versions, provider action choices, connections, or resources.
 
 **Recommended whenever the planned flow includes:**
 - An aggregator (`util:TextAggregator`, `builtin:BasicAggregator`, etc.)
@@ -120,7 +123,7 @@ Once apps and modules are identified, search the Make public template library fo
 
 If `public-templates_get*` returns "Organization-bound request can't be used outside of the Organization Context", retry once; if it persists, reconnect the Make MCP server (`/mcp` reauth) and retry. If still failing, proceed without — the template is a nice-to-have reference, not a requirement.
 
-See [Templates Lookup](./templates-lookup.md) for search patterns, blueprint-diffing tips, and MCP workarounds. The top 10 most-used public templates are also kept locally under [examples/popular-templates/](./examples/popular-templates/) — check there first when the user's request is a near-match for a common automation (e.g., AI enrichment of Sheets rows, webhook → Sheets, chatbot reply) and skip the remote round-trip.
+See [Templates Lookup](./templates-lookup.md) for the structural-only and sanitization contract. Checked-in snapshots under [examples/popular-templates/](./examples/popular-templates/) are optional sample data, not routing recipes or ready-to-copy blueprints.
 
 ### Step 3: Present the Module Composition & Get Confirmation
 
@@ -128,28 +131,30 @@ Present the proposed module sequence to the user using **flowchart notation**:
 
 **Linear flow:**
 ```
-Trigger: Google Sheets - Watch New Rows → Slack - Send Message → Google Drive - Upload File
+Trigger: Schedule → Make API Shell - Read → Iterator → Aggregator → Make API Shell - Write
 ```
 
 **Branching flow (with If-Else + Merge) — mutually exclusive branches that converge:**
 ```
-Trigger: Webhook → HTTP - Make a Request → If-Else
-  ├─ If (status = "success"): Slack - Send Message
-  └─ Else: Email - Send Error
-→ Merge → Google Sheets - Log Result
+Trigger: Webhook → Make API Shell - Read → If-Else
+  ├─ If (status = "success"): Make API Shell - Apply action
+  └─ Else: Error Handler
+→ Merge → Make API Shell - Record result
 ```
 
 **Branching flow (with Router) — multiple branches can fire, no convergence:**
 ```
-Trigger: Webhook → HTTP - Make a Request → Router
-  ├─ Route A (status = success): Slack - Send Message
-  └─ Route B (priority = high): Email - Send Alert
+Trigger: Webhook → Make API Shell - Read → Router
+  ├─ Route A (status = success): Make API Shell - Apply action
+  └─ Route B (priority = high): Make API Shell - Escalate
 ```
 
 **Flow with iteration:**
 ```
-Trigger: Schedule → Google Sheets - Search Rows → Iterator → Slack - Send Message (for each row)
+Trigger: Schedule → Make API Shell - Search → Iterator → Make API Shell - Apply action (for each item)
 ```
+
+These are role-level composition examples. Resolve the actual app, API-call module, connection, shell, and normal orchestration module names from current Make metadata.
 
 For each module in the sequence, briefly note:
 - The app and module name
@@ -374,9 +379,9 @@ This is the one valid use of date + literal time concatenation. The general rule
 
 ### Make AI Tools (`ai-tools:Ask`): Model Is Required, No Default
 
-The `model` parameter in `ai-tools:Ask` (and other Make AI Toolkit modules) is **required** — there is no default value. Omitting it causes a 400 error at runtime. When using Make's AI Provider (`ai-provider` connection), use tier slug names: `"small"`, `"medium"`, or `"large"`. (Older docs mention `low/medium/high` — these are stale; the runtime rejects them with `Model X not allowed for Make AI Provider`.) Only `small` is empirically verified for `ai-tools:Summarize` v2 as of 2026-05; the others follow Make UI conventions but should be confirmed via the Module dropdown. The dropdown labels surface as e.g. "SmallModel: gpt-5-nano. Reasoning: minimal." — match those slugs. Do not use provider-specific model IDs (e.g., `"gpt-4o-mini"`) with the Make AI Provider — they are not valid tier names and will fail. The `RpcGetModels` RPC currently fails through the MCP server (org-context bug), so the model list cannot be queried programmatically — inspect the UI dropdown if unsure. See [make-mcp-reference — Known MCP server bugs](../make-mcp-reference/SKILL.md#known-mcp-server-bugs) for the org-context bug.
+The `model` parameter in `ai-tools:Ask` (and other Make AI Toolkit modules) is **required** — there is no default value. Resolve the current allowed values from current module metadata or the Make UI before configuration; do not rely on a private workspace observation or a dated model list. Do not use provider-specific model IDs with the Make AI Provider unless current metadata explicitly identifies them as valid values.
 
-**No Make AI Provider connection?** If the user has no `ai-provider` connection and cannot create one, check `connections_list` for alternative AI provider connections (`openai-gpt-3`, `anthropic-claude`, `gemini-ai-*`) and use the corresponding app-specific module instead of `ai-tools:Ask`. These modules accept provider-specific model IDs. See [Blueprint Construction — AI Tools](./blueprint-construction.md) for details.
+**No Make AI Provider connection?** Treat an external AI provider invocation as API transport: use `make-api-shell-connection-workflow`, discover the app-specific API-call module and connection, or use the generic Make HTTP API shell when no suitable API-call module exists. See [Blueprint Construction — AI Tools](./blueprint-construction.md) for details.
 
 ## Official Documentation
 

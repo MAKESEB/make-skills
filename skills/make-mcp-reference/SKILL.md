@@ -1,6 +1,6 @@
 ---
 name: make-mcp-reference
-description: This skill should be used when the user asks about "Make MCP server", "Make MCP tools", "MCP token", "Make OAuth", "scenario as tool", "MCP scopes", "Make API access", "connect Make to Claude", "scenario not appearing", "MCP timeout", "MCP connection refused", or discusses configuring, troubleshooting, or understanding the Make.com MCP server integration. Provides technical reference for connection methods, scopes, access control, and troubleshooting.
+description: This skill should be used for Make MCP setup, access, and troubleshooting, including connection methods, OAuth and token authentication, scopes, scenario tools, access control, and connection errors.
 license: MIT
 compatibility: Requires a Make.com account with permissions to create scenarios. Works with any agent that supports MCP (Claude Code, Cursor, GitHub Copilot, etc.).
 metadata:
