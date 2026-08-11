@@ -14,7 +14,7 @@
       "mapper": {
         "language": "javascript",
         "inputFormat": "editor",
-        "codeEditorJavascript": "const response = await connection.fetch('/items', { method: 'GET', query: { limit: input.limit || 10 } });\nconst text = await response.text();\nif (!response.ok) throw new Error(`HTTP request failed ${response.status}: ${text.slice(0, 300)}`);\nreturn JSON.parse(text);",
+        "codeEditorJavascript": "// Fetch a bounded item list through the selected connection.\nconst response = await connection.fetch('/items', { method: 'GET', query: { limit: input.limit || 10 } });\nconst text = await response.text();\nif (!response.ok) throw new Error(`HTTP request failed ${response.status}: ${text.slice(0, 300)}`);\nreturn JSON.parse(text);",
         "input": [
           { "name": "limit", "value": 10 }
         ],
@@ -39,6 +39,15 @@
       "dlq": false,
       "freshVariables": false
     },
-    "designer": { "orphans": [] }
+    "designer": {
+      "notes": [
+        {
+          "id": 1,
+          "text": "Fetches a bounded item list through the selected HTTP connection and returns it for downstream modules.",
+          "filter": false
+        }
+      ],
+      "orphans": []
+    }
   }
 }

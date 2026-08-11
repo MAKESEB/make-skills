@@ -114,6 +114,7 @@ Blueprint generated. Please create or select the required Make connection in the
 
 5. Build the scenario blueprint.
    - Use `connected-code:ExecuteConnectedCode`.
+   - Document each Connected Code module in both places: add a concise implementation-focused comment in the code, and add a matching canvas-friendly note under `metadata.designer.notes`. The code comment explains technical behavior; the scenario note explains what the module does in the workflow.
    - Use normal Make modules only where they make the trigger/control/delivery contract clearer.
    - For REST calls, send stringified `blueprint` and stringified `scheduling` values unless the client wrapper documents object input.
    - Completion criterion: the scenario can be created or the blueprint can be handed to a user without missing mapper fields.
