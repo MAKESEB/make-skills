@@ -121,6 +121,22 @@ This is a provider-module compatibility choice, not a reason to change the gener
 
 Confirmed example to remember, but not to universalize: `google-calendar:makeApiCall` v5 has been observed to work better when a read/delete shell omits the `body` mapper entirely.
 
+### Shell suitability and narrow replacement
+
+Reuse a shell only when the existing scenario is already suitable for the
+current operation:
+
+- same discovered app, app version, and API-call module
+- same connection family and verified connection
+- compatible read/write body mapper behavior
+- no broader action surface than the user requested
+
+If any of those checks fail, do not abort and do not stretch the broad shell.
+Create a new narrow shell for the target operation, bind the verified
+connection, deploy the interface, activate it, run a small validation call, and
+then continue. A shell is cheap transport; safety comes from making the shell
+scope match the requested operation.
+
 ### Module 3: ReturnData
 Use:
 - `scenario-service:ReturnData`

@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires a Make account with API access and permissions to create scenarios or credential requests. Works best in environments that can call Make APIs or Make MCP tools.
 metadata:
   author: Make
-  version: "0.3.0"
+  version: "0.3.1"
   homepage: https://www.make.com
   repository: https://github.com/integromat/make-skills
 ---
@@ -24,6 +24,13 @@ This is the primary Make route for external-system, SaaS, and API data or action
 This skill is primarily about provisioning and shell construction. Treat business data or actions as a second phase that starts only after the connection is ready and the shell has been validated against current workspace metadata.
 
 The generic shell described here is API transport, not business logic. Normal Make modules handle orchestration; `make-connected-code-hosting` is reserved for real custom logic that the shell and normal modules do not express cleanly.
+
+For one-off pagination, batching, fan-out/fan-in, or other multi-step API work,
+drive repeated shell calls from the agent's local code execution environment.
+That local code may use the available Make shell tool directly, but it must not
+hold credentials or call provider APIs with raw secrets. Connected Code is for
+Make-hosted, durable, scheduled, webhook-triggered, or reusable code — not the
+default for ad-hoc reads, writes, or loops.
 
 Known Make module id: the Make Code module is `"module": "code:ExecuteCode"`.
 
@@ -83,8 +90,12 @@ If one of those items is missing and cannot be discovered safely, stop and ask o
    - connection listing or credential request type
 4. Prefer reuse before creation:
    - existing suitable connection before new credential request
-   - existing shell scenario only when reusing an existing suitable connection
+   - existing shell scenario only when it is bound to the right app, module,
+     connection, operation shape, and scope
    - a newly authorized connection must get a newly created shell
+   - if an existing shell is too broad, bound to the wrong connection, or cannot
+     express the target operation safely, create a new narrow shell instead of
+     stopping or misusing the broad shell
 5. Do not route external-system data or actions to native Make search/list/get/action modules. For this workflow family, use the app API-call shell or its generic Make HTTP fallback.
 6. Ask for confirmation before writing into an existing live scenario or replacing a connection mapping.
 7. Keep public examples sanitized. Do not include real names, user IDs, team IDs, organization IDs, tenant-specific hosts, or claims that a single private workspace proves a universal rule.
@@ -103,7 +114,11 @@ If one of those items is missing and cannot be discovered safely, stop and ask o
 16. For the REST `/api/v2/connections` endpoint, filter with `type=...` or `type[]=...`. Do not assume query parameters such as `accountName=...` are honored just because an MCP tool uses `accountName` terminology.
 17. Do not ask the user to paste raw OAuth secrets, API keys, or passwords into chat. Use a credential request whenever a new connection must be created. Pick the path by recipient: for the current Make user, the self-service endpoints (`actions/create`, `actions/create-by-credentials`) work on a wide range of plans; only requesting credentials from a different person (`requests/v2`) is the Enterprise/Partner feature gated by `license.credentialRequests` (see [Connection Requests](./connection-requests.md), "Choose the request path by recipient first"). When no request path works, guide the user through creating the connection in the scenario editor instead. In all flows state the exact credential paste format (Bearer prefix or raw key) — never assume the user knows it.
 18. If the user request is ambiguous, resolve the concrete provider and account first; if it is already explicit, do not ask again.
-19. If the Module 2 request method is `PUT`, `PATCH`, or `DELETE`, warn explicitly before execution. Treat those methods as mutating live SaaS operations, not passive retrieval.
+19. If the user explicitly asked for a bounded write, that request authorizes
+    the write after the target IDs or resource set are resolved. Warn or ask
+    only when the target, account, scope, or side effect remains genuinely
+    ambiguous. Treat `PUT`, `PATCH`, and `DELETE` as mutating live SaaS
+    operations, not passive retrieval.
 20. Do not assume `StartSubscenario.metadata.interface` is enough for scenario runs. After creating or updating an on-demand shell, explicitly set the scenario-level interface with `/api/v2/scenarios/{scenarioId}/interface` and verify it before the first run.
 21. Treat `/api/v2/scenarios/{scenarioId}/run` as the standard execution path for this shell family. Pass the business payload under `data` with keys that match the scenario interface exactly, and prefer `responsive: true` for validation runs.
 22. Expose query parameters as a first-class shell input named `qs`. Use `qs` for provider API query parameters such as Gmail search options, Drive `fields`, Drive `q`, Graph `$select`, pagination, or `supportsAllDrives`. If a caller provides a query string in `path`, normalize it into `qs` before running the shell.
@@ -112,6 +127,10 @@ If one of those items is missing and cannot be discovered safely, stop and ask o
 25. Before reusing any existing connection or a shell that points to an existing connection, call Make's connection verification API: `POST /api/v2/connections/{connectionId}/test`. A response with `verified: true` is the liveness proof. A stale Credential Request status does not override a verified connection. Liveness is not proof that the provider will authorize every path, method, or scope; provider authorization is proven only by a successful shell run for the intended operation. On provider auth or scope errors, use the [Authorization Repair Playbook](./retrieval-execution.md#authorization-repair-playbook).
 26. When resuming after user authorization, reuse the saved Credential Request `requestId`; inspect the request, then list and verify connections. Do not create a new Credential Request while an active request for the same app/account is still being resolved.
 27. Treat a future `expire` timestamp as valid. Treat only a past expiry, revoked connection, failed verification, or provider auth error as invalid.
+28. For write actions, first resolve the exact target IDs or resource set, then
+    mutate only those targets, and finally verify the post-write state through
+    the shell. Do not treat a reusable scenario with broader write behavior as
+    safe just because it exists.
 
 ## App binding and connection-family matrix
 

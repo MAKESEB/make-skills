@@ -20,6 +20,14 @@ Do not switch to provider-native Make search/list/get modules for the first retr
 
 If the business request needs multiple steps, perform all of them through repeated runs of the API-call shell.
 
+For one-off multi-step work, write the loop in the agent's local code execution
+environment and call the Make API shell from that code. This is the preferred
+shape for ad-hoc pagination, batching, retries, fan-out/fan-in, and
+read-before-write workflows. The code orchestrates shell invocations; the shell
+continues to own authenticated provider transport through Make. Do not move
+one-off loops into Connected Code unless the user needs that code to live in
+Make as a durable, scheduled, webhook-triggered, or reusable component.
+
 ## Execution workflow
 
 1. Confirm the provider and the exact Make app version again.
@@ -29,6 +37,16 @@ If the business request needs multiple steps, perform all of them through repeat
 5. Inspect the real output bundle from that run.
 6. Keep `scenario-service:ReturnData` fixed to the generic shell contract and adjust only downstream normalization.
 7. Re-run and verify the final payload.
+
+For write workflows, insert these steps before the mutation:
+1. read or search first to resolve the exact target IDs or resource set
+2. split large target sets into conservative batches
+3. run only the requested write method against those resolved targets
+4. read the same target set again and verify the post-write state
+
+If an existing reusable scenario would affect a broader target set than the
+request, create or use a narrow API shell and drive it from local code instead
+of running the broad scenario.
 
 ## Generic shell run contract
 
@@ -50,6 +68,17 @@ When using the generic three-module shell, run it with a payload shaped like thi
 This is the default execution contract for the shell across providers.
 
 The concrete `path` changes by provider, but the scenario-run payload shape stays the same.
+
+For JSON write calls, pass `data.body` as a raw JSON string (for example,
+the result of `JSON.stringify(payload)`), not as a nested object/collection.
+With shells that map `body: {{2.body}}`, a nested object can be serialized
+as a Make collection instead of the intended JSON document. Provider
+symptoms include Google Drive creating an `Untitled`
+`application/octet-stream` file or Google Sheets returning
+`INVALID_ARGUMENT - Invalid JSON payload ... Root element must be a
+message`. Keep `body: null` for bodyless reads. After any write probe,
+verify the provider-side resource and delete only artifacts created by the
+failed probe before retrying.
 
 Use `qs` for query-string parameters. Do not hide provider options inside a concatenated URL when the shell supports `qs`; normalize `path?x=1&y=2` into `path` plus `qs` before the run.
 
@@ -73,6 +102,11 @@ The keys under `data` must match the deployed interface exactly. For reusable sh
 Use `responsive: true` for validation runs and for normal interactive retrieval whenever the response size is still manageable.
 
 Default retrieval should use `GET`. Treat `PUT`, `PATCH`, and `DELETE` as write/destructive methods and require explicit user confirmation before running them.
+
+If the user's instruction already explicitly requests a bounded write, do not
+ask again just because the method mutates. Ask only when the concrete target,
+account, scope, or side effect is unresolved. Always resolve IDs before the
+write and verify after it.
 
 ## Large payloads, timeouts, and extraction path
 

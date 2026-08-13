@@ -1,6 +1,6 @@
 {
   "name": "make-skills",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Expert skills for designing and deploying Make scenarios, Connected Code automations, API-call shells, and MCP workflows",
   "author": {
     "name": "Make",

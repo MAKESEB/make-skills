@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires a Make account with scenario creation permissions. Uses Connected Code or the normal Make Code module for custom logic.
 metadata:
   author: Make
-  version: "0.2.0"
+  version: "0.2.1"
   homepage: https://www.make.com
   repository: https://github.com/integromat/make-skills
 ---
@@ -21,7 +21,10 @@ Use this skill only when the task requires real custom logic that normal Make mo
 
 External-system, SaaS, and API data or actions belong to `make-api-shell-connection-workflow`; they are not a fallback selected by Connected Code availability. Detailed service and API examples in this skill illustrate connection helpers inside already-selected custom logic, not default routing.
 
-Connected Code is the preferred custom-logic execution surface, not an assumption. Confirm that the active workspace exposes the `connected-code` app and `connected-code:ExecuteConnectedCode` module before generating a blueprint. If the app or module is unavailable, use the normal Make Code module (`code:ExecuteCode`) after verifying its current interface.
+Connected Code is the preferred custom-logic execution surface, not an assumption. It is Make-hosted code, so confirm that the active workspace exposes the `connected-code` app and `connected-code:ExecuteConnectedCode` module before generating a blueprint. If the app or module is unavailable, use the normal Make Code module (`code:ExecuteCode`) after verifying its current interface.
+For one-off external API reads, writes, pagination, batching, or short-lived
+multi-step work, use local agent code to orchestrate the Make API shell instead
+of creating hosted Connected Code.
 
 ## Quick routing
 
@@ -51,7 +54,7 @@ Read the file that matches the current task:
 Use this skill only when the task has an explicit custom-logic requirement, for example:
 
 - non-trivial normalization or transformation that normal mappings do not express cleanly
-- pagination, deduplication, idempotency, or decision logic across already verified API calls
+- durable pagination, deduplication, idempotency, or decision logic across already verified API calls
 - a custom algorithm or reusable business rule that must execute inside Make
 - multiple verified API operations that must be combined into one deterministic business process
 
@@ -61,6 +64,7 @@ Do not use this skill for:
 
 - scenarios where normal Make modules and a Make API shell express the work cleanly
 - external-system data or actions that a Make API shell can transport without custom logic
+- one-off reads, writes, pagination, batching, or ad-hoc loops that local agent code can drive through the Make API shell
 - Make custom app SDK work under `apps/<app>/` and `scripts/<app>/`
 - native Connected Code product engineering inside the Make monorepo
 - reusable transport wrapper scenarios outside Connected Code
@@ -174,12 +178,19 @@ Named services in the vendored connection reference are concrete catalog example
 9. Routing hosted or reusable code to E2B.
    - Fix: `make-e2b-code-execution` is deprecated and removed. Do not provide E2B setup or workaround instructions in this repository; use Connected Code or the normal Make Code module according to current availability and interface support.
 
+10. Assuming a long-lived OAuth binder will refresh inside the same Connected Code execution.
+   - Fix: verify the connection again after the normal access-token lifetime. If a service connection can be refreshed only by its native Make module, run a small native-module refresh scenario before the Connected Code scenario starts; a native preflight placed earlier in the same blueprint may be too late because binders can be resolved during scenario initialization. For daily jobs, schedule that refresh separately immediately before the production run and keep native provider operations as the fallback when refresh behavior is unreliable.
+
+11. Hosting short-lived API shell loops in Connected Code.
+   - Fix: keep ad-hoc orchestration in the agent's local code execution environment and call the Make API shell from that code. Use Connected Code only when the code itself must be hosted in Make, scheduled, webhook-triggered, or reused.
+
 ## Verification checklist
 
 - [ ] Trigger shape is explicit: schedule, webhook, manual/on-demand, or polling.
 - [ ] Connected Code app/module availability was checked in the active workspace.
 - [ ] The selected custom-logic route is explicit: Connected Code or normal Make Code.
 - [ ] Connected Code owns custom business logic by default.
+- [ ] One-off API-shell pagination, batching, and writes were kept in local agent code unless Make-hosted durability was required.
 - [ ] Normal Make modules are limited to trigger, visible control-flow, and binary-file orchestration roles except for the verified `code:ExecuteCode` fallback.
 - [ ] Connected Code routes use app search/current metadata before choosing `connectionType`; Make Code routes verify the current module interface.
 - [ ] A Connected Code route uses `connected-code:ExecuteConnectedCode`; a Make Code route uses the verified `code:ExecuteCode` module/version.

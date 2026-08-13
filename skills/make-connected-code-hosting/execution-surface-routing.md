@@ -9,6 +9,7 @@ Classify the work before checking a code runtime. API transport, orchestration, 
 | Task shape and evidence | Route |
 | --- | --- |
 | External-system, SaaS, or API data or actions | Use `make-api-shell-connection-workflow`. Prefer a discovered app-specific API-call module; use its generic Make HTTP API shell when no suitable app-specific API-call module exists. |
+| One-off pagination, batching, retries, or multi-step external API work | Use local agent code to orchestrate repeated Make API-shell calls. Keep the authenticated transport in Make; do not host the loop in Connected Code unless it must become durable, scheduled, webhook-triggered, or reusable. |
 | Triggering, control flow, routing, mapping, or binary-file handling that normal Make modules express | Use `make-scenario-building` and normal Make modules for orchestration. |
 | Real custom logic, with `connected-code` and `connected-code:ExecuteConnectedCode` present in current workspace metadata | Continue with this skill and build Connected Code. |
 | Real custom logic, with Connected Code genuinely absent or unavailable | Discover and verify the normal Make Code module (`code:ExecuteCode`) and use it when its current interface supports the task. |
@@ -50,6 +51,11 @@ When the gate passes for real custom logic:
 
 The connection options in this branch are implementation details, not reasons to route ordinary API transport through Connected Code.
 
+Connected Code is hosted Make code. Use it when the user needs the code to
+live in Make, run on a schedule, respond to a webhook, keep reusable workflow
+logic, or expose a durable automation surface. Do not use it merely because an
+ad-hoc API-shell loop needs code for pagination or batching.
+
 ## E2B deprecation boundary
 
 `make-e2b-code-execution` is deprecated and removed from this repository. Do not provide E2B setup, credential, runner, or workaround instructions here. Select Connected Code when available; otherwise inspect and use the normal Make Code module when it supports the requested custom-code task.
@@ -79,6 +85,10 @@ For external-system, SaaS, or API data and actions, select this branch before ch
 7. Explicitly set and verify the scenario interface before the first `/run` call.
 8. Run a narrow request and inspect the real execution bundle before reporting success.
 9. If no suitable app-specific API-call module exists, build the generic Make HTTP API shell described by that skill.
+10. For one-off multi-step work, write local agent code that calls the shell
+    repeatedly, resolves target IDs before writes, batches conservatively, and
+    verifies the final state. If an existing shell or scenario is too broad,
+    build a new narrow shell instead of stopping or running the broad one.
 
 Do not copy raw credentials into code, switch to a direct SDK, or invent an API-call module. Named systems in examples are illustrative and do not change this generic route.
 
