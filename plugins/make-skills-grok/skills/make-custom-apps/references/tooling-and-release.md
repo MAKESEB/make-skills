@@ -9,9 +9,9 @@ This reference separates saving code, live testing, app/module visibility, and a
 | --- | --- | --- |
 | Make web Custom Apps editor | Inspect and edit app configuration with SDK-aware validation. | Saving changes is a remote write, not a local draft.[4] |
 | Make Apps Editor for VS Code | Download/edit app sections through the documented extension. | Opening downloads configuration; saving uploads it; temporary files are removed on close.[3] |
-| Public Make API / `@makehq/sdk` | Inspect and manage supported custom-app definitions. | Verify each operation, scope, section and request shape in current docs/source.[37][47] |
+| Make TypeScript SDK / `@makehq/sdk@1.7.1` | Create, upload, update and read back custom-app definitions through `make.sdk`; manage other Make API resources separately. | This is the platform SDK used for app uploads. Verify each operation, scope, section and request shape in current docs/source.[37][47][50] |
 | `make-cli` from `@makehq/cli` | CLI access to the published SDK tool catalog. | Commands depend on the resolved SDK version, not only the CLI version.[41][48] |
-| `@makehq/endpoints-sdk` | Execute app Endpoints with managed connections. | Consumption is not Endpoint-definition authoring; see [Endpoint gates](sdk-endpoints.md).[49] |
+| Make Endpoints SDK / `@makehq/endpoints-sdk` | Execute available app Endpoints with managed connections. | Not an app uploader. Execution is distinct from `make.sdk.endpoints` definition authoring and requires runtime access; see [Endpoint gates](sdk-endpoints.md).[49] |
 
 An ordinary scenario-management MCP connection does not establish access to custom-app authoring tools.
 Inspect the actual advertised contracts; do not invent tool names from an internal workflow.
@@ -42,6 +42,53 @@ For any operation, verify argument names/types, required scopes, pagination, def
 patch behavior, response envelopes and readback support before constructing a payload.
 Connection-definition types, provider authentication schemes and create-operation selectors are distinct.
 Do not normalize all exported types to `apikey`, `basic` or `oauth`; use the exact selected contract.[28][38]
+
+### TypeScript SDK upload and readback
+
+Use **`@makehq/sdk@1.7.1`** as the verified TypeScript authoring/upload baseline. Its npm package requires
+Node.js 20 or later.[47][50] Pin it in the authorized project's dependency and lockfile rather than
+installing a global CLI or assuming the Endpoints SDK can upload app definitions:
+
+```bash
+npm install --save-exact @makehq/sdk@1.7.1
+```
+
+Import `Make` from `@makehq/sdk` and construct `new Make(apiKey, zone)` only after resolving and validating
+the approved server-side `MAKE_API_KEY` and exact `MAKE_ZONE` hostname, for example `us1.make.com`
+without `https://` or `/api/v2`. Never put the key in source, browser code, prompts, or command arguments.
+This version is a verified baseline, not a claim about the latest release or permission to upgrade tools.
+
+1. Verify identity and scopes with `make.users.me()` and `make.users.currentAuthorization()`, then inspect
+   existing apps with `make.sdk.apps.list(...)`. SDK-app operations do not acquire a team parameter merely
+   because scenario or Endpoints execution requires one. Honor the exact app/version/origin and approvals.
+2. Create an approved new private app with `make.sdk.apps.create(...)`, explicitly setting `private: true`,
+   or update the already-identified target. Persist the returned app name/version immediately. Keep a
+   durable creation intent and automatic write retries disabled; do not duplicate a create after an
+   uncertain response or adopt an unrelated name-matched app.
+3. Use `make.sdk.apps` for Base sections, documentation and icons; `make.sdk.connections`,
+   `make.sdk.functions`, `make.sdk.rpcs`, `make.sdk.webhooks`, and `make.sdk.modules` for the corresponding
+   definitions. Resolve dependencies before dependents. Preserve returned connection/webhook names for
+   bindings; a local folder name or connection-create selector is not necessarily the stored identifier/type.
+4. Pass complete section source strings to the supported `setSection` methods and use their matching
+   `getSection` methods for exact readback. Check the installed declarations for each method's arguments:
+   connection definitions are app-global, while modules/RPCs use the returned app version.[47]
+5. Fetch full component details with `get(...)` before checking complete metadata, bindings and private
+   visibility. Create acknowledgements and list results are partial projections: module creation can omit
+   visibility flags, module lists can omit `webhook`, and RPC lists can contain only `name`/`label`.
+   Missing fields are unknown, not `false` or `null`; reject explicit contradictions without weakening full
+   GET checks. Verify every changed section plus complete component counts, not only a successful write.[47][51]
+6. For a supported developer RPC test, use `make.sdk.rpcs.test(...)` with the verified input/schema contract.
+   Validate the actual returned result: the observed test envelope can be `{ code: "OK", response: [...],
+   debug: [...] }`. Check expected cardinality and typed output; do not search debug logs or accept an OK
+   wrapper as provider proof. RPC testing is not an Endpoints execution call, publication, or permission
+   for provider mutations. Report missing provider credentials or unexecuted cases separately.
+
+For **Endpoint execution**, use **`@makehq/endpoints-sdk`** and the existing
+[execution skill](../../make-endpoints/SKILL.md). Its `SdkTransport` can wrap the platform SDK's `Make`
+client, but calling an Endpoint does not upload the app or validate its other components.[49] Install it
+only when execution is in scope, and verify its own version, runtime requirement, organization enablement,
+team and compatible connection. The platform SDK's `make.sdk.endpoints` authoring methods remain subject
+to the separate [definition capability gate](sdk-endpoints.md).
 
 ## 3. Establish access without exposing credentials
 
@@ -151,3 +198,5 @@ Say explicitly when no provider runtime test or publication was performed.
 [47] https://unpkg.com/@makehq/sdk@1.7.1/dist/index.d.ts
 [48] https://unpkg.com/@makehq/cli@1.4.0/dist/index.js
 [49] https://unpkg.com/@makehq/endpoints-sdk@0.9.0/README.md
+[50] https://registry.npmjs.org/@makehq%2fsdk/1.7.1
+[51] https://developers.make.com/api-documentation/api-reference/sdk-apps/modules.md
