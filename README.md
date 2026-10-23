@@ -54,13 +54,15 @@ Upload the zips to your agent (Claude Cowork, Claude Chat, and similar) or unzip
 
 | Skill                    | Download                                                                                                  |
 | ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| Bundle of all the skills | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-skills.zip)              |
-| Scenario Reference       | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-reference.zip)  |
-| Scenario Explore         | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-explore.zip)    |
-| Scenario Building        | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-building.zip)   |
-| Scenario Operations      | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-operations.zip) |
-| Make Endpoints           | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-endpoints.zip)           |
-| Make Custom Apps         | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-custom-apps.zip)         |
+| Bundle of all the skills | [Download](dist/make-skills.zip?raw=true)                                                                   |
+| Scenario Reference       | [Download](dist/make-scenario-reference.zip?raw=true)                                                       |
+| Scenario Explore         | [Download](dist/make-scenario-explore.zip?raw=true)                                                         |
+| Scenario Building        | [Download](dist/make-scenario-building.zip?raw=true)                                                        |
+| Scenario Operations      | [Download](dist/make-scenario-operations.zip?raw=true)                                                      |
+| Make Endpoints           | [Download](dist/make-endpoints.zip?raw=true)                                                                |
+| Make Custom Apps         | [Download](dist/make-custom-apps.zip?raw=true)                                                              |
+
+On GitHub, these download links follow the branch being viewed, including a pull-request branch; they do not depend on an unmerged file already existing on `main`.
 
 Skills directories, for agents that read skills from disk:
 
