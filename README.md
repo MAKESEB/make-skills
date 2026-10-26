@@ -18,11 +18,11 @@ Give your AI coding agent deep Make expertise — for building, explaining, runn
 - A [Make](https://www.make.com) account
 - For scenario skills: access to the Make scenario-management MCP server.
 - For `make-endpoints`: an approved Node.js/terminal environment, the Endpoints package, and organization access to the Endpoints beta. See [setup and interfaces](skills/make-endpoints/references/setup-and-interfaces.md). Installing this skill does not install the SDK or enable the beta.
-- For `make-custom-apps`: access to the relevant provider API documentation and an authorized Make Apps Editor, VS Code extension, or verified app-authoring CLI/API. See [tooling and release](skills/make-custom-apps/references/tooling-and-release.md). The skill does not install tools, grant authoring access, or assume the scenario MCP exposes custom-app administration. Local work can proceed without provider credentials; live tests cannot.
+- For `make-custom-apps`: provider API documentation and Make app-authoring permissions. Prefer [Make MCP V2](https://developers.make.com/mcp-server)'s authorized `custom_app_*` tools; retain the [TypeScript SDK](https://developers.make.com/make-sdk/make-typescript-sdk), verified CLI/editor routes for explicit code workflows, files/logos, CI or verified gaps. Start with the [skill's interface routing](skills/make-custom-apps/SKILL.md); [SDK setup/release details](skills/make-custom-apps/references/tooling-and-release.md) apply when that route is selected. Skills grant no tools or permissions. Local work can proceed without provider credentials; live tests cannot.
 
 ## Installation
 
-Install the **skills** and configure the interface they use. Scenario skills use the **MCP server**; `make-endpoints` uses `@makehq/endpoints-sdk`, which includes both the SDK and `make-endpoints-cli`. `make-custom-apps` uses the selected app-authoring interface, not the scenario MCP by assumption. Endpoints-only or custom-app-only use does not require the scenario MCP server. The plugins below register that server for the scenario skills; standalone skill downloads can be used independently.
+Install the **skills** and configure their interface. Scenario skills use **Make MCP**; `make-custom-apps` prefers its V2 app-authoring tools, with SDK/CLI alternatives where useful. `make-endpoints` uses `@makehq/endpoints-sdk`, including its SDK and `make-endpoints-cli`. Endpoints execution and SDK-based app authoring can run without MCP. The plugins register Make MCP; standalone skills can be installed independently. Discover the active tool catalog before relying on a capability.
 
 ### Option A: Plugin (recommended)
 
@@ -103,7 +103,7 @@ On first use, authenticate through Make's OAuth consent screen. The server asks 
 | An MCP tool refuses a write        | Read the refusal and the current tool contract; use the Make editor for capabilities the tool explicitly does not support                    |
 | Endpoints SDK/CLI access failure    | Check the selected key/zone, Make scopes, team access and provider connection separately; the MCP full-scope-bundle rule does not apply       |
 | Endpoints execution unavailable     | Confirm organization beta/runtime access; local catalog discovery and package installation do not enable execution                           |
-| Custom-app authoring unavailable    | Check the selected app, version, origin, permissions and authoring interface; scenario MCP or Endpoint execution access is not authoring access |
+| Custom-app authoring unavailable    | Check app/version/origin, authoring permissions and the active `custom_app_*` catalog. A scenario-only grant or Endpoint execution access is not an app-authoring grant. |
 
 ## Contributing
 

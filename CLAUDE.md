@@ -12,7 +12,7 @@ The scenario skills connect to the remote Make MCP server:
 
 **`make-endpoints`** is a separate interface: `@makehq/endpoints-sdk` contains its SDK, `make-endpoints-cli`, and `EndpointTools`. It uses Make API credentials, explicit team/connection scope, and requires Endpoints beta access. Do not apply the scenario MCP server's OAuth-bundle or capped-list rules to SDK/CLI calls. Skills/plugins do not install the package or enable the beta.
 
-**`make-custom-apps`** covers authoring and maintaining SDK apps through the Apps Editor, VS Code extension, or a verified CLI/API. It does not assume the scenario MCP can administer custom apps. SDK Endpoint authoring is capability-gated and separate from consuming existing Endpoints. Private company accounts, ticket systems and knowledge-base repositories are not prerequisites.
+**`make-custom-apps`** authors and maintains SDK apps primarily through Make MCP V2's authorized `custom_app_*` tools. The TypeScript SDK (`@makehq/sdk` / `make.sdk`) and verified CLI/editor routes complement MCP for explicit code workflows, local files/logos, CI and verified tool gaps—not permission bypasses. Tool schemas define the active contract; references load by task. Endpoint definition authoring remains separate from Endpoints execution. No private company account, ticket system or knowledge-base repository is required.
 
 ## Repository Structure
 
