@@ -59,6 +59,10 @@
         "path": "./skills/make-endpoints"
       },
       {
+        "name": "make-credential-requests",
+        "path": "./skills/make-credential-requests"
+      },
+      {
         "name": "make-custom-apps",
         "path": "./skills/make-custom-apps"
       }

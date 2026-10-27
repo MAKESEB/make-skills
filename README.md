@@ -1,6 +1,6 @@
 # Make Skills for AI Coding Agents
 
-Give your AI coding agent deep Make expertise — for building, explaining, running and debugging Make scenarios through Make's scenario-management MCP server, calling app Endpoints through the standalone Endpoints SDK or CLI, and developing custom (SDK) apps through an authorized app-authoring interface. Works with agents that read skill folders and can use the relevant interface — Claude Code, Codex, Cursor, GitHub Copilot, Windsurf, Cline, and others.
+Give your AI coding agent deep Make expertise — for building, explaining, running and debugging Make scenarios through Make's scenario-management MCP server, calling app Endpoints through the standalone Endpoints SDK or CLI, developing custom (SDK) apps through an authorized app-authoring interface, and securely requesting credentials for Endpoints and custom-app testing. Works with agents that read skill folders and can use the relevant interface — Claude Code, Codex, Cursor, GitHub Copilot, Windsurf, Cline, and others.
 
 ## Skills
 
@@ -11,18 +11,22 @@ Give your AI coding agent deep Make expertise — for building, explaining, runn
 | **make-scenario-building**   | Creating and editing scenarios — app and module discovery, connections, resolving account-dependent values, flow control, error handling, subscenarios, AI agents; with references and complete examples              |
 | **make-scenario-operations** | Running, activating and deactivating, reviewing and debugging executions, investigating a webhook                                                                                                                     |
 | **make-endpoints**           | Direct app actions through `@makehq/endpoints-sdk` or its CLI — discovery, managed connections, typed calls, complete retrieval, and approval-bound writes with readback. Endpoints are in closed beta.                 |
+| **make-credential-requests** | Credential provisioning for agents using Endpoints or testing custom apps — the owner receives an authorization link and supplies secrets in Make; the agent resumes with managed connection/key IDs, not raw credentials. No scenario required. |
 | **make-custom-apps**         | Developing and maintaining custom (SDK) apps — API research, connections, modules, RPCs, webhooks, app IML functions, review and QA; with source-grounded references and offline-tested component examples.             |
+
+Creating a connection in the scenario editor remains the standard manual path. Credential Requests are the recommended secure handoff for agents; they complement that editor workflow rather than replace it.
 
 ## Prerequisites
 
 - A [Make](https://www.make.com) account
 - For scenario skills: access to the Make scenario-management MCP server.
 - For `make-endpoints`: an approved Node.js/terminal environment, the Endpoints package, and organization access to the Endpoints beta. See [setup and interfaces](skills/make-endpoints/references/setup-and-interfaces.md). Installing this skill does not install the SDK or enable the beta.
+- For `make-credential-requests`: access to a chosen, authorized credential-request interface, with the required Make permissions and organization/team access. Verify that interface's current contract before making a request; installing a skill or plugin does not grant access. SDK/REST requests follow their own permission contracts, not the scenario MCP server's all-or-nothing OAuth bundle.
 - For `make-custom-apps`: provider API documentation and Make app-authoring permissions. Prefer [Make MCP V2](https://developers.make.com/mcp-server)'s authorized `custom_app_*` tools; retain the [TypeScript SDK](https://developers.make.com/make-sdk/make-typescript-sdk), verified CLI/editor routes for explicit code workflows, files/logos, CI or verified gaps. Start with the [skill's interface routing](skills/make-custom-apps/SKILL.md); [SDK setup/release details](skills/make-custom-apps/references/tooling-and-release.md) apply when that route is selected. Skills grant no tools or permissions. Local work can proceed without provider credentials; live tests cannot.
 
 ## Installation
 
-Install the **skills** and configure their interface. Scenario skills use **Make MCP**; `make-custom-apps` prefers its V2 app-authoring tools, with SDK/CLI alternatives where useful. `make-endpoints` uses `@makehq/endpoints-sdk`, including its SDK and `make-endpoints-cli`. Endpoints execution and SDK-based app authoring can run without MCP. The plugins register Make MCP; standalone skills can be installed independently. Discover the active tool catalog before relying on a capability.
+Install the **skills** and configure their interface. Scenario skills use **Make MCP**; `make-custom-apps` prefers its V2 app-authoring tools, with SDK/CLI alternatives where useful. `make-endpoints` uses `@makehq/endpoints-sdk`, including its SDK and `make-endpoints-cli`. `make-credential-requests` uses the chosen authorized request interface to provision credentials, not execute app actions. Neither Endpoint execution nor credential provisioning requires building a scenario; Endpoints execution and SDK-based app authoring can run without MCP. The plugins register Make MCP; standalone skills can be installed independently. Discover the active tool catalog before relying on a capability.
 
 ### Option A: Plugin (recommended)
 
@@ -54,15 +58,14 @@ Upload the zips to your agent (Claude Cowork, Claude Chat, and similar) or unzip
 
 | Skill                    | Download                                                                                                  |
 | ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| Bundle of all the skills | [Download](dist/make-skills.zip?raw=true)                                                                   |
-| Scenario Reference       | [Download](dist/make-scenario-reference.zip?raw=true)                                                       |
-| Scenario Explore         | [Download](dist/make-scenario-explore.zip?raw=true)                                                         |
-| Scenario Building        | [Download](dist/make-scenario-building.zip?raw=true)                                                        |
-| Scenario Operations      | [Download](dist/make-scenario-operations.zip?raw=true)                                                      |
-| Make Endpoints           | [Download](dist/make-endpoints.zip?raw=true)                                                                |
-| Make Custom Apps         | [Download](dist/make-custom-apps.zip?raw=true)                                                              |
-
-On GitHub, these download links follow the branch being viewed, including a pull-request branch; they do not depend on an unmerged file already existing on `main`.
+| Bundle of all the skills | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-skills.zip)              |
+| Scenario Reference       | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-reference.zip)  |
+| Scenario Explore         | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-explore.zip)    |
+| Scenario Building        | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-building.zip)   |
+| Scenario Operations      | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-operations.zip) |
+| Make Endpoints           | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-endpoints.zip)           |
+| Make Credential Requests | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-credential-requests.zip) |
+| Make Custom Apps         | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-custom-apps.zip)         |
 
 Skills directories, for agents that read skills from disk:
 

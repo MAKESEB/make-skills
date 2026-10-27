@@ -4,5 +4,6 @@
   "make-scenario-building",
   "make-scenario-operations",
   "make-endpoints",
+  "make-credential-requests",
   "make-custom-apps"
 ]
