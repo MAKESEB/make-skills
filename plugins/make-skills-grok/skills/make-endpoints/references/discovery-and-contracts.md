@@ -69,8 +69,8 @@ alone does not establish that a new request is needed. Verify availability and c
 first; no-auth actions need no credential request.
 
 Credential provisioning and Endpoint execution are separate. Use the companion skill's chosen authorized
-request interface: the credential owner receives a secure link and supplies secrets in Make, not to the
-agent. Verify the resulting managed connection ID against the intended team, account type, provider scopes,
+request interface: the credential owner receives an authorization link and supplies secrets in Make, not to
+the agent. Verify the resulting managed connection ID against the intended team, account type, provider scopes,
 and account before resuming the original Endpoints SDK/CLI workflow under its own execution approval.
 A completed request does not prove beta/runtime access or authorize an app action. Do not build a scenario
 or substitute scenario/MCP execution for the requested Endpoint call.

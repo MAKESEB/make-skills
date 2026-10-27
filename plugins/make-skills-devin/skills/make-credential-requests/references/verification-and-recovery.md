@@ -11,11 +11,14 @@ provider account, purpose, kind, and permissions. SDK inventory methods include
 `keys.list(teamId, { typeName })`.[6][8][9] Honor each method's actual filters and pagination contract; a
 partial or forbidden listing is not proof that no authorization exists.
 
-Persist only necessary private metadata: approved intent, selected identifiers/version, required scopes,
-request ID, required credential-record IDs, resulting resource IDs, evidence state, and the returned
+Retain only necessary private metadata in session state or an approved private store: approved intent,
+selected identifiers/version, required scopes, request ID, required credential-record IDs, resulting
+resource IDs, evidence state, and the returned
 `publicUri` where needed for later completion. Treat that link as sensitive even though its field is named
-“public.” Do not put it in telemetry or shared artifacts. Do not log raw SDK errors, full request/detail
-objects, provider response bodies, `prefill`, connection `data`, or token-bearing fields.
+“public.” The intended owner's current private one-to-one chat is a valid delivery channel, not a reason to
+write the link to a repository file. No extra storage service is required. Do not put it in telemetry or
+shared artifacts. Do not log raw SDK errors, full request/detail objects, provider response bodies,
+`prefill`, connection `data`, or token-bearing fields.
 
 Creation acknowledgements, metadata readback, consent, identity verification, and operation tests are
 separate evidence. Read back the exact request after creation and again after consent. Validate its team,
@@ -133,9 +136,14 @@ contract-grounded completion step only when permitted; policy denials are not by
 
 ## Destructive cleanup is not request housekeeping
 
-`make.credentialRequests.delete(requestId)` explicitly deletes the request **and associated connections
-and keys**.[6] `deleteCredential(credentialId)` removes the remote credential and resets its state to
-pending.[2][6] Neither is a harmless way to tidy a fulfilled request, retry consent, or clear stale status.
+`make.credentialRequests.delete(requestId)` deletes the request **and associated connections and keys**;
+the SDK always sends `confirmed=true`, so the API's guard against deleting attached credentials without
+confirmation does not protect SDK callers.[2][6] `deleteCredential(credentialId)` calls `delete-remote`,
+removing the live connection or key and resetting the credential state to pending.[2][6]
+Neither is a harmless way to tidy a fulfilled request, retry consent, or clear stale status.
+SDK-generated MCP `credential-requests_delete` and `credential-requests_credential-delete` call these same
+destructive methods; their tool descriptions do not make them automatic reauthorization or scope-repair
+steps.[7]
 Do not invoke either automatically. Any intentional deletion requires separate authorization covering the
 exact affected resources and their consumers, followed by appropriate readback.
 
@@ -147,6 +155,7 @@ checks, and successful resource reads must never be reported as live provider-op
 
 [2] https://developers.make.com/api-documentation/api-reference/credential-requests
 [6] https://github.com/integromat/make-typescript-sdk/blob/a21b6b60de71ca96341da76b5329eff83c9ebc2a/src/endpoints/credential-requests.ts
+[7] https://github.com/integromat/make-typescript-sdk/blob/a21b6b60de71ca96341da76b5329eff83c9ebc2a/src/endpoints/credential-requests.tools.ts
 [8] https://github.com/integromat/make-typescript-sdk/blob/a21b6b60de71ca96341da76b5329eff83c9ebc2a/src/endpoints/connections.ts
 [9] https://github.com/integromat/make-typescript-sdk/blob/a21b6b60de71ca96341da76b5329eff83c9ebc2a/src/endpoints/keys.ts
 [17] https://developers.make.com/api-documentation/api-reference/connections

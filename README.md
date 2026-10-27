@@ -11,7 +11,7 @@ Give your AI coding agent deep Make expertise — for building, explaining, runn
 | **make-scenario-building**   | Creating and editing scenarios — app and module discovery, connections, resolving account-dependent values, flow control, error handling, subscenarios, AI agents; with references and complete examples              |
 | **make-scenario-operations** | Running, activating and deactivating, reviewing and debugging executions, investigating a webhook                                                                                                                     |
 | **make-endpoints**           | Direct app actions through `@makehq/endpoints-sdk` or its CLI — discovery, managed connections, typed calls, complete retrieval, and approval-bound writes with readback. Endpoints are in closed beta.                 |
-| **make-credential-requests** | Credential provisioning for agents using Endpoints or testing custom apps — the owner receives a secure request link and supplies secrets in Make; the agent resumes with managed connection/key IDs, not raw credentials. No scenario required. |
+| **make-credential-requests** | Credential provisioning for agents using Endpoints or testing custom apps — the owner receives an authorization link and supplies secrets in Make; the agent resumes with managed connection/key IDs, not raw credentials. No scenario required. |
 
 Creating a connection in the scenario editor remains the standard manual path. Credential Requests are the recommended secure handoff for agents; they complement that editor workflow rather than replace it.
 
@@ -56,13 +56,13 @@ Upload the zips to your agent (Claude Cowork, Claude Chat, and similar) or unzip
 
 | Skill                    | Download                                                                                                  |
 | ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| Bundle of all the skills | [Download](dist/make-skills.zip?raw=true)                                                                |
+| Bundle of all the skills | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-skills.zip)              |
 | Scenario Reference       | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-reference.zip)  |
 | Scenario Explore         | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-explore.zip)    |
 | Scenario Building        | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-building.zip)   |
 | Scenario Operations      | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-scenario-operations.zip) |
-| Make Endpoints           | [Download](dist/make-endpoints.zip?raw=true)                                                             |
-| Make Credential Requests | [Download](dist/make-credential-requests.zip?raw=true)                                                   |
+| Make Endpoints           | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-endpoints.zip)           |
+| Make Credential Requests | [Download](https://raw.githubusercontent.com/integromat/make-skills/main/dist/make-credential-requests.zip) |
 
 Skills directories, for agents that read skills from disk:
 

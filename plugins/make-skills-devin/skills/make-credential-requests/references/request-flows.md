@@ -10,6 +10,18 @@ The SDK examples target published **`@makehq/sdk@1.7.1`**, whose npm `gitHead` i
 These are static contract facts, not proof of runtime acceptance, plan eligibility, or provider access.
 Inspect another installed version before transferring the examples to it.
 
+For MCP, discover the active tool surface first. Plugin/V2 flows use `connection_create` and
+`connection_get`; use their own input/output schemas, not the SDK payloads below. A supported module or
+Endpoint selection does not imply explicit-type, scope-extension, external-recipient, or version-pinning
+support. Report a required capability gap instead of guessing a parameter or installing the SDK.
+
+The SDK-generated MCP surface separately defines `credential-requests_create` → `createAction()`,
+`credential-requests_get` → `getDetail()`, `credential-requests_create-by-credentials` →
+`createByCredentials()`, and `credential-requests_extend-connection` → `extendConnection()`.[7]
+Use these only when the active catalog actually exposes them. For module selection, its discovery tool is
+`credential-requests_list-app-modules-with-creds`.[7] Tool schemas remain authoritative; do not copy them
+into a parallel local contract.
+
 The examples define helpers, not additional SDK methods. `make` is an already configured, authorized
 server-side `Make` client. All other arguments are approved, discovered **metadata placeholders**, not
 secrets. Invoke creation helpers only after identity, compatibility, duplicate-request, and approval checks.
@@ -27,10 +39,11 @@ Paths below are relative to the intended zone's `/api/v2` base:
 The SDK resource and tool definitions establish the current-user actions; neither creation action accepts
 a recipient `provider` selector.[6][7] The V2 REST response is `{ request, publicUri }`.[2]
 
-**Naming trap:** SDK `credentialRequests.create()` calls legacy `/credential-requests/requests`, returning
-the unwrapped request; it is neither `createAction()` nor V2.[6] The REST creation route is deprecated,
-whereas CLI `credential-requests create` names the current-user action.[2][3][7] Do not invent `createV2`
-or present `Make.fetch`, annotated internal, as a public resource API.[6][19]
+**SDK-only naming trap:** SDK `credentialRequests.create()` calls legacy `/credential-requests/requests`,
+returning the unwrapped request; it is neither `createAction()` nor V2 and must not be used for these flows.[6]
+This warning does not apply to MCP `credential-requests_create` or CLI `credential-requests create`, which
+call the current-user action.[3][7] The legacy REST creation route is deprecated.[2] Do not invent `createV2`
+or use `Make.fetch`, annotated internal, as the transport for this workflow.[6][19]
 
 Make API scopes and provider scopes are separate: credential-request reads use `credential-requests:read`,
 creation actions use `credential-requests:write`, and module-credential discovery uses `apps:read`.[2][7]
@@ -83,19 +96,11 @@ async function requestEndpointAuthorization(make, target) {
 For a module consumer, use `appModules` with discovered credential-configuration IDs instead of
 `appEndpoints`. Neither selection requires a scenario.[6]
 
-### Material REST/SDK disagreement
+### Outdated REST example
 
-The public REST page documents `/credential-requests/actions/create` with **one nested `connection` or
-one nested `key`, not both**: `connection` requires `teamId` and `accountName`, with optional `scopes`;
-`key` requires `teamId` and `type`.[2] Published SDK 1.7.1 sends the top-level `teamId` and `credentials`
-array shown above to that same route.[6]
-
-Keep these contracts separate. Use the pinned SDK form for SDK code; review the current REST contract when
-raw REST is explicitly selected. Do not merge fields, call either form universally accepted or removed,
-or label the REST `actions/create` section as documentation for `create-by-credentials`. That latter action
-is present in the published SDK/CLI but absent from the inspected REST endpoint inventory.[2][3][6]
-A schema discrepancy requires diagnosis, not blind create retries or silent recipient changes. Runtime
-acceptance of either form on a particular zone remains unverified here.
+For `/credential-requests/actions/create`, use top-level `teamId` and `credentials[]`, as the SDK and its
+MCP tool contract do; the REST page's nested `connection`/`key` example is outdated, not an alternative
+request body.[2][6][7] Do not mix the shapes or treat that page as the `create-by-credentials` contract.
 
 ## Current-user explicit types
 
@@ -142,6 +147,13 @@ existing connection used by other jobs.
 ## Another recipient: external V2
 
 Use this path only for an explicitly different intended recipient and with authorization for its effects.
+When REST is the explicitly selected and approved transport, send **raw REST POST
+`/credential-requests/requests/v2`** through an already authorized server-side HTTP client using its existing
+Make API authorization; if that transport is unavailable, stop and report the gap. An MCP-only agent reports
+the external-recipient capability gap rather than switching to REST or using credentials found elsewhere.
+Do not use SDK `credentialRequests.create()` or internal `Make.fetch` as a substitute, expose a Make
+token in chat or command arguments, or switch away from a denied MCP operation. Plugin/V2 `connection_create`
+has no external-recipient selector; a body-building helper does not add that capability.
 The documented body requires `name`, `teamId`, `credentials`, and `provider`; credentials are app/module
 selections with required `appModules`, not documented Endpoint selections.[2] Do not use V2 as an automatic
 fallback for Endpoints or add an unsupported `appEndpoints` field.

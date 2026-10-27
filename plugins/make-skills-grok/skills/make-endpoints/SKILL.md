@@ -56,7 +56,7 @@ Connection setup in the scenario editor remains the standard manual path; Creden
 recommended secure handoff for agents. Load **`make-credential-requests`** when authorized discovery confirms
 a required compatible connection is missing, or approved authentication repair is needed. A denied or empty
 catalog alone is not evidence for a request; no-auth actions need no credential provisioning. Provisioning
-is separate from execution: the owner supplies secrets in Make through a secure request link, and the agent
+is separate from execution: the owner supplies secrets in Make through an authorization link, and the agent
 resumes with a verified managed connection ID, not raw credentials. Resume the original Endpoints SDK/CLI
 workflow under its own execution approval; do not replace it with a scenario or MCP execution.
 
