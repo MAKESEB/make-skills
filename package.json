@@ -55,6 +55,10 @@
       {
         "name": "make-endpoints",
         "path": "./skills/make-endpoints"
+      },
+      {
+        "name": "make-credential-requests",
+        "path": "./skills/make-credential-requests"
       }
     ]
   }
