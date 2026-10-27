@@ -5,6 +5,7 @@ This file provides guidance to Claude Code when working with this repository.
 ## Project Overview
 
 **make-skills** provides expert skills for building, explaining, running and debugging Make automation scenarios, plus direct app Endpoint workflows. Installed by copying the skill folders into an agent's skills directory or by uploading the per-skill zips. Scenario skills use the Make MCP server; the standalone Endpoints skill uses the Endpoints SDK/CLI. Published by Make under MIT license.
+For Make app development, use [Make Apps Skill](https://github.com/integromat/make-apps-skill).
 
 The scenario skills connect to the remote Make MCP server:
 
